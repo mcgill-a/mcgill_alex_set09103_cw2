@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% set active_page = '' %}
+{% block content %}
+	<div class="error-bg">
+		<div class="error-text">
+			{% if error == 404 %}
+				<h1>404</h1>
+				<h3>Page Not Found</h3>
+			{% elif error == 500 %}
+				<h1>500</h1>
+				<h3>Internal Server Error</h3>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	min-width: 600px;
+	max-width: 100%;
+}
