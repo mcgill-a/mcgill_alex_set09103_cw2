@@ -4,6 +4,9 @@
 	<div class="page-background">
 		<div class="container">
 			<h1>Header</h1>
+			{% if email %}
+				<h2>Logged in as: {{email}}</h2>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

@@ -102,7 +102,7 @@
 				</div>
 				<div class="lower">
 					
-					<form>
+					<form name="login" action='/login' method='POST'>
 						<div class="section">
 							<p>EMAIL:</p>
 							<input type="email" placeholder="" required name="email">
@@ -116,7 +116,7 @@
 						</div>
 					</form>
 					<br /><br /><br />
-					<a id="forgot-password" href="#">Forgot Password?</a>
+					<a id="forgot-password" href="#">Forgot Your Password?</a>
 				</div>
 				
 			</div>
@@ -126,7 +126,7 @@
 
 				</div>
 				<div class="lower">
-					<form>
+					<form name="signup" action='/signup' method='POST'>
 						<div class="section">
 							<p>FIRST NAME:</p>
 							<input type="name" placeholder="" required name="first-name">
@@ -141,7 +141,7 @@
 						</div>
 						<div class="section">
 							<p>PASSWORD:</p>
-							<input type="password" placeholder="" required name="first-name">
+							<input type="password" placeholder="" required name="password">
 						</div>
 						<div class="footer">
 							<button type="submit" placeholder="">SIGN UP</button>
