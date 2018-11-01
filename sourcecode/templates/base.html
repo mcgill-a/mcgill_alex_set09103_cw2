@@ -80,8 +80,8 @@
 						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ caption|e }}</button>
 					{% endfor %}
 					#}
-					<button id="modalSignIn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign In</button>
-					<button id="modalSignUp" class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button>
+					<button id="modalSignIn" class="btn btn-outline-success my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Sign In</button>
+					<button id="modalSignUp" class="btn btn-outline-success my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
 					</div>
 			</ul>
 		</div>
@@ -104,8 +104,26 @@
 				<p>Sign in form</p>
 			</div>
 
-			<div id="sign-up-content" class="modal-tab-content" style="display:none">
-				<p>Sign up form</p>
+			<div id="sign-up-content" class="modal-tab-content" style="display:none">			
+				<form>
+					<div class="section">
+						<p>FIRST NAME:</p>
+						<input type="name" placeholder="First Name">
+					</div>
+					<div class="section">
+						<p>LAST NAME:</p>
+						<input type="name" placeholder="Last Name">
+					</div>
+					<div class="section">
+						<p>EMAIL:</p>
+						<input type="email" placeholder="Email Address">
+					</div>
+					<div class="section">
+						<p>PASSWORD:</p>
+						<input type="password" placeholder="Password">
+					</div>
+				</form>
+				
 			</div>
 		</div>
 	</div>

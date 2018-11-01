@@ -5,22 +5,22 @@ var modalSignIn = document.getElementById("modalSignIn");
 var modalSignUp = document.getElementById("modalSignUp");
 var modalCloseBtn = document.getElementsByClassName("closeBtn")[0];
 
-// Modal Event listeners
-modalSignIn.addEventListener('click', openModal);
-modalSignUp.addEventListener('click', openModal);
-/*modalCloseBtn.addEventListener('click', closeModal);*/
-
 window.addEventListener('click', clickOutside);
 
-function openModal()
+function openModal(tab)
 {
+  openModalTab(tab);
   modal.style.display = "block";
 }
+
+/*
+modalCloseBtn.addEventListener('click', closeModal);
 
 function closeModal()
 {
   modal.style.display = "none";
 }
+*/
 
 // Close Modal if outside click
 function clickOutside(e)
