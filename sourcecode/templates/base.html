@@ -96,16 +96,16 @@
 		</div>
 		<div class="right">
 			<div class="modal-tabs">
-				<button class="modal-tab-btn active">SIGN IN</button>
-				<button class="modal-tab-btn">SIGN UP</button>
+				<button id="sign-in-tab" class="modal-tab-btn active" onclick="openModalTab('sign-in-content');">SIGN IN</button>
+				<button id="sign-up-tab"  class="modal-tab-btn" onclick="openModalTab('sign-up-content');">SIGN UP</button>
 			</div>
 
-			<div class="sign-in">
-
+			<div id="sign-in-content" class="modal-tab-content">
+				<p>Sign in form</p>
 			</div>
 
-			<div class="sign-up">
-
+			<div id="sign-up-content" class="modal-tab-content" style="display:none">
+				<p>Sign up form</p>
 			</div>
 		</div>
 	</div>
