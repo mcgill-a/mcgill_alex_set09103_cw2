@@ -41,7 +41,7 @@ function openModalTab(tab)
     tabs[i].style.display = "none";
   }
   // Display the selected tab content
-  document.getElementById(tab).style.display = "block";
+  document.getElementById(tab).style.display = "flex";
 
   // Set the correct active tab
   if (tab == "sign-in-content")

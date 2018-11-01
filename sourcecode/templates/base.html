@@ -75,13 +75,9 @@
 				{% endfor%}
 
 				<div class="form-inline navbar-right">
-					{#
-					{% for href, id, caption in navigation_bar_forms %}
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ caption|e }}</button>
-					{% endfor %}
-					#}
-					<button id="modalSignIn" class="btn btn-outline-success my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Sign In</button>
-					<button id="modalSignUp" class="btn btn-outline-success my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
+					<button id="modalSignUp" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
+					<button id="modalSignIn" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Login</button>
+					
 					</div>
 			</ul>
 		</div>
@@ -96,34 +92,62 @@
 		</div>
 		<div class="right">
 			<div class="modal-tabs">
-				<button id="sign-in-tab" class="modal-tab-btn active" onclick="openModalTab('sign-in-content');">SIGN IN</button>
 				<button id="sign-up-tab"  class="modal-tab-btn" onclick="openModalTab('sign-up-content');">SIGN UP</button>
+				<button id="sign-in-tab" class="modal-tab-btn active" onclick="openModalTab('sign-in-content');">LOGIN</button>
 			</div>
-
+			
 			<div id="sign-in-content" class="modal-tab-content">
-				<p>Sign in form</p>
+				<div class="upper">
+
+				</div>
+				<div class="lower">
+					
+					<form>
+						<div class="section">
+							<p>EMAIL:</p>
+							<input type="email" placeholder="" required name="email">
+						</div>
+						<div class="section">
+							<p>PASSWORD:</p>
+							<input type="password" placeholder="" required name="first-name">
+						</div>
+						<div class="footer">
+							<button type="submit" placeholder="">LOGIN</button>
+						</div>
+					</form>
+					<br /><br /><br />
+					<a id="forgot-password" href="#">Forgot Password?</a>
+				</div>
+				
 			</div>
 
-			<div id="sign-up-content" class="modal-tab-content" style="display:none">			
-				<form>
-					<div class="section">
-						<p>FIRST NAME:</p>
-						<input type="name" placeholder="First Name">
-					</div>
-					<div class="section">
-						<p>LAST NAME:</p>
-						<input type="name" placeholder="Last Name">
-					</div>
-					<div class="section">
-						<p>EMAIL:</p>
-						<input type="email" placeholder="Email Address">
-					</div>
-					<div class="section">
-						<p>PASSWORD:</p>
-						<input type="password" placeholder="Password">
-					</div>
-				</form>
-				
+			<div id="sign-up-content" class="modal-tab-content" style="display:none">
+				<div class="upper">
+
+				</div>
+				<div class="lower">
+					<form>
+						<div class="section">
+							<p>FIRST NAME:</p>
+							<input type="name" placeholder="" required name="first-name">
+						</div>
+						<div class="section">
+							<p>LAST NAME:</p>
+							<input type="name" placeholder="" required name="last-name">
+						</div>
+						<div class="section">
+							<p>EMAIL:</p>
+							<input type="email" placeholder="" required name="email">
+						</div>
+						<div class="section">
+							<p>PASSWORD:</p>
+							<input type="password" placeholder="" required name="first-name">
+						</div>
+						<div class="footer">
+							<button type="submit" placeholder="">SIGN UP</button>
+						</div>
+					</form>
+				</div>			
 			</div>
 		</div>
 	</div>
