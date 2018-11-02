@@ -53,9 +53,24 @@ def login():
 	form = LoginForm(request.form)
 	if request.method =='POST' and form.validate():
 		email = form.email.data.lower()
-		password = form.password.data
+		password_entered = form.password.data
+		#hashpass = bcrypt.hashpw(password_entered.encode('utf-8'), bcrypt.gensalt())
+		users = mongo.db.users
+		result = users.find_one({'email' : email})
+		if result is not None:
+			print "found account", email
+			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
+				output = "User " + email + " has logged in."
+				print output
+				redirect('/')
+			else:
+				print "Login attempt failed. Wrong Password for", email
+				error = "wrong_password"
+				return render_template('login.html', form=form, error=error)
+		else:
+			error = "wrong_email"
+			return render_template('login.html', form=form, error=error)
 	return render_template('login.html', form=form)
-
 @app.route('/signup/', methods=['POST', 'GET'])
 def signup():
 	form = SignupForm(request.form)
@@ -73,7 +88,7 @@ def signup():
 
 		users = mongo.db.users
 
-		existing_user = users.find_one({'email' : request.form['email']})
+		existing_user = users.find_one({'email' : email})
 		if existing_user is not None:
 			flash('An account with this email address already exists', 'danger')
 			return render_template('signup.html', form=form)

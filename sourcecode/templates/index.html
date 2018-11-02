@@ -3,6 +3,7 @@
 {% block content %}
 	<div class="page-background one">
 		<div class="container">
+			{% include 'includes/_messages.html' %}
 			<h1>Header</h1>
 			{% if email %}
 				<h2>Logged in as: {{email}}</h2>

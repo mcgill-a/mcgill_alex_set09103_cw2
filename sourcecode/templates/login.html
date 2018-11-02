@@ -18,7 +18,7 @@
 					
 					<div id="sign-in-content" class="modal-tab-content">
 						<div class="upper">
-		
+
 						</div>
 						<div class="lower">
 							{% from "includes/_formhelpers.html" import render_field %}
@@ -26,11 +26,16 @@
 								<div class="section">
 									<p>EMAIL:</p>
 									{{render_field(form.email)}}
+									{% if error and error == "wrong_email" %}
+										<p class="error">Unknown email address.</p>
+									{% endif %}
 								</div>
 								<div class="section">
 									<p>PASSWORD:</p>
 									{{render_field(form.password)}}
-									
+									{% if error and error == "wrong_password" %}
+										<p class="error">Incorrect password.</p>
+									{% endif %}
 								</div>
 								<div class="footer">
 									<button type="submit">LOGIN</button>
