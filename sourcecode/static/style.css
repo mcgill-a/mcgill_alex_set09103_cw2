@@ -244,6 +244,10 @@ form .section input:focus {
 	float: right;
 }
 
+.flashes {
+	margin-top: 50px;
+}
+
 .closeBtn {
 	color: #ccc;
 	float: right;

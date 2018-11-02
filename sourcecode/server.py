@@ -37,8 +37,14 @@ class LoginForm(FlaskForm):
 
 
 class SignupForm(FlaskForm):
-	firstname = StringField('firstname', [validators.Length(min=2, max=50)])
-	lastname = StringField('lastname', [validators.Length(min=2, max=50)])
+	firstname = StringField('firstname', [
+		validators.Length(min=2, max=50),
+		validators.Regexp('^\w+$', message="First name may only contain letters")
+		])
+	lastname = StringField('lastname', [
+		validators.Length(min=2, max=50),
+		validators.Regexp('^\w+$', message="Last name may only contain letters")
+		])
 	email = StringField('email', [validators.Email()])
 	password = PasswordField('password', [
 		validators.DataRequired(),
@@ -71,6 +77,8 @@ def login():
 			error = "wrong_email"
 			return render_template('login.html', form=form, error=error)
 	return render_template('login.html', form=form)
+
+
 @app.route('/signup/', methods=['POST', 'GET'])
 def signup():
 	form = SignupForm(request.form)
@@ -82,7 +90,7 @@ def signup():
 		email = form.email.data.lower()
 		created = current_datetime
 		last_updated = current_datetime
-		is_admin = False
+		account_level = 0
 		followers = []
 		following = []
 
@@ -94,7 +102,6 @@ def signup():
 			return render_template('signup.html', form=form)
 		if existing_user is None:
 			hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-			
 			users.insert({
 				'first_name' : first_name,
 				'last_name' : last_name,
@@ -102,13 +109,13 @@ def signup():
 				'password' : hashpass,
 				'created' : created,
 				'last_updated' : last_updated,
-				'is_admin' : is_admin,
+				'account_level' : account_level,
 				'followers' : followers,
 				'following' : following
 			})
 			print "INFO: New user has been created with email", email
 			session['email'] = request.form['email'].lower()
-			flash('Account successfuly registered! You may now log in', 'success')
+			flash('Account registered', 'success')
         	return redirect(url_for('login'))
 	else:
 		return render_template('signup.html', form=form)
