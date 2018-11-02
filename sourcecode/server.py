@@ -9,6 +9,15 @@ from wtforms import StringField, TextAreaField, PasswordField, validators
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
+# Setup DB config
+app.config['MONGO_DBNAME'] = "compound-lifts"
+app.config["MONGO_URI"] = "mongodb://server:connector00@ds111192.mlab.com:11192/compound-lifts"
+# Read DB collection	
+mongo = PyMongo(app)
+print "MongoDB connected successfully"
+users = mongo.db.users
+
+
 @app.route('/')
 def index():
 	#form = SignupForm()
@@ -62,7 +71,6 @@ def login():
 		email = form.email.data.lower()
 		password_entered = form.password.data
 
-		users = mongo.db.users
 		result = users.find_one({'email' : email})
 
 		if result is not None:
@@ -103,9 +111,9 @@ def signup():
 		account_level = 0
 		followers = []
 		following = []
+		profile_pic = 'resources/icons/barbell.png'
 
 		# Check if the email address already exists
-		users = mongo.db.users
 		existing_user = users.find_one({'email' : email})
 
 		if existing_user is not None:
@@ -122,7 +130,8 @@ def signup():
 				'last_updated' : last_updated,
 				'account_level' : account_level,
 				'followers' : followers,
-				'following' : following
+				'following' : following,
+				'profile_pic' : profile_pic
 			})
 			print "INFO: New user has been created with email", email
 			flash('Account registered', 'success')
@@ -144,15 +153,15 @@ def logout():
 @app.route('/athletes/')
 @app.route('/athletes/<id>')
 def athletes(id=None):
+	athletes = users.find().limit(10)
 	if id is not None:
-		users = mongo.db.users
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		if athlete is not None:
 			return render_template('athlete.html', athlete=athlete)
 		else:
 			return redirect(url_for('athletes'))
 	else:
-		return render_template('athletes.html')
+		return render_template('athletes.html', athletes=athletes)
 
 
 
@@ -170,9 +179,6 @@ def init(app):
 		app.config['log_location'] = config.get("logging", "LOCATION")
 		app.config['log_file'] = config.get("logging", "NAME")
 		app.config['log_level'] = config.get("logging", "LEVEL")
-		
-		app.config['MONGO_DBNAME'] = "compound-lifts"
-		app.config["MONGO_URI"] = "mongodb://server:connector00@ds111192.mlab.com:11192/compound-lifts"
 	except:
 		print ("Could not read configs from: ", config_location)
 
@@ -192,8 +198,6 @@ def logs(app):
 if __name__ == '__main__':
 	init(app)
 	logs(app)
-	mongo = PyMongo(app)
-	print "MongoDB connected successfully"
 	app.secret_key = 'lift-compound-'
 	app.run(
 		host=app.config['ip_address'],
@@ -201,7 +205,6 @@ if __name__ == '__main__':
 else:
 	init(app)
 	logs(app)
-	mongo = PyMongo(app)
-	print "MongoDB connected successfully"
+
 	random = os.urandom(24)
 	app.secret_key = random

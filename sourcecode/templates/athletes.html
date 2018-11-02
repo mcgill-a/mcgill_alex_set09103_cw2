@@ -8,6 +8,18 @@
 			{% if session.email %}
 				<h2>Logged in as: {{session.email}}</h2>
 			{% endif %}
+			<div class="athletes-content">
+				<div class="athlete-search">
+					<input type="text" name="athlete-name">
+					<button type="submit">SEARCH</button>
+				</div>
+				{% for current in athletes %}
+				<div class="athlete-overview">
+					<p>{{current.first_name}} {{current.last_name}}</p>
+				</div>
+				{% endfor %}
+			</div>
+			
 		</div>
 	</div>
 {% endblock %}

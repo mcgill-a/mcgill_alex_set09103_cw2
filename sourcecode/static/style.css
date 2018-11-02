@@ -170,11 +170,10 @@ button:focus, input:focus {
 .modal-tab-content .upper {
 	height: 60px;
 }
-/*
-.modal-tab-content .upper .alert {
+
+.modal-tab-content .alert {
 	text-align: center;
-	margin-bottom: 40px;
-} */
+} 
 
 .modal-tab-btn {
 	background: none;
@@ -257,4 +256,9 @@ form .section input:focus {
 	cursor: pointer;
 	color: black;
 	text-decoration: none;
+}
+
+.athletes-content {
+	width: 100%;
+	
 }
