@@ -78,8 +78,8 @@ def signup():
 			flash('An account with this email address already exists', 'danger')
 			return render_template('signup.html', form=form)
 		if existing_user is None:
-			print ("New user being created")
 			hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+			
 			users.insert({
 				'first_name' : first_name,
 				'last_name' : last_name,
@@ -91,12 +91,11 @@ def signup():
 				'followers' : followers,
 				'following' : following
 			})
+			print "INFO: New user has been created with email", email
 			session['email'] = request.form['email'].lower()
 			flash('Account successfuly registered! You may now log in', 'success')
-			print ("User added to DB")
         	return redirect(url_for('login'))
 	else:
-		print ("Invalid data entered")
 		return render_template('signup.html', form=form)
 
 def init(app):

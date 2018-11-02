@@ -78,10 +78,10 @@
 					{#<button id="modalSignUp" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
 					<button id="modalSignIn" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Login</button>
 					#}
-					<li {% if id == active_page %} class="active" {% endif %}>
+					<li {% if active_page == "signup" %} class="active" {% endif %}>
 						<a href="/signup/">Sign Up</a>
 					</li>
-					<li {% if id == active_page %} class="active" {% endif %}>
+					<li {% if active_page == "login" %} class="active" {% endif %}>
 						<a href="/login/">Login</a>
 					</li>
 				</div>

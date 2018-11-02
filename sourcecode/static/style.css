@@ -12,12 +12,20 @@ button:focus, input:focus {
 .page-background {
 	width: 100%;
 	height: 100%;
-	background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)),url('resources/barbell-squat.jpg') no-repeat center;
-	/*background: url('resources/barbell-squat.jpg') no-repeat center; */
+	/* background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)),url('resources/barbell-squat.jpg') no-repeat center; */
 	background-size: cover;
 	z-index: 0;
 	margin-top: -95px;
 	margin-bottom: -5px;
+}
+
+.page-background.one {
+	background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)),url('resources/barbell-squat.jpg') no-repeat center;
+}
+
+/* Same image right now but will eventually change */
+.page-background.two {
+	background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)),url('resources/barbell-squat.jpg') no-repeat center;
 }
 
 .navbar {
@@ -182,8 +190,9 @@ button:focus, input:focus {
 	border-bottom: 2px solid #2cd5ab;
 }
 
+/* Set 'from{opacity: 0}' for modal to fade in */
 @keyframes modalOpen {
-	from{opacity: 0}
+	from{opacity: 1}
 	to {opacity: 1}
 }
 
