@@ -34,11 +34,12 @@ def inject_form():
 def before_request():
 	if session.get('logged_in') == True:
 		current_datetime = datetime.datetime.now()
-		
+		ip = request.environ['REMOTE_ADDR']
 		users.update_one({'_id' : ObjectId(session['id'])},
 		{
 			"$set": {
-				'last_seen' : current_datetime
+				'last_seen' : current_datetime,
+				'last_ip' : ip
 			}
 		})
 		print session['email'], " is logged in."
@@ -119,9 +120,11 @@ def signup():
 		email = form.email.data.lower()
 		# Set the default inputs
 		current_datetime = datetime.datetime.now()
+		ip = request.environ['REMOTE_ADDR']
 		account_level = 0
 		followers = []
 		following = []
+		
 
 		# Setup default Gravatar options
 		default_profile_pic = "https://i.imgur.com/Th0smnC.png"
@@ -146,6 +149,7 @@ def signup():
 				'created' : current_datetime,
 				'last_updated' : current_datetime,
 				'last_seen' : current_datetime,
+				'last_ip' : ip,
 				'account_level' : account_level,
 				'followers' : followers,
 				'following' : following,
