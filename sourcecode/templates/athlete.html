@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% set active_page = 'index' %}
+{% set active_page = 'athletes' %}
 {% block content %}
 	<div class="page-background one">
 		<div class="container">
 			{% include 'includes/_messages.html' %}
-			<h1>Home</h1>
+			<h1>Athlete {{athlete.first_name}} {{athlete.last_name}}</h1>
 			{% if session.email %}
 				<h2>Logged in as: {{session.email}}</h2>
 			{% endif %}

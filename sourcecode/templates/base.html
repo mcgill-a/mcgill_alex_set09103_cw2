@@ -27,7 +27,7 @@
 {% block navbar %}
 {% set navigation_bar = [
 	('/', 'index', 'Home'),
-	('javascript:void(0)', 'tab2', 'Athletes'),
+	('/athletes/', 'tab2', 'Athletes'),
 	('javascript:void(0)', 'tab3', 'Lifts'),
 	('javascript:void(0)', 'tab4', 'Leaderboards'),
 	] -%}
@@ -78,12 +78,22 @@
 					{#<button id="modalSignUp" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
 					<button id="modalSignIn" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Login</button>
 					#}
-					<li {% if active_page == "signup" %} class="active" {% endif %}>
-						<a href="/signup/">Sign Up</a>
-					</li>
-					<li {% if active_page == "login" %} class="active" {% endif %}>
-						<a href="/login/">Login</a>
-					</li>
+					{% if session.logged_in %}
+						<li {% if active_page == "my_profile" %} class="active" {% endif %}>
+							<a href="/athletes/{{session.id}}">My Profile</a>
+						</li>
+						<li>
+							<a href="/logout">Logout</a>
+						</li>
+					{% else %}
+						<li {% if active_page == "signup" %} class="active" {% endif %}>
+							<a href="/signup">Sign Up</a>
+						</li>
+						<li {% if active_page == "login" %} class="active" {% endif %}>
+							<a href="/login">Login</a>
+						</li>
+					{% endif %}
+					
 				</div>
 				{#{% endif %}#}
 			</ul>

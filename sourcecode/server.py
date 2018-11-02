@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for, jsonify, request, redirect, session, flash
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt
 from logging.handlers import RotatingFileHandler
 from flask_wtf import FlaskForm
@@ -54,23 +55,25 @@ class SignupForm(FlaskForm):
 	confirm = PasswordField('confirm')
 
 
-@app.route('/login/', methods=['POST', 'GET'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
 	form = LoginForm(request.form)
 	if request.method =='POST' and form.validate():
 		email = form.email.data.lower()
 		password_entered = form.password.data
-		#hashpass = bcrypt.hashpw(password_entered.encode('utf-8'), bcrypt.gensalt())
+
 		users = mongo.db.users
 		result = users.find_one({'email' : email})
+
 		if result is not None:
 			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
 				output = "User " + email + " has logged in."
 				print output
 
 				session['logged_in'] = True
-				session['email'] = email
-				
+				session['email'] = result.get('email')
+				session['id'] = str(result.get('_id'))
+				print email, session['id']
 				flash('You are now logged in', 'success')
 				return redirect(url_for('index'))
 				
@@ -84,24 +87,27 @@ def login():
 	return render_template('login.html', form=form)
 
 
-@app.route('/signup/', methods=['POST', 'GET'])
+@app.route('/signup', methods=['POST', 'GET'])
 def signup():
 	form = SignupForm(request.form)
 	if request.method == 'POST' and form.validate():
-		current_datetime = datetime.datetime.now()
+		# Set the user inputs
 		# Make only the first character in first and last name capitalised
 		first_name = (form.firstname.data.lower()).capitalize()
 		last_name = (form.lastname.data.lower()).capitalize()
 		email = form.email.data.lower()
+		# Set the default inputs
+		current_datetime = datetime.datetime.now()
 		created = current_datetime
 		last_updated = current_datetime
 		account_level = 0
 		followers = []
 		following = []
 
+		# Check if the email address already exists
 		users = mongo.db.users
-
 		existing_user = users.find_one({'email' : email})
+
 		if existing_user is not None:
 			flash('An account with this email address already exists', 'danger')
 			return render_template('signup.html', form=form)
@@ -119,11 +125,36 @@ def signup():
 				'following' : following
 			})
 			print "INFO: New user has been created with email", email
-			session['email'] = request.form['email'].lower()
 			flash('Account registered', 'success')
         	return redirect(url_for('login'))
 	else:
 		return render_template('signup.html', form=form)
+
+
+@app.route('/logout')
+def logout():
+	if session.get('logged_in') == True:
+		session.clear()
+		flash('You are now logged out', 'success')
+		return redirect(url_for('index'))
+	else:
+		session.clear()
+		return redirect(url_for('login')) 
+
+@app.route('/athletes/')
+@app.route('/athletes/<id>')
+def athletes(id=None):
+	if id is not None:
+		users = mongo.db.users
+		athlete = users.find_one({'_id' : ObjectId(id)})
+		if athlete is not None:
+			return render_template('athlete.html', athlete=athlete)
+		else:
+			return redirect(url_for('athletes'))
+	else:
+		return render_template('athletes.html')
+
+
 
 def init(app):
 	config = ConfigParser.ConfigParser()
