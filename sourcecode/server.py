@@ -29,14 +29,6 @@ def error_400(e):
 def error_500(e):
 	return render_template('error.html', error=500), 500
 
-@app.route('/login/', methods=['POST', 'GET'])
-def login():
-	form = LoginForm(request.form)
-	if request.method =='POST':
-		# Validate Login Request
-		print ""
-	return render_template('login.html', form=form)
-
 class LoginForm(FlaskForm):
 	email = StringField('email', [validators.Email()])
 	password = PasswordField('password', [
@@ -49,21 +41,29 @@ class SignupForm(FlaskForm):
 	lastname = StringField('lastname', [validators.Length(min=2, max=50)])
 	email = StringField('email', [validators.Email()])
 	password = PasswordField('password', [
+		validators.DataRequired(),
 		validators.Length(min=8, max=50),
 		validators.EqualTo('confirm', message='Passwords do not match')
 	])
 	confirm = PasswordField('confirm')
 
 
+@app.route('/login/', methods=['POST', 'GET'])
+def login():
+	form = LoginForm(request.form)
+	if request.method =='POST' and form.validate():
+		email = form.email.data.lower()
+		password = form.password.data
+	return render_template('login.html', form=form)
+
 @app.route('/signup/', methods=['POST', 'GET'])
 def signup():
 	form = SignupForm(request.form)
-
 	if request.method == 'POST' and form.validate():
 		current_datetime = datetime.datetime.now()
-
-		first_name = form.firstname.data
-		last_name = form.lastname.data
+		# Make only the first character in first and last name capitalised
+		first_name = (form.firstname.data.lower()).capitalize()
+		last_name = (form.lastname.data.lower()).capitalize()
 		email = form.email.data.lower()
 		created = current_datetime
 		last_updated = current_datetime
@@ -74,8 +74,11 @@ def signup():
 		users = mongo.db.users
 
 		existing_user = users.find_one({'email' : request.form['email']})
-
+		if existing_user is not None:
+			flash('An account with this email address already exists', 'danger')
+			return render_template('signup.html', form=form)
 		if existing_user is None:
+			print ("New user being created")
 			hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
 			users.insert({
 				'first_name' : first_name,
@@ -87,11 +90,14 @@ def signup():
 				'is_admin' : is_admin,
 				'followers' : followers,
 				'following' : following
-				})
+			})
 			session['email'] = request.form['email'].lower()
-			flash('You are now registered and can log in', 'success')
+			flash('Account successfuly registered! You may now log in', 'success')
+			print ("User added to DB")
         	return redirect(url_for('login'))
-	return render_template('signup.html', form=form)
+	else:
+		print ("Invalid data entered")
+		return render_template('signup.html', form=form)
 
 def init(app):
 	config = ConfigParser.ConfigParser()

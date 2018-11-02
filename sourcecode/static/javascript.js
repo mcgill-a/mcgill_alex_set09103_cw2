@@ -23,6 +23,7 @@ function closeModal()
 */
 
 // Close Modal if outside click
+/*
 function clickOutside(e)
 {
   if(e.target == modal)
@@ -30,6 +31,7 @@ function clickOutside(e)
     modal.style.display = "none";
   }
 }
+*/
 
 // Open the selected modal tab
 function openModalTab(tab)

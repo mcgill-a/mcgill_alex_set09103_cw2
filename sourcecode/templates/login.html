@@ -30,10 +30,12 @@
 								<div class="section">
 									<p>PASSWORD:</p>
 									{{render_field(form.password)}}
+									
 								</div>
 								<div class="footer">
 									<button type="submit">LOGIN</button>
 								</div>
+								{{ form.hidden_tag() }}
 							</form>
 							<br /><br /><br />
 							<a id="forgot-password" href="#">Forgot Your Password?</a>
