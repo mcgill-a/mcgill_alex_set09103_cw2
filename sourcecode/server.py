@@ -64,11 +64,16 @@ def login():
 		users = mongo.db.users
 		result = users.find_one({'email' : email})
 		if result is not None:
-			print "found account", email
 			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
 				output = "User " + email + " has logged in."
 				print output
-				redirect('/')
+
+				session['logged_in'] = True
+				session['email'] = email
+				
+				flash('You are now logged in', 'success')
+				return redirect(url_for('index'))
+				
 			else:
 				print "Login attempt failed. Wrong Password for", email
 				error = "wrong_password"
