@@ -172,7 +172,12 @@ button:focus, input:focus {
 	margin: 0 10px 0 0;
 }
 
-.modal-tab-btn.active {
+.modal-tab-btn a, .modal-tab-btn a:hover {
+	text-decoration: none;
+	color: #ccc;
+}
+
+.modal-tab-btn.active a {
 	color: #2cd5ab;
 	border-bottom: 2px solid #2cd5ab;
 }
@@ -182,14 +187,21 @@ button:focus, input:focus {
 	to {opacity: 1}
 }
 
-form .section p {
+form .section p, form .section .header {
 	color: rgb(165, 165, 165);
 	font-size: 11px;
 	margin: 0;
 }
 
+form .section p.error {
+	color: red !important;
+}
+
+form .section {
+	margin-bottom: 30px !important;
+}
+
 form .section input {
-	margin-bottom: 30px;
 	border: none;
 	border-bottom: 1px solid #ccc;
 	width: 100%;

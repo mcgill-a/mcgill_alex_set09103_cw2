@@ -73,21 +73,27 @@
 						</li>
 					{% endif %}
 				{% endfor%}
-
+				{% if active_page != "signup" and active_page != "login" %}
 				<div class="form-inline navbar-right">
-					<button id="modalSignUp" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
+					{#<button id="modalSignUp" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
 					<button id="modalSignIn" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Login</button>
-					
-					</div>
+					#}
+					<li {% if id == active_page %} class="active" {% endif %}>
+						<a href="/signup/">Sign Up</a>
+					</li>
+					<li {% if id == active_page %} class="active" {% endif %}>
+						<a href="/login/">Login</a>
+					</li>
+				</div>
+				{% endif %}
 			</ul>
 		</div>
 		
 	</div>
 </div>
-
+{#
 <div id="userModal" class="modal-popup">
 	<div class="modal-popup-content">
-		{#<span class="closeBtn">&times;</span>#}
 		<div class="left">
 		</div>
 		<div class="right">
@@ -112,7 +118,7 @@
 							<input type="password" placeholder="" required name="first-name">
 						</div>
 						<div class="footer">
-							<button type="submit" placeholder="">LOGIN</button>
+							<button type="submit">LOGIN</button>
 						</div>
 					</form>
 					<br /><br /><br />
@@ -126,25 +132,30 @@
 
 				</div>
 				<div class="lower">
-					<form name="signup" action='/signup' method='POST'>
+					{% from "includes/_formhelpers.html" import render_field %}
+					<form id="signup" name="signup" action="">
 						<div class="section">
 							<p>FIRST NAME:</p>
-							<input type="name" placeholder="" required name="first-name">
+							{{render_field(form.firstname)}}
 						</div>
 						<div class="section">
 							<p>LAST NAME:</p>
-							<input type="name" placeholder="" required name="last-name">
+							{{render_field(form.lastname)}}
 						</div>
 						<div class="section">
 							<p>EMAIL:</p>
-							<input type="email" placeholder="" required name="email">
+							{{render_field(form.email)}}
 						</div>
 						<div class="section">
 							<p>PASSWORD:</p>
-							<input type="password" placeholder="" required name="password">
+							{{render_field(form.password)}}
+						</div>
+						<div class="section">
+							<p>CONFIRM PASSWORD:</p>
+							{{render_field(form.confirm)}}
 						</div>
 						<div class="footer">
-							<button type="submit" placeholder="">SIGN UP</button>
+							<button type="submit">SIGN UP</button>
 						</div>
 					</form>
 				</div>			
@@ -152,7 +163,7 @@
 		</div>
 	</div>
 </div>
-
+#}
 {% endblock %}
 
 <div class="container">

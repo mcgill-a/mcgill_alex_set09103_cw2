@@ -1,17 +1,24 @@
-from flask import Flask, render_template, url_for, jsonify, request, redirect, session
+from flask import Flask, render_template, url_for, jsonify, request, redirect, session, flash
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt
 from logging.handlers import RotatingFileHandler
+from flask_wtf import FlaskForm
+from wtforms import StringField, TextAreaField, PasswordField, validators
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
 @app.route('/')
 def index():
-	if 'email' in session:
-		return render_template('index.html', email=session['email']) 
+	#form = SignupForm()
+	#if 'email' in session:
+	#	return render_template('index.html', email=session['email'])
 	return render_template('index.html')
 
+@app.context_processor
+def inject_form():
+	form = SignupForm()
+	return dict(form=form) 
 
 @app.errorhandler(404)
 def error_400(e):
@@ -22,18 +29,42 @@ def error_400(e):
 def error_500(e):
 	return render_template('error.html', error=500), 500
 
-@app.route('/login')
+@app.route('/login/', methods=['POST', 'GET'])
 def login():
-	return ""
+	form = LoginForm(request.form)
+	if request.method =='POST':
+		# Validate Login Request
+		print ""
+	return render_template('login.html', form=form)
 
-@app.route('/signup', methods=['POST'])
+class LoginForm(FlaskForm):
+	email = StringField('email', [validators.Email()])
+	password = PasswordField('password', [
+		validators.Length(min=8, max=50)
+	])
+
+
+class SignupForm(FlaskForm):
+	firstname = StringField('firstname', [validators.Length(min=2, max=50)])
+	lastname = StringField('lastname', [validators.Length(min=2, max=50)])
+	email = StringField('email', [validators.Email()])
+	password = PasswordField('password', [
+		validators.Length(min=8, max=50),
+		validators.EqualTo('confirm', message='Passwords do not match')
+	])
+	confirm = PasswordField('confirm')
+
+
+@app.route('/signup/', methods=['POST', 'GET'])
 def signup():
-	if request.method == 'POST':
+	form = SignupForm(request.form)
+
+	if request.method == 'POST' and form.validate():
 		current_datetime = datetime.datetime.now()
 
-		first_name = request.form['first-name']
-		last_name = request.form['last-name']
-		email = request.form['email']
+		first_name = form.firstname.data
+		last_name = form.lastname.data
+		email = form.email.data.lower()
 		created = current_datetime
 		last_updated = current_datetime
 		is_admin = False
@@ -57,11 +88,10 @@ def signup():
 				'followers' : followers,
 				'following' : following
 				})
-			session['email'] = request.form['email']
-			return redirect('/')
-		
-		return "That email address already exists"
-	return ""
+			session['email'] = request.form['email'].lower()
+			flash('You are now registered and can log in', 'success')
+        	return redirect(url_for('login'))
+	return render_template('signup.html', form=form)
 
 def init(app):
 	config = ConfigParser.ConfigParser()
@@ -100,6 +130,7 @@ if __name__ == '__main__':
 	init(app)
 	logs(app)
 	mongo = PyMongo(app)
+	print "MongoDB connected successfully"
 	app.secret_key = 'lift-compound-'
 	app.run(
 		host=app.config['ip_address'],
@@ -108,4 +139,6 @@ else:
 	init(app)
 	logs(app)
 	mongo = PyMongo(app)
-	app.secret_key = 'lift-compound-'
+	print "MongoDB connected successfully"
+	random = os.urandom(24)
+	app.secret_key = random

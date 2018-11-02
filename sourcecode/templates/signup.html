@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% set active_page = 'signup' %}
+{% block content %}
+	<div class="page-background">
+		<div id="userModal" class="modal-popup" style="display: block;">
+			<div class="modal-popup-content">
+				<div class="left">
+				</div>
+				<div class="right">
+					<div class="modal-tabs">
+						<button id="sign-up-tab"  class="modal-tab-btn active">
+							<a href="#">SIGN UP</a>
+						</button>
+						<button id="sign-in-tab" class="modal-tab-btn">
+							<a href="/login/">LOGIN</a>
+						</button>
+					</div>
+		
+					<div id="sign-up-content" class="modal-tab-content">
+						<div class="upper">
+		
+						</div>
+						<div class="lower">
+							{% from "includes/_formhelpers.html" import render_field %}
+							<form method='POST' action="">
+								<div class="section">
+									<p>FIRST NAME:</p>
+									{{render_field(form.firstname)}}
+								</div>
+								<div class="section">
+									<p>LAST NAME:</p>
+									{{render_field(form.lastname)}}
+								</div>
+								<div class="section">
+									<p>EMAIL:</p>
+									{{render_field(form.email)}}
+								</div>
+								<div class="section">
+									<p>PASSWORD:</p>
+									{{render_field(form.password)}}
+								</div>
+								<div class="section">
+									<p>CONFIRM PASSWORD:</p>
+									{{render_field(form.confirm)}}
+								</div>
+								<div class="footer">
+									<button type="submit">SIGN UP</button>
+								</div>
+							</form>
+						</div>			
+					</div>
+				</div>
+			</div>
+		</div>
+		{#<div class="container">
+			<h1>Header</h1>
+			{% if email %}
+				<h2>Logged in as: {{email}}</h2>
+			{% endif %}
+		</div>#}
+	</div>
+{% endblock %}

@@ -1,0 +1,686 @@
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{ form.hidden_tag()}}
+UndefinedError: 'server.OurForm object' has no attribute 'hidden_tag'
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 133, in render_template
+    ctx.app.update_template_context(context)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 792, in update_template_context
+    context.update(func())
+TypeError: 'NoneType' object is not iterable
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 133, in render_template
+    ctx.app.update_template_context(context)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 792, in update_template_context
+    context.update(func())
+TypeError: 'NoneType' object is not iterable
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{ form.hidden_tag()}}
+UndefinedError: 'server.OurForm object' has no attribute 'hidden_tag'
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    g.form = form
+NameError: global name 'g' is not defined
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{ form.hidden_tag()}}
+UndefinedError: 'server.OurForm object' has no attribute 'hidden_tag'
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 15, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{ form.hidden_tag() }}
+UndefinedError: 'server.OurForm object' has no attribute 'hidden_tag'
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 16, in index
+    return render_template('index.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 158, in block "navbar"
+    {{ form.first-name }}
+UndefinedError: 'server.OurForm object' has no attribute 'first'
+ERROR | app | log_exception | Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1713, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1644, in handle_http_exception
+    return handler(e)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 35, in error_400
+    return render_template('error.html', error=404), 404
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\error.html", line 2, in top-level template code
+    {% set active_page = '' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 158, in block "navbar"
+    {{ form.first-name }}
+UndefinedError: 'server.SignupForm object' has no attribute 'first'
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 13, in index
+    form = OurForm()
+NameError: global name 'OurForm' is not defined
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 13, in index
+    form = OurForm()
+NameError: global name 'OurForm' is not defined
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 16, in index
+    return render_template('index.html')
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{render_field(form.firstname)}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 3, in template
+    {{ field(**kwargs|safe) }}
+TypeError: call() argument after ** must be a mapping, not Markup
+ERROR | app | log_exception | Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1713, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1644, in handle_http_exception
+    return handler(e)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 25, in error_400
+    return render_template('error.html', error=404), 404
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\error.html", line 2, in top-level template code
+    {% set active_page = '' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{render_field(form.firstname)}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 3, in template
+    {{ field(**kwargs|safe) }}
+TypeError: call() argument after ** must be a mapping, not Markup
+ERROR | app | log_exception | Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 16, in index
+    return render_template('index.html')
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\index.html", line 2, in top-level template code
+    {% set active_page = 'index' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{render_field()}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 2, in template
+    {{ field.label }}
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 430, in getattr
+    return getattr(obj, attribute)
+UndefinedError: parameter 'field' was not provided
+ERROR | app | log_exception | Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1713, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1644, in handle_http_exception
+    return handler(e)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 25, in error_400
+    return render_template('error.html', error=404), 404
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\error.html", line 2, in top-level template code
+    {% set active_page = '' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 159, in block "navbar"
+    {{render_field()}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 2, in template
+    {{ field.label }}
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 430, in getattr
+    return getattr(obj, attribute)
+UndefinedError: parameter 'field' was not provided
+ERROR | app | log_exception | Exception on /signup/ [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 86, in signup
+    return render_template('signup.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 77, in template
+    {% if active_page != "signup"}
+TemplateSyntaxError: unexpected '}'
+ERROR | app | log_exception | Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1713, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1644, in handle_http_exception
+    return handler(e)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 25, in error_400
+    return render_template('error.html', error=404), 404
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 77, in template
+    {% if active_page != "signup"}
+TemplateSyntaxError: unexpected '}'
+ERROR | app | log_exception | Exception on /signup/ [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 86, in signup
+    return render_template('signup.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 77, in template
+    {% if active_page != "signup" & active_page != "login" %}
+TemplateSyntaxError: unexpected char u'&' at 2494
+ERROR | app | log_exception | Exception on /favicon.ico [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1713, in handle_user_exception
+    return self.handle_http_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1644, in handle_http_exception
+    return handler(e)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 25, in error_400
+    return render_template('error.html', error=404), 404
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 77, in template
+    {% if active_page != "signup" & active_page != "login" %}
+TemplateSyntaxError: unexpected char u'&' at 2494
+ERROR | app | log_exception | Exception on /login/ [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 38, in login
+    return render_template('login.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\login.html", line 2, in top-level template code
+    {% set active_page = 'login' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 165, in block "navbar"
+    {{render_field(form.firstname)}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 2, in template
+    {{ field(**kwargs)|safe }}
+UndefinedError: 'server.LoginForm object' has no attribute 'firstname'
+ERROR | app | log_exception | Exception on /login/ [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 38, in login
+    return render_template('login.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\login.html", line 2, in top-level template code
+    {% set active_page = 'login' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 165, in block "navbar"
+    {{render_field(form.firstname)}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 2, in template
+    {{ field(**kwargs)|safe }}
+UndefinedError: 'server.LoginForm object' has no attribute 'firstname'
+ERROR | app | log_exception | Exception on /login/ [GET]
+Traceback (most recent call last):
+  File "C:\Python27\lib\site-packages\flask\app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Python27\lib\site-packages\flask\app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\server.py", line 38, in login
+    return render_template('login.html', form=form)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 135, in render_template
+    context, ctx.app)
+  File "C:\Python27\lib\site-packages\flask\templating.py", line 117, in _render
+    rv = template.render(context)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 1008, in render
+    return self.environment.handle_exception(exc_info, True)
+  File "C:\Python27\lib\site-packages\jinja2\environment.py", line 780, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\login.html", line 2, in top-level template code
+    {% set active_page = 'login' %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 7, in top-level template code
+    {% import "bootstrap/fixes.html" as fixes %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 1, in top-level template code
+    {% block doc -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 4, in block "doc"
+    {%- block html %}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 20, in block "html"
+    {% block body -%}
+  File "C:\Python27\lib\site-packages\flask_bootstrap\templates\bootstrap\base.html", line 21, in block "body"
+    {% block navbar %}
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\base.html", line 140, in block "navbar"
+    {{render_field(form.firstname)}}
+  File "C:\Python27\lib\site-packages\jinja2\runtime.py", line 579, in _invoke
+    rv = self._func(*arguments)
+  File "C:\Users\AlexM\Documents\Uni\Y3\AWT\mcgill_alex_set09103_cw2\sourcecode\templates\includes\_formhelpers.html", line 2, in template
+    {{ field(**kwargs)|safe }}
+UndefinedError: 'server.LoginForm object' has no attribute 'firstname'
