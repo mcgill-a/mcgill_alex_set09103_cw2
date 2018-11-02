@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, jsonify, request, redirect, s
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt
+import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib
 from logging.handlers import RotatingFileHandler
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, validators
@@ -29,6 +29,19 @@ def index():
 def inject_form():
 	form = SignupForm()
 	return dict(form=form) 
+
+@app.before_request
+def before_request():
+	if session.get('logged_in') == True:
+		current_datetime = datetime.datetime.now()
+		
+		users.update_one({'_id' : ObjectId(session['id'])},
+		{
+			"$set": {
+				'last_seen' : current_datetime
+			}
+		})
+		print session['email'], " is logged in."
 
 @app.errorhandler(404)
 def error_400(e):
@@ -106,12 +119,16 @@ def signup():
 		email = form.email.data.lower()
 		# Set the default inputs
 		current_datetime = datetime.datetime.now()
-		created = current_datetime
-		last_updated = current_datetime
 		account_level = 0
 		followers = []
 		following = []
-		profile_pic = 'resources/icons/barbell.png'
+
+		# Setup default Gravatar options
+		default_profile_pic = "https://i.imgur.com/Th0smnC.png"
+		profile_pic_size = 100
+		# Create Gravatar URL
+		profile_pic = "https://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
+		profile_pic += urllib.urlencode({'d':default_profile_pic, 's':str(profile_pic_size)})
 
 		# Check if the email address already exists
 		existing_user = users.find_one({'email' : email})
@@ -126,8 +143,9 @@ def signup():
 				'last_name' : last_name,
 				'email' : email,
 				'password' : hashpass,
-				'created' : created,
-				'last_updated' : last_updated,
+				'created' : current_datetime,
+				'last_updated' : current_datetime,
+				'last_seen' : current_datetime,
 				'account_level' : account_level,
 				'followers' : followers,
 				'following' : following,
