@@ -24,8 +24,7 @@ button:focus, input:focus {
 	/* background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)),url('resources/barbell-squat.jpg') no-repeat center; */
 	background-size: cover;
 	z-index: 0;
-	margin-top: -95px;
-	margin-bottom: -5px;
+	margin-top: -100px;
 }
 
 .page-background.one {
@@ -38,15 +37,11 @@ button:focus, input:focus {
 }
 
 .navbar {
-	z-index: 1;
-	background: none;
-	width: 1170px;
-	margin-top: 25px;
-	background-color: rgba(0,0,0,0.3);
-	height: 50px;
-	margin-left: auto;
-	margin-right: auto;
-	border-radius: 0;
+	background: #0f0f0f !important;
+	width: 100%;
+	padding: 0 5%;
+	height: 100px;
+	margin: 0;
 }
 
 .navbar.solid-nav {
@@ -57,11 +52,12 @@ button:focus, input:focus {
 	margin: 0;
 }
 
-.navbar.solid-nav .container-fluid {
-	margin: 23px 0;
+.navbar .container-fluid {
+	margin: 23px auto;
+	max-width: 1250px;
 }
 
-.navbar.solid-nav .container-fluid .collapse {
+.navbar .container-fluid .collapse {
 	padding: 0;
 	margin-left: 300px;
 	margin-top: 13px;
