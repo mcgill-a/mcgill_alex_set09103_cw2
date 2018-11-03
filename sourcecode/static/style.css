@@ -385,6 +385,7 @@ form .section input:focus {
 	max-width: 90%;
 	max-height: 90%;
 	background: white;
+	object-fit: cover;
 }
 
 .athlete-overview .basic-info {
@@ -435,6 +436,7 @@ form .section input:focus {
 	border: 4px solid white;
 	margin-top: -100px;
 	background: lightgreen;
+	object-fit: cover;
 }
 
 .athlete .top {
