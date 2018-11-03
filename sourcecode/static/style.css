@@ -44,6 +44,26 @@ button:focus, input:focus {
 	z-index: 1;
 }
 
+.navbar-header {
+	width: 300px;
+}
+
+.navbar-header a {
+	max-width: 100%;
+	margin-left: 0 !important;
+}
+
+.navbar .navbar-brand {
+	max-width: 100%;
+	padding: 0;
+	display: flex;
+	align-items: center;
+}
+
+.navbar .navbar-brand img{
+	max-width: 100%;
+}
+
 .navbar.solid-nav {
 	background: #0f0f0f !important;
 	width: 100%;
@@ -55,12 +75,32 @@ button:focus, input:focus {
 .navbar .container-fluid {
 	margin: 23px auto;
 	max-width: 1250px;
+	padding: 0;
 }
 
 .navbar .container-fluid .collapse {
 	padding: 0;
 	margin-left: 300px;
 	margin-top: 13px;
+}
+
+.navbar .container-fluid .collapse ul.spacer {
+	margin-left: 15%;
+}
+
+@media only screen and (max-width: 1000px) {
+    .navbar .container-fluid .collapse ul.spacer {
+		margin-left: 0 !important;
+	}
+
+	.navbar-header {
+		width: 150px;
+	}
+
+	.navbar .container-fluid .collapse {
+		margin-left: 20px;
+	}
+
 }
 
 .brand-text {
