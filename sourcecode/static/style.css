@@ -9,6 +9,15 @@ button:focus, input:focus {
 	outline: 0;
 }
 
+.black {
+	width: 100%;
+	height: 100%;
+	background: rgb(36, 36, 36);
+	background-size: cover;
+	z-index: 0;
+	margin-top: -95px;
+}
+
 .page-background {
 	width: 100%;
 	height: 100%;
@@ -38,6 +47,24 @@ button:focus, input:focus {
 	margin-left: auto;
 	margin-right: auto;
 	border-radius: 0;
+}
+
+.navbar.solid-nav {
+	background: #0f0f0f !important;
+	width: 100%;
+	padding: 0 5%;
+	height: 100px;
+	margin: 0;
+}
+
+.navbar.solid-nav .container-fluid {
+	margin: 23px 0;
+}
+
+.navbar.solid-nav .container-fluid .collapse {
+	padding: 0;
+	margin-left: 300px;
+	margin-top: 13px;
 }
 
 .brand-text {
@@ -94,13 +121,20 @@ button:focus, input:focus {
 	color: #ec3642;
 }
 
-.nav.navbar-nav.navbar-right {
-	height: 50px;
-}
 
 .form-inline {
-	border-left: 2px solid white;
 	height: 100%;
+	padding-left: 0;
+	width: auto;
+	margin-left: 0;
+}
+
+.form-inline ul {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	padding: 0;
+	margin: 0;
 }
 
 .container {
@@ -260,5 +294,68 @@ form .section input:focus {
 
 .athletes-content {
 	width: 100%;
-	
+	background: rgb(27, 27, 27);
+	padding: 10px;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+}
+
+.athletes-content .athlete-search {
+	margin-bottom: 20px;
+	color: black;
+}
+
+.athlete-search input, .athlete-search button {
+	height: 30px;
+	padding: 2px 3px;
+}
+
+.athletes-content .athlete-overview {
+	width: 100%;
+	height: 110px;
+	background: rgba(117, 117, 117, 0.1);
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: row;
+	padding: 5px;
+	border: 1px solid rgba(0,0,0,0.3);
+}
+
+.athletes-content .athlete-overview .profile-pic{
+	height: 100px;
+	width: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.athletes-content .athlete-overview .profile-pic img{
+	max-width: 90%;
+	max-height: 90%;
+	background: white;
+}
+
+.athlete-overview .basic-info {
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	margin-left: 10px;
+	color: white;
+	font-size: 15px;
+}
+
+.athlete-overview .basic-info a {
+	font-size: 18px;
+	font-weight: bolder !important;
+}
+
+.athlete-overview .basic-info .glyphicon {
+	color: rgb(207, 207, 207);
+}
+
+
+.athlete-overview .basic-info button {
+	width: 100px;
+	height: 30px;
+	color: black;
 }

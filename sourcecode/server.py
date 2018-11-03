@@ -6,6 +6,7 @@ import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, ur
 from logging.handlers import RotatingFileHandler
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, validators
+from functools import wraps
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
@@ -32,6 +33,7 @@ def inject_form():
 
 @app.before_request
 def before_request():
+	# Log current time & IP address
 	if session.get('logged_in') == True:
 		current_datetime = datetime.datetime.now()
 		ip = request.environ['REMOTE_ADDR']
@@ -42,7 +44,7 @@ def before_request():
 				'last_ip' : ip
 			}
 		})
-		print session['email'], " is logged in."
+
 
 @app.errorhandler(404)
 def error_400(e):
@@ -80,6 +82,7 @@ class SignupForm(FlaskForm):
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+	ip = request.environ['REMOTE_ADDR']
 	form = LoginForm(request.form)
 	if request.method =='POST' and form.validate():
 		email = form.email.data.lower()
@@ -100,7 +103,7 @@ def login():
 				return redirect(url_for('index'))
 				
 			else:
-				print "Login attempt failed. Wrong Password for", email
+				print "Failed login attempt |", email, "| IP:", ip
 				error = "wrong_password"
 				return render_template('login.html', form=form, error=error)
 		else:
@@ -162,6 +165,18 @@ def signup():
 		return render_template('signup.html', form=form)
 
 
+# Redirect logged out users with error message
+def is_logged_in(f):
+	@wraps(f)
+	def wrap(*args, **kwargs):
+		if 'logged_in' in session:
+			return f(*args, **kwargs)
+		else:
+			flash('Access restricted. Please login first', 'danger')
+			return redirect(url_for('login'))
+	return wrap
+
+
 @app.route('/logout')
 def logout():
 	if session.get('logged_in') == True:
@@ -185,6 +200,12 @@ def athletes(id=None):
 	else:
 		return render_template('athletes.html', athletes=athletes)
 
+
+# WIP
+@app.route('/athletes/edit/<id>')
+@is_logged_in
+def athlete_edit(id=None):
+	return render_template('index.html')
 
 
 def init(app):

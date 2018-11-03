@@ -27,7 +27,7 @@
 {% block navbar %}
 {% set navigation_bar = [
 	('/', 'index', 'Home'),
-	('/athletes/', 'tab2', 'Athletes'),
+	('/athletes/', 'athletes', 'Athletes'),
 	('javascript:void(0)', 'tab3', 'Lifts'),
 	('javascript:void(0)', 'tab4', 'Leaderboards'),
 	] -%}
@@ -42,7 +42,7 @@
 
 
 {#{% set active_page = active_page|default('index') -%}#}
-<div id="navbar" class="navbar navbar-expand-sm">
+<div id="navbar" class="navbar navbar-expand-sm {% if active_page !='index' %} solid-nav {% endif %}">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			{#<a class="navbar-brand" href="/"><img src="/static/resources/am-logo.jpg" alt="Alex McGill Logo"></a>#}
@@ -56,7 +56,7 @@
 		</button>
 
 		<div class="collapse navbar-collapse navHeaderCollapse">
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav">
 				{% for href, id, caption in navigation_bar %}
 					{% if id == "search" %}
 						<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">Search <span class="caret"></span></a>
@@ -73,11 +73,9 @@
 						</li>
 					{% endif %}
 				{% endfor%}
-				{#{% if active_page != "signup" and active_page != "login" %}#}
-				<div class="form-inline navbar-right">
-					{#<button id="modalSignUp" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-up-content');" type="submit">Sign Up</button>
-					<button id="modalSignIn" class="nav-btn my-2 my-sm-0" onclick="openModal('sign-in-content');" type="submit">Login</button>
-					#}
+			</ul>
+			<div class="form-inline navbar-right">
+				<ul>
 					{% if session.logged_in %}
 						<li {% if active_page == "my_profile" %} class="active" {% endif %}>
 							<a href="/athletes/{{session.id}}">My Profile</a>
@@ -93,12 +91,10 @@
 							<a href="/login">Login</a>
 						</li>
 					{% endif %}
-					
-				</div>
-				{#{% endif %}#}
-			</ul>
+				</ul>
+			</div>
+			
 		</div>
-		
 	</div>
 </div>
 {#

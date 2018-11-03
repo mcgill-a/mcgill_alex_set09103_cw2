@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set active_page = 'athletes' %}
 {% block content %}
-	<div class="page-background one">
+	<div class="black">
 		<div class="container">
 			{% include 'includes/_messages.html' %}
 			<h1>Athletes</h1>
@@ -15,7 +15,15 @@
 				</div>
 				{% for current in athletes %}
 				<div class="athlete-overview">
-					<p>{{current.first_name}} {{current.last_name}}</p>
+					<div class="profile-pic">
+						<img src="{{current.profile_pic|e}}">
+					</div>
+					<div class="basic-info">
+						<p><a href="/athletes/{{current._id}}">{{current.first_name}} {{current.last_name}}</a></p>
+						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
+						<button type=submit name="follow">Follow</button>
+					</div>
+					
 				</div>
 				{% endfor %}
 			</div>
