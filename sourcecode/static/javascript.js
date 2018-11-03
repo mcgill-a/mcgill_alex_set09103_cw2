@@ -5,7 +5,7 @@ var modalSignIn = document.getElementById("modalSignIn");
 var modalSignUp = document.getElementById("modalSignUp");
 var modalCloseBtn = document.getElementsByClassName("closeBtn")[0];
 
-window.addEventListener('click', clickOutside);
+//window.addEventListener('click', clickOutside);
 
 function openModal(tab)
 {
@@ -59,6 +59,7 @@ function openModalTab(tab)
     document.getElementById("sign-in-tab").classList.remove('active');
   }
 }
+
 
 function scrollTo(element) {
   window.scroll({

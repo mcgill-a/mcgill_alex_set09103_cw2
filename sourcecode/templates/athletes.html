@@ -22,11 +22,11 @@
 					<div class="basic-info">
 						<p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
 						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
-						{% if current_user is not none and athlete._id != current_user._id %}
+						{% if current_user is defined and athlete._id != current_user._id %}
 							{% if athlete._id|string in current_user.following %}
 								<button type=submit name="following">Following</button>
 							{% else %}
-								<button type=submit name="follow">Follow</button>
+								<button class="follow-btn" type="submit" name="{{athlete._id|string}}">Follow</button>
 							{% endif %}
 						{% endif %}
 					</div>
@@ -34,7 +34,24 @@
 				</div>
 				{% endfor %}
 			</div>
-			
 		</div>
 	</div>
+
+	<script>
+		$(document).ready(function(){
+			$("button.follow-btn").click(function(){
+				var id = $(this).attr('name');
+				data = {_id : id}
+				$.ajax({
+					type : "POST",
+					url : "/follow/",
+					data: JSON.stringify(data),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log(result);
+					}
+				});
+			});
+		});
+	</script>
 {% endblock %}

@@ -211,6 +211,11 @@ def athlete_edit(id=None):
 	return render_template('index.html')
 
 
+
+@app.route('/follow/', methods=['POST'])
+def follow():
+	return request.data
+
 def init(app):
 	config = ConfigParser.ConfigParser()
 	try:

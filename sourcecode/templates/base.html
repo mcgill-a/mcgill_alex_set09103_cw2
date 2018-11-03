@@ -7,8 +7,11 @@
 {% import "bootstrap/fixes.html" as fixes %}
 
 {% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 {{super()}}
-{#<link rel="shortcut icon" href="{{url_for('static', filename="resources/favicon.ico") }}">#}
+<!--
+<link rel="shortcut icon" href="{{url_for('static', filename="resources/favicon.ico") }}">
+-->
 {{fixes.ie8()}}
 {%- endblock %}
 
@@ -21,6 +24,7 @@
 
 {% block scripts %}
 	<script src="{{url_for('static', filename='javascript.js')}}"></script>
+	
 	{{super()}}
 {% endblock %}
 
