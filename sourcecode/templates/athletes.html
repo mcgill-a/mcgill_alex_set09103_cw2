@@ -14,18 +14,20 @@
 					<input type="text" name="athlete-name">
 					<button type="submit">SEARCH</button>
 				</div>
-				{% for current in athletes %}
+				{% for athlete in athletes %}
 				<div class="athlete-overview">
 					<div class="profile-pic">
-						<img src="{{current.profile_pic|e}}">
+						<img src="{{athlete.profile_pic|e}}">
 					</div>
 					<div class="basic-info">
-						<p><a href="/athletes/{{current._id}}">{{current.first_name}} {{current.last_name}}</a></p>
+						<p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
 						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
-						{% if session.logged_in and current._id in current_user.following %}
-							<button type=submit name="following">Following</button>
-						{% else %}
-							<button type=submit name="follow">Follow</button>
+						{% if session.logged_in and athlete._id != current_user._id %}
+							{% if athlete._id|string in current_user.following %}
+								<button type=submit name="following">Following</button>
+							{% else %}
+								<button type=submit name="follow">Follow</button>
+							{% endif %}
 						{% endif %}
 					</div>
 					
