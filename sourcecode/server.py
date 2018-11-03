@@ -79,6 +79,11 @@ class SignupForm(FlaskForm):
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+	if session.get('logged_in'):
+		output = "You are already logged in as " + session.get('email')
+		flash(output, 'warning')
+		return redirect(url_for('index'))
+	
 	ip = request.environ['REMOTE_ADDR']
 	form = LoginForm(request.form)
 	if request.method =='POST' and form.validate():
