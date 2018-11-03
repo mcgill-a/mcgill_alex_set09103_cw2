@@ -40,7 +40,7 @@ button:focus, input:focus {
 	background: #0f0f0f !important;
 	width: 100%;
 	padding: 0 5%;
-	height: 100px;
+	height: 80px;
 	margin: 0;
 	z-index: 1;
 }
@@ -65,18 +65,11 @@ button:focus, input:focus {
 	max-width: 100%;
 }
 
-.navbar.solid-nav {
-	background: #0f0f0f !important;
-	width: 100%;
-	padding: 0 5%;
-	height: 100px;
-	margin: 0;
-}
-
 .navbar .container-fluid {
-	margin: 23px auto;
+	margin: 15px auto;
 	max-width: 1250px;
 	padding: 0;
+	height: auto;
 }
 
 .navbar .container-fluid .collapse {
