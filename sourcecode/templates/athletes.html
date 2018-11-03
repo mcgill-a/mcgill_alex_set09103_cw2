@@ -2,12 +2,16 @@
 {% set active_page = 'athletes' %}
 {% block content %}
 	<div class="black">
-		<div class="container">
+		<div class="page-header athletes">
+			<div class="container">
+				<h1>Athletes</h1>
+			</div>
+		</div>
+		<div class="no-padding container">
 			{% include 'includes/_messages.html' %}
-			<h1>Athletes</h1>
-			{% if session.email %}
+			{#{% if session.email %}
 				<h2>Logged in as: {{session.email}}</h2>
-			{% endif %}
+			{% endif %}#}
 			<div class="athletes-content">
 				<div class="athlete-search">
 					<input type="text" name="athlete-name">

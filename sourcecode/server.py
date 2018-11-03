@@ -92,13 +92,11 @@ def login():
 
 		if result is not None:
 			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
-				output = "User " + email + " has logged in."
-				print output
+				print email, "has logged in"
 
 				session['logged_in'] = True
 				session['email'] = result.get('email')
 				session['id'] = str(result.get('_id'))
-				print email, session['id']
 				flash('You are now logged in', 'success')
 				return redirect(url_for('index'))
 				
