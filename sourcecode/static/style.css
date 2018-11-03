@@ -418,3 +418,23 @@ form .section input:focus {
 	color: black;
 }
 
+.athlete .container {
+	color: black;
+}
+
+.athlete .profile-pic {
+	width: 210px;
+	height: 210px;
+	border-radius: 50%;
+	border: 4px solid black;
+	margin-top: -100px;
+	background: white;
+}
+
+.athlete .cover-pic {
+	width: 100%;
+	height: 350px;
+	background-size: cover !important;
+	background-position: center center;
+	background-repeat: no-repeat;
+}

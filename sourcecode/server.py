@@ -126,13 +126,8 @@ def signup():
 		followers = []
 		following = []
 		
-
-		# Setup default Gravatar options
-		default_profile_pic = "https://i.imgur.com/Th0smnC.png"
-		profile_pic_size = 100
-		# Create Gravatar URL
-		profile_pic = "https://www.gravatar.com/avatar/" + hashlib.md5(email.lower()).hexdigest() + "?"
-		profile_pic += urllib.urlencode({'d':default_profile_pic, 's':str(profile_pic_size)})
+		profile_pic = "https://i.imgur.com/WoXugzG.png"
+		cover_pic = "https://i.imgur.com/2MxjfEn.jpg"
 
 		# Check if the email address already exists
 		existing_user = users.find_one({'email' : email})
@@ -154,7 +149,8 @@ def signup():
 				'account_level' : account_level,
 				'followers' : followers,
 				'following' : following,
-				'profile_pic' : profile_pic
+				'profile_pic' : profile_pic,
+				'cover_pic' : cover_pic
 			})
 			print "INFO: New user has been created with email", email
 			flash('Account registered', 'success')

@@ -1,13 +1,25 @@
 {% extends "base.html" %}
 {% set active_page = 'athletes' %}
 {% block content %}
-	<div class="page-background one">
-		<div class="container">
+	<div class="athlete">
+		<div class="cover-pic" style="background: url({{athlete.cover_pic|e}});">
+
+		</div>
+		
+		<div class="no-padding container">
 			{% include 'includes/_messages.html' %}
-			<h1>Athlete {{athlete.first_name}} {{athlete.last_name}}</h1>
-			{% if session.email %}
+			
+			{#{% if session.email %}
 				<h2>Logged in as: {{session.email}}</h2>
-			{% endif %}
+			{% endif %}#}
+
+			<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=200px height=200px/>
+			<div>
+				<h1>Athlete {{athlete.first_name}} {{athlete.last_name}}</h1>
+				<p>Followers: {{athlete.followers | length}}</p>
+				<p>Following: {{athlete.following | length}}</p>
+			</div>
+			
 		</div>
 	</div>
 {% endblock %}
