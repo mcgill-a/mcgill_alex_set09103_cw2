@@ -13,11 +13,48 @@
 				<h2>Logged in as: {{session.email}}</h2>
 			{% endif %}#}
 
-			<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=200px height=200px/>
-			<div>
-				<h1>Athlete {{athlete.first_name}} {{athlete.last_name}}</h1>
-				<p>Followers: {{athlete.followers | length}}</p>
-				<p>Following: {{athlete.following | length}}</p>
+			<div class="top">
+				<div class="social">
+					<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=200px height=200px/>	
+					<div class="follow">
+						<div class="followers">
+							<a href="#">{{athlete.followers | length}}</a>
+							<p>Followers</p>
+						</div>
+						<div class="following">
+							<a href="#">{{athlete.following | length}}</a>
+							<p>Following</p>
+						</div>
+					</div>
+					
+				</div>
+				<div class="info">
+					<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+				</div>
+			</div>
+
+			<div class="featured">
+				<div class="title">
+					<h1>FEATURED</h1>
+				</div>
+
+				<div class="cards">
+					<div class="card">
+						<img src="/static/resources/lifts/deadlift.jpg">
+						<p class="weight">140 KG</p>
+						<h2>DEADLIFT</h2>
+					</div>
+					<div class="card">
+						<img src="/static/resources/lifts/bench.jpg">
+						<p class="weight">90 KG</p>
+						<h2>BENCH</h2>
+					</div>
+					<div class="card">
+						<img src="/static/resources/lifts/squat2.jpg">
+						<p class="weight">125 KG</p>
+						<h2>SQUAT</h2>
+					</div>
+				</div>
 			</div>
 			
 		</div>
