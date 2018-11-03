@@ -9,9 +9,6 @@
 		</div>
 		<div class="no-padding container">
 			{% include 'includes/_messages.html' %}
-			{#{% if session.email %}
-				<h2>Logged in as: {{session.email}}</h2>
-			{% endif %}#}
 			<div class="athletes-content">
 				<div class="athlete-search">
 					<input type="text" name="athlete-name">
@@ -25,7 +22,11 @@
 					<div class="basic-info">
 						<p><a href="/athletes/{{current._id}}">{{current.first_name}} {{current.last_name}}</a></p>
 						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
-						<button type=submit name="follow">Follow</button>
+						{% if session.logged_in and current._id in current_user.following %}
+							<button type=submit name="following">Following</button>
+						{% else %}
+							<button type=submit name="follow">Follow</button>
+						{% endif %}
 					</div>
 					
 				</div>

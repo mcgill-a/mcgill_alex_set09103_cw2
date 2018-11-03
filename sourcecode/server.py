@@ -37,14 +37,11 @@ def before_request():
 	if session.get('logged_in') == True:
 		current_datetime = datetime.datetime.now()
 		ip = request.environ['REMOTE_ADDR']
-		users.update_one({'_id' : ObjectId(session['id'])},
-		{
-			"$set": {
-				'last_seen' : current_datetime,
-				'last_ip' : ip
-			}
-		})
-
+		
+		user = users.find_one({'_id' : ObjectId(session['id'])})
+		user['last_seen'] = current_datetime
+		user['last_ip'] = ip
+		users.save(user)
 
 @app.errorhandler(404)
 def error_400(e):
@@ -192,6 +189,9 @@ def athletes(id=None):
 		else:
 			return redirect(url_for('athletes'))
 	else:
+		if session.get('logged_in') == True:
+			current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+			return render_template('athletes.html', athletes=athletes, current_user=current_user)
 		return render_template('athletes.html', athletes=athletes)
 
 
