@@ -186,16 +186,20 @@ def logout():
 @app.route('/athletes/')
 @app.route('/athletes/<id>')
 def athletes(id=None):
+	current_user = None
+	if session.get('logged_in') == True:
+		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+	
 	athletes = users.find().limit(10)
+	
 	if id is not None:
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		if athlete is not None:
-			return render_template('athlete.html', athlete=athlete)
+			return render_template('athlete.html', athlete=athlete, current_user=current_user)
 		else:
 			return redirect(url_for('athletes'))
 	else:
-		if session.get('logged_in') == True:
-			current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+		if current_user is not None:
 			return render_template('athletes.html', athletes=athletes, current_user=current_user)
 		return render_template('athletes.html', athletes=athletes)
 

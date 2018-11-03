@@ -21,7 +21,13 @@
 							<p>Following</p>
 						</div>
 					</div>
-					
+					{% if current_user is not none and athlete._id != current_user._id %}
+						{% if athlete._id|string in current_user.following %}
+							<button type=submit name="following">Following</button>
+						{% else %}
+							<button type=submit name="follow">Follow</button>
+						{% endif %}
+					{% endif %}
 				</div>
 				<div class="split">
 					<div class="breadcrumb">
