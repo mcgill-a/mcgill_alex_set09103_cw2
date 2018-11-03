@@ -472,12 +472,28 @@ form .section input:focus {
 	color: black;
 }
 
-.athlete .top .info {
-	margin: 10px 0 0 20px;
+.athlete .top .split {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.athlete .top .split .breadcrumb {
+	margin: 0;
+	background: none;
+}
+
+.athlete .top .split .info {
+	margin: 0;
+	padding: 0 5px;
 	border: 1px solid black;
 	/*background: #161616; */
 	width: 100%;
 	font-family: 'Montserrat', sans-serif;
+}
+
+.athlete .top .info h1 {
+	margin: 0;
 }
 
 .athlete .top .info p {
@@ -494,9 +510,9 @@ form .section input:focus {
 .athlete .featured .cards {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	justify-content: center;
+	flex-wrap: wrap;
 	margin-top: 10px;
-	margin-bottom: 200px;
 	color: white;
 }
 
@@ -507,7 +523,8 @@ form .section input:focus {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
+	margin: 0 10px;
+	margin-bottom: 20px;
 }
 
 .athlete .featured .cards .card img {

@@ -8,11 +8,6 @@
 		
 		<div class="no-padding container">
 			{% include 'includes/_messages.html' %}
-			
-			{#{% if session.email %}
-				<h2>Logged in as: {{session.email}}</h2>
-			{% endif %}#}
-
 			<div class="top">
 				<div class="social">
 					<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=200px height=200px/>	
@@ -28,9 +23,15 @@
 					</div>
 					
 				</div>
-				<div class="info">
-					<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+				<div class="split">
+					<div class="breadcrumb">
+						<p><a href="/">Home</a> > <a href="/athletes/">Athletes</a> > <a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
+					</div>
+					<div class="info">
+						<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+					</div>
 				</div>
+				
 			</div>
 
 			<div class="featured">
