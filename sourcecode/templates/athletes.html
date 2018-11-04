@@ -41,14 +41,14 @@
 		$(document).ready(function(){
 			$("button.follow-btn").click(function(){
 				var id = $(this).attr('name');
-				data = {_id : id}
+
 				$.ajax({
 					type : "POST",
 					url : "/follow/",
-					data: JSON.stringify(data),
+					data: id,
 					contentType: 'application/json;charset=UTF-8',
 					success: function(result) {
-						console.log(result);
+						console.log("Followed user: " + result);
 					}
 				});
 			});

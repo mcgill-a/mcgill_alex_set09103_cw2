@@ -211,10 +211,25 @@ def athlete_edit(id=None):
 	return render_template('index.html')
 
 
-
-@app.route('/follow/', methods=['POST'])
+@app.route('/follow/', methods=['POST', 'GET'])
+@is_logged_in
 def follow():
-	return request.data
+	if request.method == 'POST' and request.data:
+		id_to_follow = request.data
+		#user = users.find_one({'_id' : ObjectId(session.get('id'))})
+		account_follow = users.find_one({'_id' : ObjectId(id_to_follow)})
+		if account_follow is not None:
+			
+			# Update the current user 'following' list
+			users.update({'_id' : ObjectId(session.get('id'))}, {
+				'$addToSet' : {'following': id_to_follow}
+				})
+			# Update the other persons 'followers' list
+			users.update({'_id' : ObjectId(id_to_follow)}, {
+				'$addToSet' : {'followers': session.get('id')}
+				})
+			return id_to_follow
+	return redirect(url_for('index'))
 
 def init(app):
 	config = ConfigParser.ConfigParser()
