@@ -140,7 +140,7 @@ def signup():
 		existing_user = users.find_one({'email' : email})
 
 		if existing_user is not None:
-			flash('An account with this email address already exists', 'danger')
+			flash('Account already exists', 'danger')
 			return render_template('signup.html', form=form)
 		if existing_user is None:
 			hashpass = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
