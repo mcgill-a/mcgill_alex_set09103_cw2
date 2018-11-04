@@ -24,7 +24,7 @@
 						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
 						{% if current_user is defined and athlete._id != current_user._id %}
 							{% if athlete._id|string in current_user.following %}
-								<button type=submit name="following">Following</button>
+								<button class="unfollow-btn" type="submit" name="{{athlete._id|string}}">Following</button>
 							{% else %}
 								<button class="follow-btn" type="submit" name="{{athlete._id|string}}">Follow</button>
 							{% endif %}
@@ -49,6 +49,20 @@
 					contentType: 'application/json;charset=UTF-8',
 					success: function(result) {
 						console.log("Followed user: " + result);
+					}
+				});
+			});
+
+			$("button.unfollow-btn").click(function(){
+				var id = $(this).attr('name');
+
+				$.ajax({
+					type : "POST",
+					url : "/unfollow/",
+					data: id,
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("Unfollowed user: " + result);
 					}
 				});
 			});

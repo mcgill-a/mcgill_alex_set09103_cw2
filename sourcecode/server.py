@@ -216,19 +216,35 @@ def athlete_edit(id=None):
 def follow():
 	if request.method == 'POST' and request.data:
 		id_to_follow = request.data
-		#user = users.find_one({'_id' : ObjectId(session.get('id'))})
 		account_follow = users.find_one({'_id' : ObjectId(id_to_follow)})
 		if account_follow is not None:
-			
-			# Update the current user 'following' list
+			# Update the current user 'following' list (add)
 			users.update({'_id' : ObjectId(session.get('id'))}, {
 				'$addToSet' : {'following': id_to_follow}
 				})
-			# Update the other persons 'followers' list
+			# Update the other persons 'followers' list (add)
 			users.update({'_id' : ObjectId(id_to_follow)}, {
 				'$addToSet' : {'followers': session.get('id')}
 				})
 			return id_to_follow
+	return redirect(url_for('index'))
+
+@app.route('/unfollow/', methods=['POST', 'GET'])
+@is_logged_in
+def unfollow():
+	if request.method == 'POST' and request.data:
+		id_to_unfollow = request.data
+		account_follow = users.find_one({'_id' : ObjectId(id_to_unfollow)})
+		if account_follow is not None:
+			# Update the current user 'following' list (remove)
+			users.update({'_id' : ObjectId(session.get('id'))}, {
+				'$pull' : {'following': id_to_unfollow}
+				})
+			# Update the other persons 'followers' list (remove)
+			users.update({'_id' : ObjectId(id_to_unfollow)}, {
+				'$pull' : {'followers': session.get('id')}
+				})
+			return id_to_unfollow
 	return redirect(url_for('index'))
 
 def init(app):
