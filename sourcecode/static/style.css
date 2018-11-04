@@ -138,6 +138,11 @@ button:focus, input:focus {
 	  transition-timing-function: ease-out;
 }
 
+.navbar li a:focus {
+	background: none;
+	outline: 0;
+}
+
 .form-inline {
 	display: flex;
 	align-items: center;
