@@ -4,20 +4,9 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib
 from logging.handlers import RotatingFileHandler
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, validators
 from functools import wraps
-app = Flask(__name__)
-bootstrap = Bootstrap(app)
-
-# Setup DB config
-app.config['MONGO_DBNAME'] = "compound-lifts"
-app.config["MONGO_URI"] = "mongodb://server:connector00@ds111192.mlab.com:11192/compound-lifts"
-# Read DB collection	
-mongo = PyMongo(app)
-print "MongoDB connected successfully"
-users = mongo.db.users
-
+from forms import SignupForm, LoginForm
+from compoundlifts import app, users
 
 @app.route('/')
 def index():
@@ -26,10 +15,10 @@ def index():
 	#	return render_template('index.html', email=session['email'])
 	return render_template('index.html')
 
-@app.context_processor
-def inject_form():
-	form = SignupForm()
-	return dict(form=form) 
+#@app.context_processor
+#def inject_form():
+#	form = SignupForm()
+#	return dict(form=form) 
 
 @app.before_request
 def before_request():
@@ -51,31 +40,6 @@ def error_400(e):
 @app.errorhandler(500)
 def error_500(e):
 	return render_template('error.html', error=500), 500
-
-class LoginForm(FlaskForm):
-	email = StringField('email', [validators.Email()])
-	password = PasswordField('password', [
-		validators.Length(min=8, max=50)
-	])
-
-
-class SignupForm(FlaskForm):
-	firstname = StringField('firstname', [
-		validators.Length(min=2, max=50),
-		validators.Regexp('^\w+$', message="First name may only contain letters")
-		])
-	lastname = StringField('lastname', [
-		validators.Length(min=2, max=50),
-		validators.Regexp('^\w+$', message="Last name may only contain letters")
-		])
-	email = StringField('email', [validators.Email()])
-	password = PasswordField('password', [
-		validators.DataRequired(),
-		validators.Length(min=8, max=50),
-		validators.EqualTo('confirm', message='Passwords do not match')
-	])
-	confirm = PasswordField('confirm')
-
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -251,47 +215,3 @@ def unfollow():
 				})
 			return id_to_unfollow
 	return redirect(url_for('index'))
-
-def init(app):
-	config = ConfigParser.ConfigParser()
-	try:
-		config_location = "etc/defaults.cfg"
-		config.read(config_location)
-
-		app.config['DEBUG'] = config.get("config", "DEBUG")
-		app.config['ip_address'] = config.get("config", "IP_ADDRESS")
-		app.config['port'] = config.get("config", "PORT")
-		app.config['url'] = config.get("config", "URL")
-
-		app.config['log_location'] = config.get("logging", "LOCATION")
-		app.config['log_file'] = config.get("logging", "NAME")
-		app.config['log_level'] = config.get("logging", "LEVEL")
-	except:
-		print ("Could not read configs from: ", config_location)
-
-
-def logs(app):
-	log_pathname = app.config['log_location'] + app.config['log_file']
-	file_handler = RotatingFileHandler(
-		log_pathname, maxBytes=(1024 * 1024 * 10), backupCount=1024)
-	file_handler.setLevel(app.config['log_level'])
-	formatter = logging.Formatter(
-		"%(levelname)s | %(module)s | %(funcName)s | %(message)s")
-	file_handler.setFormatter(formatter)
-	app.logger.setLevel(app.config['log_level'])
-	app.logger.addHandler(file_handler)
-
-
-if __name__ == '__main__':
-	init(app)
-	logs(app)
-	app.secret_key = 'lift-compound-'
-	app.run(
-		host=app.config['ip_address'],
-		port=int(app.config['port']))
-else:
-	init(app)
-	logs(app)
-
-	random = os.urandom(24)
-	app.secret_key = random
