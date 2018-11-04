@@ -10,84 +10,6 @@ from compoundlifts import app, users, mail
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 
-# password email reset stuff
-def get_reset_token(self, expires_sec=1800):
-	s = Serializer(app.secret_key, expires_sec)
-	return s.dumps({'_id' : str(self['_id'])}).decode('utf-8')
-
-
-def verify_reset_token(token):
-	s = Serializer(app.secret_key)
-	try:
-		user_id = s.loads(token)['_id']
-	except:
-		return None
-	return users.find_one({'_id' : ObjectId(user_id)})
-
-
-def send_reset_email(user):
-	token = get_reset_token(user)
-	reset_url = {url_for('reset_token', token=token, _external=True)}
-
-	subject = 'Compound Lifts | Password Reset Request'
-	template = render_template('email.html', reset_url=reset_url, user=user)
-	msg = Message(
-		subject,
-		sender='CompoundLiftsMail@gmail.com',
-		recipients=[user['email']],
-		html = template)
-
-	mail.send(msg)
-
-@app.route('/reset_password/', methods=['POST', 'GET'])
-def reset_request():
-	if session.get('logged_in'):
-		return redirect(url_for('index'))
-
-	form = RequestPasswordResetForm()
-	if request.method == 'POST' and form.validate():
-		email = form.email.data
-		user = users.find_one({'email' : email.lower()})
-		
-		if user is None:
-			error = "wrong_email"
-			return render_template('password_reset_request.html', form=form, error=error)
-		else:
-			print "Request password reset for ", email
-			send_reset_email(user)
-			flash('Password reset email has been sent!', 'info')
-			return redirect(url_for('login'))
-		
-
-	return render_template('password_reset_request.html', form=form)
-
-@app.route('/reset_password/<token>', methods=['POST', 'GET'])
-def reset_token(token):
-	if session.get('logged_in'):
-		return redirect(url_for('index'))
-	user = verify_reset_token(token)
-	if user is None:
-		flash('Invalid or expired reset token.', 'danger')
-		return redirect(url_for('reset_request'))
-	else:
-		form = ResetPasswordForm()
-		if request.method == 'POST' and form.validate():
-			
-			current_datetime = datetime.datetime.now()
-
-			hashpass = bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt())
-			# Update the current user password
-			user['password'] = hashpass
-			user['last_updated'] = current_datetime
-			users.save(user)
-			
-			print "INFO: Password Reset for", user['email']
-			flash('Password has been reset!', 'success')
-			return redirect(url_for('login'))
-
-		return render_template('password_reset_form.html', form=form)
-	
-
 
 @app.route('/')
 def index():
@@ -231,7 +153,90 @@ def logout():
 		return redirect(url_for('index'))
 	else:
 		session.clear()
-		return redirect(url_for('login')) 
+		return redirect(url_for('login'))
+
+
+# Generate a password reset token that lasts 30 minutes
+def get_reset_token(self, expires_sec=1800):
+	s = Serializer(app.secret_key, expires_sec)
+	return s.dumps({'_id' : str(self['_id'])}).decode('utf-8')
+
+
+# Send an email containing the password reset token
+def send_reset_email(user):
+	token = get_reset_token(user)
+	reset_url = {url_for('reset_token', token=token, _external=True)}
+
+	subject = 'Compound Lifts | Password Reset Request'
+	template = render_template('email.html', reset_url=reset_url, user=user)
+	msg = Message(
+		subject,
+		sender='CompoundLiftsMail@gmail.com',
+		recipients=[user['email']],
+		html = template)
+
+	mail.send(msg)
+
+
+# Verify the password reset token is valid
+def verify_reset_token(token):
+	s = Serializer(app.secret_key)
+	try:
+		user_id = s.loads(token)['_id']
+	except:
+		return None
+	return users.find_one({'_id' : ObjectId(user_id)})
+
+
+@app.route('/reset_password/', methods=['POST', 'GET'])
+def reset_request():
+	if session.get('logged_in'):
+		return redirect(url_for('index'))
+
+	form = RequestPasswordResetForm()
+	if request.method == 'POST' and form.validate():
+		email = form.email.data
+		user = users.find_one({'email' : email.lower()})
+		
+		if user is None:
+			error = "wrong_email"
+			return render_template('password_reset_request.html', form=form, error=error)
+		else:
+			print "Request password reset for ", email
+			send_reset_email(user)
+			flash('Password reset email has been sent!', 'info')
+			return redirect(url_for('login'))
+		
+
+	return render_template('password_reset_request.html', form=form)
+
+
+@app.route('/reset_password/<token>', methods=['POST', 'GET'])
+def reset_token(token):
+	if session.get('logged_in'):
+		return redirect(url_for('index'))
+	user = verify_reset_token(token)
+	if user is None:
+		flash('Invalid or expired reset token.', 'danger')
+		return redirect(url_for('reset_request'))
+	else:
+		form = ResetPasswordForm()
+		if request.method == 'POST' and form.validate():
+			
+			current_datetime = datetime.datetime.now()
+
+			hashpass = bcrypt.hashpw(form.password.data.encode('utf-8'), bcrypt.gensalt())
+			# Update the current user password
+			user['password'] = hashpass
+			user['last_updated'] = current_datetime
+			users.save(user)
+			
+			print "INFO: Password Reset for", user['email']
+			flash('Password has been reset!', 'success')
+			return redirect(url_for('login'))
+
+		return render_template('password_reset_form.html', form=form)
+
 
 @app.route('/athletes/')
 @app.route('/athletes/<id>')
@@ -278,6 +283,7 @@ def follow():
 				})
 			return id_to_follow
 	return redirect(url_for('index'))
+
 
 @app.route('/unfollow/', methods=['POST', 'GET'])
 @is_logged_in
