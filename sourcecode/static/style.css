@@ -411,6 +411,26 @@ form .section input:focus {
 	width: 100px;
 	height: 30px;
 	color: black;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+button.unfollow-btn:hover {
+	transition-duration: 1s;
+	background-color: #ec3642;
+	color: black;
+}
+
+button.unfollow-btn:before {
+	content: "Following";
+}
+
+button.unfollow-btn:hover:before {
+	content: "Unfollow";
+}
+
+button.follow-btn:before {
+	content: "Follow";
 }
 
 .athlete {
