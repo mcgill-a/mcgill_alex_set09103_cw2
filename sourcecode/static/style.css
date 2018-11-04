@@ -410,15 +410,17 @@ form .section input:focus {
 .athlete-overview .basic-info button {
 	width: 100px;
 	height: 30px;
-	color: black;
+	color: white;
 	border: 1px solid black;
 	border-radius: 5px;
+	font-weight: bold;
 }
 
 button.unfollow-btn:hover {
-	transition-duration: 1s;
+	transition-duration: 0.5s;
 	background-color: #ec3642;
-	color: black;
+	color: white;
+	font-weight: bold;
 }
 
 button.unfollow-btn:before {
@@ -431,6 +433,21 @@ button.unfollow-btn:hover:before {
 
 button.follow-btn:before {
 	content: "Follow";
+}
+
+button.unfollow-btn {
+	color: white;
+	background: #161616;
+}
+
+button.follow-btn {
+	color: white;
+	background: #161616;
+}
+
+button.follow-btn:hover {
+	background: #424242;
+	transition: 0.5s;
 }
 
 .athlete {
@@ -469,6 +486,16 @@ button.follow-btn:before {
 	display: flex;
 	flex-direction: column;
 }
+
+.athlete .social button {
+	width: 100%;
+	height: 30px;
+	border: 1px solid black;
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 16px;
+}
+
 
 .social .follow {
 	display: flex;
