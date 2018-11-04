@@ -6,6 +6,8 @@ import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, ur
 from logging.handlers import RotatingFileHandler
 from forms import SignupForm, LoginForm
 from functools import wraps
+from flask_mail import Mail
+#from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
@@ -20,6 +22,14 @@ mongo = PyMongo(app)
 print "MongoDB connected successfully"
 users = mongo.db.users
 
+# Setup Mail Server
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = "CompoundLiftsMail@gmail.com" # ONLY HERE FOR DEMONSTRATION PURPOSES. WOULD BE >> os.environ.get('EMAIL_USER')
+app.config['MAIL_PASSWORD'] = "connectCL01" # ONLY HERE FOR DEMONSTRATION PURPOSES. WOULD BE >> os.environ.get('EMAIL_PASS')
+
+mail = Mail(app)
 
 def setup_config(app):
     config = ConfigParser.ConfigParser()

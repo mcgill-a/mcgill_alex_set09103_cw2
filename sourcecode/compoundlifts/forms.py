@@ -24,3 +24,15 @@ class SignupForm(FlaskForm):
 		validators.EqualTo('confirm', message='Passwords do not match')
 	])
 	confirm = PasswordField('confirm')
+
+class RequestPasswordResetForm(FlaskForm):
+	email = StringField('email', [validators.Email()])
+
+
+class ResetPasswordForm(FlaskForm):
+	password = PasswordField('password', [
+		validators.DataRequired(),
+		validators.Length(min=8, max=50),
+		validators.EqualTo('confirm', message='Passwords do not match')
+	])
+	confirm = PasswordField('confirm')
