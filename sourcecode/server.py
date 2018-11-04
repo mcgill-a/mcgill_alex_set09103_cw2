@@ -114,6 +114,11 @@ def login():
 
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
+	if session.get('logged_in'):
+		output = "You are already logged in as " + session.get('email')
+		flash(output, 'warning')
+		return redirect(url_for('index'))
+	
 	form = SignupForm(request.form)
 	if request.method == 'POST' and form.validate():
 		# Set the user inputs

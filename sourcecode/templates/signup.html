@@ -25,23 +25,23 @@
 							<form method='POST' action="">
 								<div class="section">
 									<p>FIRST NAME:</p>
-									{{render_field(form.firstname)}}
+									{{render_field(form.firstname, autocomplete="given-name")}}
 								</div>
 								<div class="section">
 									<p>LAST NAME:</p>
-									{{render_field(form.lastname)}}
+									{{render_field(form.lastname, autocomplete="family-name")}}
 								</div>
 								<div class="section">
 									<p>EMAIL:</p>
-									{{render_field(form.email)}}
+									{{render_field(form.email, autocomplete="email")}}
 								</div>
 								<div class="section">
 									<p>PASSWORD:</p>
-									{{render_field(form.password)}}
+									{{render_field(form.password, autocomplete="password")}}
 								</div>
 								<div class="section">
 									<p>CONFIRM PASSWORD:</p>
-									{{render_field(form.confirm)}}
+									{{render_field(form.confirm, autocomplete="password")}}
 								</div>
 								<div class="footer">
 									<button type="submit">SIGN UP</button>
