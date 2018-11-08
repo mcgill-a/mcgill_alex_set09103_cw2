@@ -11,10 +11,10 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-app.secret_key = "e\n\x99\x1c\x0e\x0e:\x0e\xc7\x10- C\xa8SC\xc6\x02\x9f\x91\x96\xf4}a"
 
 app.config.from_pyfile("config/defaults.py")
 
+app.secret_key = app.config['SECRET_KEY']
 mail = Mail(app)
 
 # Read DB collection	
