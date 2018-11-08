@@ -7,19 +7,21 @@ from logging.handlers import RotatingFileHandler
 from forms import SignupForm, LoginForm
 from functools import wraps
 from flask_mail import Mail
-#from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
 
+# Load configuration file
 app.config.from_pyfile("config/defaults.py")
-
 app.secret_key = app.config['SECRET_KEY']
+# Connect to the mail server
 mail = Mail(app)
 
-# Read DB collection	
+# Connect to the DB and load tables	
 mongo = PyMongo(app)
 print "MongoDB connected successfully"
 users = mongo.db.users
+lifts = mongo.db.lifts
+profiles = mongo.db.profiles
 
 from compoundlifts import routes

@@ -6,7 +6,7 @@ import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, ur
 from logging.handlers import RotatingFileHandler
 from functools import wraps
 from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm
-from compoundlifts import app, users, mail
+from compoundlifts import app, mail, users, profiles, lifts 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 
