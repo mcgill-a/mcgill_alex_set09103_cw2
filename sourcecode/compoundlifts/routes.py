@@ -231,32 +231,37 @@ def reset_token(token):
 		return render_template('password_reset_form.html', form=form)
 
 
-def athlete_name_search(names):
-	
-	for name in names:
-		print name
+def athlete_name_search(search_query):
+	matched = []
+	for athlete in users.find():
+		name = athlete['first_name'] + " " + athlete['last_name']
+		if search_query.lower() in name.lower():
+			matched.append(athlete)
+
+	return matched
 
 
 @app.route('/athletes/')
 def athletes(id=None):
 	current_user = None
+	search_match = False
+
 	if session.get('logged_in'):
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
 
 	args = request.args.to_dict()
 	if 'name' in args and len(args['name']) > 0:
-		name_input = args['name']
-		print "Athlete search: '" + name_input + "'"
-		names = name_input.split(' ')
-		athlete_name_search(names)
-		
-
-	athletes = users.find().limit(10)
-	if current_user is not None:
-		return render_template('athletes.html', athletes=athletes, current_user=current_user)
+		search_query = args['name']
+		athletes = athlete_name_search(search_query)
+		search_match = True
 	else:
-		return render_template('athletes.html', athletes=athletes)
 
+		athletes = users.find().limit(10)
+
+	if search_match:
+		return render_template('athletes.html', athletes=athletes, current_user=current_user, search_query=search_query)
+	else:
+		return render_template('athletes.html', athletes=athletes, current_user=current_user)
 
 
 
