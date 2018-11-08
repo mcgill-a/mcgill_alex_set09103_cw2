@@ -14,7 +14,7 @@ from flask_mail import Message
 @app.before_request
 def before_request():
 	# Log current time & IP address
-	if session.get('logged_in') == True:
+	if session.get('logged_in'):
 		current_datetime = datetime.datetime.now()
 		ip = request.environ['REMOTE_ADDR']
 		
@@ -140,7 +140,7 @@ def is_logged_in(f):
 
 @app.route('/logout')
 def logout():
-	if session.get('logged_in') == True:
+	if session.get('logged_in'):
 		session.clear()
 		flash('You are now logged out', 'success')
 		return redirect(url_for('index'))
@@ -231,11 +231,25 @@ def reset_token(token):
 		return render_template('password_reset_form.html', form=form)
 
 
+def athlete_name_search(names):
+	
+	for name in names:
+		print name
+
+
 @app.route('/athletes/')
 def athletes(id=None):
 	current_user = None
-	if session.get('logged_in') == True:
+	if session.get('logged_in'):
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+
+	args = request.args.to_dict()
+	if 'name' in args and len(args['name']) > 0:
+		name_input = args['name']
+		print "Athlete search: '" + name_input + "'"
+		names = name_input.split(' ')
+		athlete_name_search(names)
+		
 
 	athletes = users.find().limit(10)
 	if current_user is not None:
@@ -244,10 +258,13 @@ def athletes(id=None):
 		return render_template('athletes.html', athletes=athletes)
 
 
+
+
+
 @app.route('/athletes/<id>')
 def athlete(id=None):
 	current_user = None
-	if session.get('logged_in') == True:
+	if session.get('logged_in'):
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
 	
 	if id is not None:

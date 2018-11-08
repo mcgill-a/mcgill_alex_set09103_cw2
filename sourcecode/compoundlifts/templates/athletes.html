@@ -11,8 +11,10 @@
 			{% include 'includes/_messages.html' %}
 			<div class="athletes-content">
 				<div class="athlete-search">
-					<input type="text" name="athlete-name" size="40" placeholder="Athlete Name">
-					<button type="submit">SEARCH</button>
+					<form method="GET" class="">
+						<input type="text" name="name" size="40" placeholder="Athlete Name">
+						<button type="submit">SEARCH</button>
+					</form>
 				</div>
 				{% for athlete in athletes %}
 				<div class="athlete-overview">
