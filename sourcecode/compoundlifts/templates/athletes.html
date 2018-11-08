@@ -12,7 +12,11 @@
 			<div class="athletes-content">
 				<div class="athlete-search">
 					<form method="GET" class="">
+						{% if search_query is defined %}
+						<input type="text" name="name" size="40" placeholder="Athlete Name" value="{{search_query}}">
+						{% else %}
 						<input type="text" name="name" size="40" placeholder="Athlete Name">
+						{% endif %}
 						<button type="submit">SEARCH</button>
 					</form>
 				</div>
