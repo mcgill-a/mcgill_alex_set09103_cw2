@@ -11,8 +11,7 @@ from flask_mail import Mail
 
 app = Flask(__name__)
 bootstrap = Bootstrap(app)
-app.secret_key = os.urandom(24)
-
+app.secret_key = "e\n\x99\x1c\x0e\x0e:\x0e\xc7\x10- C\xa8SC\xc6\x02\x9f\x91\x96\xf4}a"
 # Setup DB config
 app.config['MONGO_DBNAME'] = "compound-lifts"
 app.config["MONGO_URI"] = "mongodb://server:connector00@ds111192.mlab.com:11192/compound-lifts"

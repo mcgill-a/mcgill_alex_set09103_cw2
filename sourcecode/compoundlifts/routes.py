@@ -11,18 +11,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 
 
-@app.route('/')
-def index():
-	#form = SignupForm()
-	#if 'email' in session:
-	#	return render_template('index.html', email=session['email'])
-	return render_template('index.html')
-
-#@app.context_processor
-#def inject_form():
-#	form = SignupForm()
-#	return dict(form=form) 
-
 @app.before_request
 def before_request():
 	# Log current time & IP address
@@ -44,6 +32,12 @@ def error_400(e):
 def error_500(e):
 	return render_template('error.html', error=500), 500
 
+
+@app.route('/')
+def index():
+	return render_template('index.html')
+
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
 	if session.get('logged_in'):
@@ -61,7 +55,6 @@ def login():
 
 		if result is not None:
 			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
-				print email, "has logged in"
 
 				session['logged_in'] = True
 				session['email'] = result.get('email')
@@ -239,13 +232,23 @@ def reset_token(token):
 
 
 @app.route('/athletes/')
-@app.route('/athletes/<id>')
 def athletes(id=None):
 	current_user = None
 	if session.get('logged_in') == True:
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
-	
+
 	athletes = users.find().limit(10)
+	if current_user is not None:
+		return render_template('athletes.html', athletes=athletes, current_user=current_user)
+	else:
+		return render_template('athletes.html', athletes=athletes)
+
+
+@app.route('/athletes/<id>')
+def athlete(id=None):
+	current_user = None
+	if session.get('logged_in') == True:
+		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
 	
 	if id is not None:
 		athlete = users.find_one({'_id' : ObjectId(id)})
@@ -253,10 +256,6 @@ def athletes(id=None):
 			return render_template('athlete.html', athlete=athlete, current_user=current_user)
 		else:
 			return redirect(url_for('athletes'))
-	else:
-		if current_user is not None:
-			return render_template('athletes.html', athletes=athletes, current_user=current_user)
-		return render_template('athletes.html', athletes=athletes)
 
 
 # WIP
