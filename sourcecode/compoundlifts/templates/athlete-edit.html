@@ -115,7 +115,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					
+					{% if deadlifts is not none %}
+						{% for lift in deadlifts %}
+							<tr>
+								<td>{{deadlifts['date']}}</td>
+								<td>{{deadlifts['weight']}}</td>
+								<td>{{deadlifts['video_url']}}</td>
+								<td>{{deadlifts['description']}}</td>
+								<td>
+									<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>
+									<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>
+									<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-remove"></i></a>
+								</td>
+							</tr>
+						{% endfor %}
+					{% endif %}
 				</tbody>
 			</table>
 		</div>
