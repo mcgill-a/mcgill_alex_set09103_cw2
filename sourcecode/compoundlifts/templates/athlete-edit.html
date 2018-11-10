@@ -133,7 +133,7 @@
 				var row = '<tr>' +
 					'<td><input type="date" class="form-control" name="date" placeholder="Date" id="date" required></td>' +
 					'<td><input type="number" min="0" max="1200" class="form-control" name="weight" placeholder="Weight" id="weight" required></td>' +
-					'<td><input type="text" class="form-control url" name="video_url" placeholder="Video URL" id="video_url"></td>' +
+					'<td><input type="url" class="form-control url" name="video_url" placeholder="Video URL" id="video_url"></td>' +
 					'<td><input type="text" class="form-control" name="description" placeholder="Description" id="description" required></td>' +
 					'<td>' + actions + '</td>' +
 				'</tr>';
@@ -164,7 +164,32 @@
 					});			
 					$(this).parents("tr").find(".add, .edit").toggle();
 					$(".add-new").removeAttr("disabled");
-				}		
+				}
+				
+				// POST NEW TABLE ROW TO DB
+				var output = [];
+				input.each(function(){
+					output.push($(this).val());
+				});
+				// Match format with existing DB date time
+				//var date = new Date(output[0]);
+				
+				var lift = {
+					'date' : output[0],
+					'weight' : parseInt(output[1]),
+					'video_url' : output[2],
+					'description' : output[3]
+				}
+				
+				$.ajax({
+					type : "POST",
+					url : "/lifts/add/",
+					data: JSON.stringify(lift),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("Added Lift: " + result);
+					}
+				});
 			});
 			// Edit row on edit button click
 			$(document).on("click", ".edit", function(){		
