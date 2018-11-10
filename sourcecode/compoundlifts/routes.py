@@ -9,6 +9,7 @@ from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPassword
 from compoundlifts import app, mail, users, profiles, lifts 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
+from operator import itemgetter
 
 
 @app.before_request
@@ -294,21 +295,23 @@ def athlete_edit(id=None):
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
 		deadlifts = []
-
+		
 		if user_lifts is not None:
 			for index, store in enumerate(user_lifts['lifts']):
 				for key, value in user_lifts['lifts'][index].iteritems():
 					if key == 'deadlift':
 						for index2, store2 in enumerate(user_lifts['lifts'][index]['deadlift']):
-							print index2, store2
+							#print index2, store2
 							deadlifts.append(store2)
-		else:
-			print "No lifts found"
+
+		# Sort the lifts by date (most recent first)
+		sorted_deadlifts = sorted(deadlifts, key=itemgetter('date'), reverse=True)
+
 		if athlete is not None:
 			if str(current_user['_id']) == id or current_user['account_level'] == 10:
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
 				
-				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlifts)
+				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=sorted_deadlifts)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
@@ -323,7 +326,7 @@ def add_lift():
 		response = request.data
 		data = json.loads(response)
 		# Check if user already exists in lifts table
-		# Use PROFILE ID NOT SESSION ID TO PREVENT ADMIN EDITING USER PROFILE AND ADDING TO THEIR OWN
+		# Use PROFILE ID NOT SESSION ID TO PREVENT ADMIN EDITING USER PROFILE AND ACCIDENTALLY ADDING TO THEIR OWN
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is None:
 			lifts.insert(

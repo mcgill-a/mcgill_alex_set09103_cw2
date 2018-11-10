@@ -118,10 +118,10 @@
 					{% if deadlifts is not none %}
 						{% for lift in deadlifts %}
 							<tr>
-								<td>{{deadlifts['date']}}</td>
-								<td>{{deadlifts['weight']}}</td>
-								<td>{{deadlifts['video_url']}}</td>
-								<td>{{deadlifts['description']}}</td>
+								<td>{{lift['date']}}</td>
+								<td>{{lift['weight']}}</td>
+								<td>{{lift['video_url']}}</td>
+								<td>{{lift['description']}}</td>
 								<td>
 									<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>
 									<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>
