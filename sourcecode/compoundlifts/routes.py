@@ -93,7 +93,7 @@ def signup():
 		followers = []
 		following = []
 		
-		profile_pic = "https://i.imgur.com/WoXugzG.png"
+		profile_pic = "default.jpg" # MAKE SURE IT WORKS PROPERLY
 		cover_pic = "https://i.imgur.com/2MxjfEn.jpg"
 
 		# Check if the email address already exists
@@ -295,7 +295,9 @@ def athlete_edit(id=None):
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		if athlete is not None:
 			if str(current_user['_id']) == id or current_user['account_level'] == 10:
-				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user)
+				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
+				
+				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))

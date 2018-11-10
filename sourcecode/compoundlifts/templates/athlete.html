@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 {% set active_page = 'athletes' %}
 {% block content %}
-	<div class="athlete">
+	<br />
+	<div class="athlete no-padding container ">
+		<br />
 		<div class="cover-pic" style="background: url({{athlete.cover_pic|e}});">
 
 		</div>
 		
-		<div class="no-padding container">
+		<div>
 			{% include 'includes/_messages.html' %}
 			<div class="top">
 				<div class="social">

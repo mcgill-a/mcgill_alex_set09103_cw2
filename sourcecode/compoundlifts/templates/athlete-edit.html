@@ -1,9 +1,59 @@
 {% extends "base.html" %}
 {% set active_page = 'athletes' %}
 {% block content %}
-	<div class="container">
+	<div class="athlete no-padding container">
+		<br />
 		<div class="info">
-			<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+			{#<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>#}
+			<h1>Edit Profile</h1>
+		</div>
+		<br />
+		<div class="edit-profile">
+			<div class="info-banner">
+				<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=120px height=120px/>
+				<div class="details">
+					<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+					<h2>{{athlete.email}}</h2>
+				</div>
+			</div>
+			
+			<div class="modal-tab-content">
+				<div class="upper">
+					
+				</div>
+				<div class="lower">
+					{% from "includes/_formhelpers.html" import render_field %}
+					<form method='POST' action="">
+						<div class="section">
+							<p>FIRST NAME:</p>
+							<input autocomplete="given-name" id="firstname" name="firstname" type="text" value="">
+						</div>
+						<div class="section">
+							<p>LAST NAME:</p>
+							<input autocomplete="family-name" id="lastname" name="lastname" type="text" value="">
+						</div>
+						<div class="section">
+							<p>EMAIL:</p>
+							<input autocomplete="email" id="email" name="email" type="text" value="">
+						</div>
+						<div class="section">
+							<p>PASSWORD:</p>
+							<input autocomplete="new-password" id="password" name="password" required type="password" value="">
+						</div>
+						<div class="section">
+							<p>CONFIRM PASSWORD:</p>
+							<input autocomplete="new-password" id="confirm" name="confirm" type="password" value="">
+						</div>
+						<div class="footer">
+							<button type="submit">CONFIRM</button>
+						</div>
+						{#{{ form.hidden_tag() }}#}
+					</form>
+				</div>
+				<div class="flashes">
+					{% include 'includes/_messages.html' %}
+				</div>			
+			</div>
 		</div>
 		
 		<div class="featured">
@@ -30,73 +80,4 @@
 			</div>
 		</div>
 	</div>
-	<script>
-		$(document).ready(function(){
-			$("button.follow-btn").on('click', function(){
-				var id = $(this).attr('name');
-
-				if ( $(this).hasClass("follow-btn"))
-				{
-					$.ajax({
-						type : "POST",
-						url : "/follow/",
-						data: id,
-						contentType: 'application/json;charset=UTF-8',
-						success: function(result) {
-							console.log("Followed user: " + result);
-						}
-					});
-					$('#follower-count').html(function(i, val) { return +val+1 });
-					$(this).removeClass('follow-btn').addClass('unfollow-btn');
-				}
-				else
-				{
-					$.ajax({
-						type : "POST",
-						url : "/unfollow/",
-						data: id,
-						contentType: 'application/json;charset=UTF-8',
-						success: function(result) {
-							console.log("Unfollowed user: " + result);
-						}
-					});
-					$('#follower-count').html(function(i, val) { return +val-1 });
-					$(this).removeClass('unfollow-btn').addClass('follow-btn');
-				}
-			});
-
-			$("button.unfollow-btn").on('click', function(){
-				var id = $(this).attr('name');
-				
-				if ( $(this).hasClass("unfollow-btn"))
-				{
-					$.ajax({
-						type : "POST",
-						url : "/unfollow/",
-						data: id,
-						contentType: 'application/json;charset=UTF-8',
-						success: function(result) {
-							console.log("Unfollowed user: " + result);
-						}
-					});
-					$('#follower-count').html(function(i, val) { return +val-1 });
-					$(this).removeClass('unfollow-btn').addClass('follow-btn');
-				}
-				else
-				{
-					$.ajax({
-						type : "POST",
-						url : "/follow/",
-						data: id,
-						contentType: 'application/json;charset=UTF-8',
-						success: function(result) {
-							console.log("Followed user: " + result);
-						}
-					});
-					$('#follower-count').html(function(i, val) { return +val+1 });
-					$(this).removeClass('follow-btn').addClass('unfollow-btn');
-				}
-			});
-		});
-	</script>
 {% endblock %}
