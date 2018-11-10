@@ -107,10 +107,10 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Date</th>
-						<th>Weight (KG)</th>
-						<th>Video URL</th>
-						<th>Description</th>
+						<th width="170px">Date</th>
+						<th width="100px">Weight (KG)</th>
+						<th width="250px">Video URL</th>
+						<th width="300px">Description</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -131,10 +131,10 @@
 				$(this).attr("disabled", "disabled");
 				var index = $("table tbody tr:last-child").index();
 				var row = '<tr>' +
-					'<td><input type="text" class="form-control" name="date" placeholder="Date" id="date"></td>' +
-					'<td><input type="text" class="form-control" name="weight" placeholder="Weight" id="weight"></td>' +
-					'<td><input type="text" class="form-control" name="video_url" placeholder="Video URL" id="video_url"></td>' +
-					'<td><input type="text" class="form-control" name="description" placeholder="Description" id="description"></td>' +
+					'<td><input type="date" class="form-control" name="date" placeholder="Date" id="date" required></td>' +
+					'<td><input type="number" min="0" max="1200" class="form-control" name="weight" placeholder="Weight" id="weight" required></td>' +
+					'<td><input type="text" class="form-control url" name="video_url" placeholder="Video URL" id="video_url"></td>' +
+					'<td><input type="text" class="form-control" name="description" placeholder="Description" id="description" required></td>' +
 					'<td>' + actions + '</td>' +
 				'</tr>';
 				$("table").append(row);		
@@ -144,11 +144,15 @@
 			// Add row on add button click
 			$(document).on("click", ".add", function(){
 				var empty = false;
-				var input = $(this).parents("tr").find('input[type="text"]');
+				var input = $(this).parents("tr").find('input');
 				input.each(function(){
 					if(!$(this).val()){
-						$(this).addClass("error");
-						empty = true;
+						if(!$(this).hasClass("url"))
+						{
+							$(this).addClass("error");
+							empty = true;
+						}
+						
 					} else{
 						$(this).removeClass("error");
 					}
