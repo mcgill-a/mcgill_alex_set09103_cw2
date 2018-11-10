@@ -21,7 +21,7 @@ button:focus, input:focus {
 
 .page-background {
 	width: 100%;
-	height: 100%;
+	height: 102%;
 	background-size: cover;
 	z-index: 0;
 	margin-top: -100px;
@@ -362,18 +362,23 @@ form .section input:focus {
 	color: black;
 }
 
+.athletes-content form input {
+	height: 38px;
+}
+
 .athlete-search input, .athlete-search button {
 	height: 38px;
 	padding: 2px 4px;
 	font-size: 18px;
 }
 
-.athlete-search button {
-	height: 39px;
+.athlete-search form button {
+	margin: 0px;
+	height: 38px;
 	padding: 5px;
 }
 
-.athlete-search a {
+.athlete-search form a {
 	height: 38px;
 	padding: 2px 4px;
 	font-size: 18px;
@@ -550,16 +555,17 @@ button.follow-btn:hover {
 	background: none;
 }
 
-.athlete .top .split .info {
+.info {
 	margin: 0;
 	padding: 0 5px;
+	color: black;
 	border: 1px solid black;
 	/*background: #161616; */
 	width: 100%;
 	font-family: 'Montserrat', sans-serif;
 }
 
-.athlete .top .info h1 {
+.info h1 {
 	margin: 0;
 	text-transform: uppercase;
 	font-size: 50px;
@@ -570,14 +576,15 @@ button.follow-btn:hover {
 	border-bottom: 1px solid rgb(38,38,38);
 }
 
-.athlete .featured .title {
+.featured .title {
 	text-transform: uppercase;
 	border-bottom: 1px solid black;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: bolder;
+	color: black;
 }
 
-.athlete .featured .cards {
+.cards {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -586,7 +593,7 @@ button.follow-btn:hover {
 	color: white;
 }
 
-.athlete .featured .cards .card {
+.cards .card {
 	width: 300px;
 	height: 340px;
 	background: #161616;
@@ -597,20 +604,20 @@ button.follow-btn:hover {
 	margin-bottom: 20px;
 }
 
-.athlete .featured .cards .card img {
+.cards .card img {
 	height: 200px;
 	width: 100%;
 	object-fit: cover;
 }
 
-.athlete .featured .cards .card p.weight {
+.cards .card p.weight {
 	margin-top: 5px;
 	font-size: 25px;
 	font-weight: bold;
 	color: #ec3642;
 }
 
-.athlete .featured .cards .card h2 {
+.cards .card h2 {
 	margin: 0;
 	font-size: 50px;
 }

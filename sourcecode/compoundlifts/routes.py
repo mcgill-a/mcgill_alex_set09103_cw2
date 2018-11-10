@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, jsonify, request, redirect, s
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib
+import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson
 from logging.handlers import RotatingFileHandler
 from functools import wraps
 from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm
@@ -272,19 +272,35 @@ def athlete(id=None):
 	if session.get('logged_in'):
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
 	
-	if id is not None:
+	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		if athlete is not None:
 			return render_template('athlete.html', athlete=athlete, current_user=current_user)
 		else:
+			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
+	flash('Invalid Athlete ID entered', 'danger')
+	return redirect(url_for('athletes'))
 
 
 # WIP
 @app.route('/athletes/edit/<id>')
 @is_logged_in
 def athlete_edit(id=None):
-	return render_template('index.html')
+	current_user = None
+	if session.get('logged_in'):
+		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+
+	if id is not None and bson.objectid.ObjectId.is_valid(id):
+		athlete = users.find_one({'_id' : ObjectId(id)})
+		if athlete is not None:
+			if str(current_user['_id']) == id or current_user['account_level'] == 10:
+				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user)
+			else:
+				flash("Access restricted. You do not have permission to do that", 'danger')
+				return redirect(url_for('athletes'))
+	flash('Invalid Athlete ID', 'danger')
+	return redirect(url_for('athletes'))
 
 
 @app.route('/follow/', methods=['POST', 'GET'])

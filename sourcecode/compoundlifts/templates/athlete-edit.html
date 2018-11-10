@@ -1,50 +1,35 @@
 {% extends "base.html" %}
 {% set active_page = 'athletes' %}
 {% block content %}
-	<div class="black">
-		<div class="page-header athletes">
-			<div class="container">
-				<h1>Athletes</h1>
-			</div>
+	<div class="container">
+		<div class="info">
+			<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
 		</div>
-		<div class="no-padding container">
-			{% include 'includes/_messages.html' %}
-			<div class="athletes-content">
-				<div class="athlete-search">
-					<form method="GET" class="">
-						{% if search_query is defined %}
-						<input type="text" name="name" size="41" placeholder="Athlete Name" value="{{search_query}}">
-						<button type="submit" class="btn btn-primary">SEARCH</button>
-						<a href="/athletes/" class="btn btn-danger">RESET</a>
-						{% else %}
-						<input type="text" name="name" size="40" placeholder="Athlete Name">
-						<button type="submit" class="btn btn-info">SEARCH</button>
-						{% endif %}
-					</form>
+		
+		<div class="featured">
+			<div class="title">
+				<h1>FEATURED</h1>
+			</div>
+
+			<div class="cards">
+				<div class="card">
+					<img src="/static/resources/lifts/deadlift.jpg">
+					<p class="weight">140 KG</p>
+					<h2>DEADLIFT</h2>
 				</div>
-				{% for athlete in athletes %}
-				<div class="athlete-overview">
-					<div class="profile-pic">
-						<img src="{{athlete.profile_pic|e}}">
-					</div>
-					<div class="basic-info">
-						<p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
-						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
-						{% if current_user is defined and athlete._id != current_user._id %}
-							{% if athlete._id|string in current_user.following %}
-								<button class="unfollow-btn" type="submit" name="{{athlete._id|string}}"></button>
-							{% else %}
-								<button class="follow-btn" type="submit" name="{{athlete._id|string}}"></button>
-							{% endif %}
-						{% endif %}
-					</div>
-					
+				<div class="card">
+					<img src="/static/resources/lifts/bench.jpg">
+					<p class="weight">90 KG</p>
+					<h2>BENCH</h2>
 				</div>
-				{% endfor %}
+				<div class="card">
+					<img src="/static/resources/lifts/squat2.jpg">
+					<p class="weight">125 KG</p>
+					<h2>SQUAT</h2>
+				</div>
 			</div>
 		</div>
 	</div>
-
 	<script>
 		$(document).ready(function(){
 			$("button.follow-btn").on('click', function(){
@@ -61,6 +46,7 @@
 							console.log("Followed user: " + result);
 						}
 					});
+					$('#follower-count').html(function(i, val) { return +val+1 });
 					$(this).removeClass('follow-btn').addClass('unfollow-btn');
 				}
 				else
@@ -74,6 +60,7 @@
 							console.log("Unfollowed user: " + result);
 						}
 					});
+					$('#follower-count').html(function(i, val) { return +val-1 });
 					$(this).removeClass('unfollow-btn').addClass('follow-btn');
 				}
 			});
@@ -92,6 +79,7 @@
 							console.log("Unfollowed user: " + result);
 						}
 					});
+					$('#follower-count').html(function(i, val) { return +val-1 });
 					$(this).removeClass('unfollow-btn').addClass('follow-btn');
 				}
 				else
@@ -105,6 +93,7 @@
 							console.log("Followed user: " + result);
 						}
 					});
+					$('#follower-count').html(function(i, val) { return +val+1 });
 					$(this).removeClass('follow-btn').addClass('unfollow-btn');
 				}
 			});
