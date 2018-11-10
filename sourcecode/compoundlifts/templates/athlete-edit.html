@@ -1,14 +1,90 @@
 {% extends "base.html" %}
 {% set active_page = 'athletes' %}
 {% block content %}
-	<div class="athlete no-padding container">
+	<br />
+	<div class="no-padding container">
 		<br />
-		<div class="info">
-			{#<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>#}
-			<h1>Edit Profile</h1>
+		<div class="settings">
+			<div class="settings-list">
+				<ul>
+					<li>Profile</li>
+					<li>Lifts</li>
+				</ul>
+			</div>
+			<div class="settings-content">
+				<p>Lifts</p>
+				<!--<table id="deadlift" class="table table-striped table-bordered table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th>#</th>
+							<th>DATE</th>
+							<th>WEIGHT (KG)</th>
+							<th>DESCRIPTION</th>
+							<th>VIDEO URL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>10/10/2018</td>
+							<td>140</td>
+							<td>Something here</td>
+							<td>https://www.youtube.com/</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>05/10/2018</td>
+							<td>130</td>
+							<td>Something here</td>
+							<td>https://www.youtube.com/</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>Bench</p>
+				<table id="bench" class="table table-striped table-bordered table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th>#</th>
+							<th>DATE</th>
+							<th>WEIGHT (KG)</th>
+							<th>DESCRIPTION</th>
+							<th>VIDEO URL</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>10/10/2018</td>
+							<td>90</td>
+							<td>Something here</td>
+							<td>https://www.youtube.com/</td>
+						</tr>
+					</tbody>
+				</table>
+				<p>Squat</p>
+				<table id="squat" class="table table-striped table-bordered table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>DATE</th>
+						<th>WEIGHT (KG)</th>
+						<th>DESCRIPTION</th>
+						<th>VIDEO URL</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>10/10/2018</td>
+						<td>125</td>
+						<td>Something here</td>
+						<td>https://www.youtube.com/</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
 		</div>
-		<br />
-		<div class="edit-profile">
+		{#<div class="edit-profile">
 			<div class="info-banner">
 				<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=120px height=120px/>
 				<div class="details">
@@ -16,68 +92,89 @@
 					<h2>{{athlete.email}}</h2>
 				</div>
 			</div>
-			
-			<div class="modal-tab-content">
-				<div class="upper">
-					
-				</div>
-				<div class="lower">
-					{% from "includes/_formhelpers.html" import render_field %}
-					<form method='POST' action="">
-						<div class="section">
-							<p>FIRST NAME:</p>
-							<input autocomplete="given-name" id="firstname" name="firstname" type="text" value="">
-						</div>
-						<div class="section">
-							<p>LAST NAME:</p>
-							<input autocomplete="family-name" id="lastname" name="lastname" type="text" value="">
-						</div>
-						<div class="section">
-							<p>EMAIL:</p>
-							<input autocomplete="email" id="email" name="email" type="text" value="">
-						</div>
-						<div class="section">
-							<p>PASSWORD:</p>
-							<input autocomplete="new-password" id="password" name="password" required type="password" value="">
-						</div>
-						<div class="section">
-							<p>CONFIRM PASSWORD:</p>
-							<input autocomplete="new-password" id="confirm" name="confirm" type="password" value="">
-						</div>
-						<div class="footer">
-							<button type="submit">CONFIRM</button>
-						</div>
-						{#{{ form.hidden_tag() }}#}
-					</form>
-				</div>
-				<div class="flashes">
-					{% include 'includes/_messages.html' %}
-				</div>			
-			</div>
-		</div>
+		</div>#}
+		<br />-->
 		
-		<div class="featured">
-			<div class="title">
-				<h1>FEATURED</h1>
-			</div>
-
-			<div class="cards">
-				<div class="card">
-					<img src="/static/resources/lifts/deadlift.jpg">
-					<p class="weight">140 KG</p>
-					<h2>DEADLIFT</h2>
-				</div>
-				<div class="card">
-					<img src="/static/resources/lifts/bench.jpg">
-					<p class="weight">90 KG</p>
-					<h2>BENCH</h2>
-				</div>
-				<div class="card">
-					<img src="/static/resources/lifts/squat2.jpg">
-					<p class="weight">125 KG</p>
-					<h2>SQUAT</h2>
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-8"><h2>Deadlift</h2></div>
+					<div class="col-sm-4">
+						<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+					</div>
 				</div>
 			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Weight (KG)</th>
+						<th>Video URL</th>
+						<th>Description</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+			var actions = '<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>' +
+							'<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>' +
+							'<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-remove"></i></a>'
+			// Append table with add row form on add new button click
+			$(".add-new").click(function(){
+				$(this).attr("disabled", "disabled");
+				var index = $("table tbody tr:last-child").index();
+				var row = '<tr>' +
+					'<td><input type="text" class="form-control" name="date" placeholder="Date" id="date"></td>' +
+					'<td><input type="text" class="form-control" name="weight" placeholder="Weight" id="weight"></td>' +
+					'<td><input type="text" class="form-control" name="video_url" placeholder="Video URL" id="video_url"></td>' +
+					'<td><input type="text" class="form-control" name="description" placeholder="Description" id="description"></td>' +
+					'<td>' + actions + '</td>' +
+				'</tr>';
+				$("table").append(row);		
+				$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+				$('[data-toggle="tooltip"]').tooltip();
+			});
+			// Add row on add button click
+			$(document).on("click", ".add", function(){
+				var empty = false;
+				var input = $(this).parents("tr").find('input[type="text"]');
+				input.each(function(){
+					if(!$(this).val()){
+						$(this).addClass("error");
+						empty = true;
+					} else{
+						$(this).removeClass("error");
+					}
+				});
+				$(this).parents("tr").find(".error").first().focus();
+				if(!empty){
+					input.each(function(){
+						$(this).parent("td").html($(this).val());
+					});			
+					$(this).parents("tr").find(".add, .edit").toggle();
+					$(".add-new").removeAttr("disabled");
+				}		
+			});
+			// Edit row on edit button click
+			$(document).on("click", ".edit", function(){		
+				$(this).parents("tr").find("td:not(:last-child)").each(function(){
+					$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+				});		
+				$(this).parents("tr").find(".add, .edit").toggle();
+				$(".add-new").attr("disabled", "disabled");
+			});
+			// Delete row on delete button click
+			$(document).on("click", ".delete", function(){
+				$(this).parents("tr").remove();
+				$(".add-new").removeAttr("disabled");
+			});
+		});
+	</script>
 {% endblock %}

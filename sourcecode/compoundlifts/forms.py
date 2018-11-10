@@ -36,3 +36,16 @@ class ResetPasswordForm(FlaskForm):
 		validators.EqualTo('confirm', message='Passwords do not match')
 	])
 	confirm = PasswordField('confirm')
+
+class EditUser(FlaskForm):
+	firstname = StringField('firstname', [
+		validators.Length(min=2, max=50),
+		validators.Regexp('^\\w+$', message="First name may only contain letters")
+		])
+	lastname = StringField('lastname', [
+		validators.Length(min=2, max=50),
+		validators.Regexp('^\\w+$', message="Last name may only contain letters")
+		])
+	email = StringField('email', [validators.Email()])
+
+#class EditAthlete(FlaskForm)
