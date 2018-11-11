@@ -265,8 +265,6 @@ def athletes(id=None):
 		return render_template('athletes.html', athletes=athletes, current_user=current_user)
 
 
-
-
 @app.route('/athletes/<id>')
 def athlete(id=None):
 	current_user = None

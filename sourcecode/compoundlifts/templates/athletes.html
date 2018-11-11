@@ -30,7 +30,7 @@
 					<div class="basic-info">
 						<p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
 						<p><span class="glyphicon glyphicon-map-marker"></span> Edinburgh, United Kingdom</p>
-						{% if current_user is defined and athlete._id != current_user._id %}
+						{% if current_user is not none and athlete._id != current_user._id %}
 							{% if athlete._id|string in current_user.following %}
 								<button class="unfollow-btn" type="submit" name="{{athlete._id|string}}"></button>
 							{% else %}
