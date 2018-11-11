@@ -298,20 +298,12 @@ def athlete_edit(id=None):
 		squat = []
 		
 		if user_lifts is not None:
-			for index, store in enumerate(user_lifts['lifts']):
-				for key, value in user_lifts['lifts'][index].iteritems():
-					if key == "deadlift":
-						deadlift = user_lifts['lifts'][index][key]
-					elif key == "bench":
-						bench = user_lifts['lifts'][index][key]
-					elif key == "squat":
-						squat = user_lifts['lifts'][index][key]
-						#for index2, store2 in enumerate(user_lifts['lifts'][index]['deadlift']):
-							#print index2, store2
-							#deadlifts.append(store2)
-
-		# Sort the lifts by date (most recent first)
-		#sorted_deadlifts = sorted(liftLists[key], key=itemgetter('date'), reverse=True)
+			if "deadlift" in user_lifts['lifts']:
+				deadlift = user_lifts['lifts']['deadlift']
+			if "bench" in user_lifts['lifts']:
+				bench = user_lifts['lifts']['bench']
+			if "squat" in user_lifts['lifts']:
+				squat = user_lifts['lifts']['squat']
 
 		if athlete is not None:
 			if str(current_user['_id']) == id or current_user['account_level'] == 10:
@@ -341,20 +333,25 @@ def add_lift(lift=None):
 			lifts.insert(
 			{
 				'user_id' : ObjectId(session.get('id')),
-				'lifts' : [ {lift : [ data ] } ]
+				'lifts' :  {lift : [ data ] }
 			})
 		else:
-			for index, store in enumerate(user_lifts['lifts']):
-				for key, value in user_lifts['lifts'][index].iteritems():
-					if key == lift:
-						current_lift = user_lifts['lifts'][index][lift]
-						current_lift.append(data)
-						# Sort the current list of lifts by date (most recent first)
-						sorted_lift = sorted(current_lift, key=itemgetter('date'), reverse=True)
-						user_lifts['lifts'][index][lift] = sorted_lift
-						lifts.save(user_lifts)
-						break
-		print "Added", lift, "to DB"
+			# if key not in list of lifts then add it
+			if lift in user_lifts['lifts']:
+				print "in"
+				current_lift = user_lifts['lifts'][lift]
+				current_lift.append(data)
+				# Sort the current list of lifts by date (most recent first)
+				sorted_lift = sorted(current_lift, key=itemgetter('date'), reverse=True)
+				user_lifts['lifts'][lift] = sorted_lift
+				lifts.save(user_lifts)
+				print "Added", lift, "to existing list DB"
+			else:
+				user_lifts['lifts'][lift] = [ data ]
+				lifts.save(user_lifts)
+				print "Added", lift, "to new list DB"
+				
+	
 		return response
 	return redirect(url_for('index'))
 
@@ -367,13 +364,9 @@ def remove_lift(lift=None):
 		# Check if user already exists in lifts table
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is not None:
-			for index, store in enumerate(user_lifts['lifts']):
-				for key, value in user_lifts['lifts'][index].iteritems():
-					if key == lift:
-						del user_lifts['lifts'][index][lift][int(lift_id)]
-						lifts.save(user_lifts)
-						print "Removed", lift, "from DB"
-						break
+			del user_lifts['lifts'][lift][int(lift_id)]
+			lifts.save(user_lifts)
+			print "Removed", lift, "from DB"
 		return lift_id
 	return redirect(url_for('index'))
 

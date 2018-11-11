@@ -23,7 +23,7 @@
 							</div>
 						</div>
 					</div>
-					<table id="deadlift-table" class="table table-bordered table-hover" id="{{oid|string}}">
+					<table id="deadlift" class="table table-bordered table-hover" id="{{oid|string}}">
 						<thead>
 							<tr>
 								<th width="170px">Date</th>
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 				</div>
-				<table id="bench-table" class="table table-bordered table-hover" id="{{oid|string}}">
+				<table id="bench" class="table table-bordered table-hover" id="{{oid|string}}">
 					<thead>
 						<tr>
 							<th width="170px">Date</th>
@@ -95,7 +95,7 @@
 						</div>
 					</div>
 				</div>
-				<table id="squat-table" class="table table-bordered table-hover" id="{{oid|string}}">
+				<table id="squat" class="table table-bordered table-hover" id="{{oid|string}}">
 					<thead>
 						<tr>
 							<th width="170px">Date</th>
@@ -144,10 +144,10 @@
 					'<td><input type="text" class="form-control" name="description" placeholder="Description" id="description" required></td>' +
 					'<td>' + actions + '</td>' +
 				'</tr>';
-				
-				if ($(this).attr('id') == 'deadlift-new') { $('#deadlift-table').append(row); }
-				else if ($(this).attr('id') == 'bench-new') { $('#bench-table').append(row); }
-				else if ($(this).attr('id') == 'squat-new') { $('#squat-table').append(row); }
+
+				if ($(this).attr('id') == 'deadlift-new') { $('#deadlift').append(row); }
+				else if ($(this).attr('id') == 'bench-new') { $('#bench').append(row); }
+				else if ($(this).attr('id') == 'squat-new') { $('#squat').append(row); }
 
 				$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
 				$('[data-toggle="tooltip"]').tooltip();
@@ -189,9 +189,12 @@
 						'description' : output[3]
 					}
 					
+					var lift_type = $(this).closest('table').attr('id');
+					var post_url = "/lifts/add/" + lift_type;
+
 					$.ajax({
 						type : "POST",
-						url : "/lifts/add/deadlift",
+						url : post_url,
 						data: JSON.stringify(lift),
 						contentType: 'application/json;charset=UTF-8',
 						success: function(result) {
@@ -220,17 +223,22 @@
 				id = $(this).closest("tr").attr('id');
 				$(this).parents("tr").remove();
 				$(".add-new").removeAttr("disabled");
+				
+				var lift_type = $(this).closest('table').attr('id');
+				var post_url = "/lifts/remove/" + lift_type;
+				console.log(post_url);
+				
 				//Post the table row removal to the DB
 				$.ajax({
 					type : "POST",
-					url : "/lifts/remove/deadlift",
+					url : post_url,
 					data: id,
 					contentType: 'application/json;charset=UTF-8',
 					success: function(result) {
 						console.log("Removed Lift: " + result);
 					}
 				});
-				location.reload();
+				//location.reload();
 			});
 		});
 	</script>
