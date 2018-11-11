@@ -23,7 +23,7 @@
 							</div>
 						</div>
 					</div>
-					<table id="deadlift" class="table table-bordered table-hover" id="{{oid|string}}">
+					<table id="deadlift" class="table table-bordered table-hover">
 						<thead>
 							<tr>
 								<th width="170px">Date</th>
@@ -59,7 +59,7 @@
 						</div>
 					</div>
 				</div>
-				<table id="bench" class="table table-bordered table-hover" id="{{oid|string}}">
+				<table id="bench" class="table table-bordered table-hover">
 					<thead>
 						<tr>
 							<th width="170px">Date</th>
@@ -95,7 +95,7 @@
 						</div>
 					</div>
 				</div>
-				<table id="squat" class="table table-bordered table-hover" id="{{oid|string}}">
+				<table id="squat" class="table table-bordered table-hover">
 					<thead>
 						<tr>
 							<th width="170px">Date</th>
@@ -231,14 +231,13 @@
 
 			// Delete row on delete button click
 			$(document).on("click", ".delete", function(){
+				var lift_type = $(this).closest('table').attr('id');
+				var post_url = "/lifts/remove/" + lift_type;
+				
 				id = $(this).closest("tr").attr('id');
 				$(this).parents("tr").remove();
 				$(".add-new").removeAttr("disabled");
 				
-				var lift_type = $(this).closest('table').attr('id');
-				var post_url = "/lifts/remove/" + lift_type;
-				console.log(post_url);
-				/*
 				//Post the table row removal to the DB
 				$.ajax({
 					type : "POST",
@@ -250,7 +249,7 @@
 					}
 				});
 				location.reload();
-				*/
+				
 			});
 		});
 	</script>
