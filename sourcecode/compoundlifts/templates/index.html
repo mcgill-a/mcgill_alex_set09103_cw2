@@ -5,9 +5,6 @@
 		<div class="container">
 			<br />{% include 'includes/_messages.html' %}
 			<h1>Home</h1>
-			{% if session.email %}
-				<h2>Logged in as: {{session.email}}</h2>
-			{% endif %}
 		</div>
 	</div>
 {% endblock %}
