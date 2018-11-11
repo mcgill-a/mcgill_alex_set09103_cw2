@@ -19,11 +19,11 @@
 						<div class="row">
 							<div class="col-sm-8"><h2>Deadlift</h2></div>
 							<div class="col-sm-4">
-								<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
+								<button id="deadlift-new" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
 							</div>
 						</div>
 					</div>
-					<table class="table table-bordered table-hover" id="{{oid|string}}">
+					<table id="deadlift-table" class="table table-bordered table-hover" id="{{oid|string}}">
 						<thead>
 							<tr>
 								<th width="170px">Date</th>
@@ -55,11 +55,11 @@
 					<div class="row">
 						<div class="col-sm-8"><h2>Bench</h2></div>
 						<div class="col-sm-4">
-							<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
+							<button id="bench-new" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
 						</div>
 					</div>
 				</div>
-				<table class="table table-bordered table-hover" id="{{oid|string}}">
+				<table id="bench-table" class="table table-bordered table-hover" id="{{oid|string}}">
 					<thead>
 						<tr>
 							<th width="170px">Date</th>
@@ -91,11 +91,11 @@
 					<div class="row">
 						<div class="col-sm-8"><h2>Squat</h2></div>
 						<div class="col-sm-4">
-							<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
+							<button id="squat-new" type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
 						</div>
 					</div>
 				</div>
-				<table class="table table-bordered table-hover" id="{{oid|string}}">
+				<table id="squat-table" class="table table-bordered table-hover" id="{{oid|string}}">
 					<thead>
 						<tr>
 							<th width="170px">Date</th>
@@ -144,7 +144,11 @@
 					'<td><input type="text" class="form-control" name="description" placeholder="Description" id="description" required></td>' +
 					'<td>' + actions + '</td>' +
 				'</tr>';
-				$("table").append(row);		
+				
+				if ($(this).attr('id') == 'deadlift-new') { $('#deadlift-table').append(row); }
+				else if ($(this).attr('id') == 'bench-new') { $('#bench-table').append(row); }
+				else if ($(this).attr('id') == 'squat-new') { $('#squat-table').append(row); }
+
 				$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
 				$('[data-toggle="tooltip"]').tooltip();
 			});
