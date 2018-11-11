@@ -359,20 +359,20 @@ def add_lift(lift=None):
 	return redirect(url_for('index'))
 
 
-@app.route('/lifts/remove/', methods=['POST', 'GET'])
+@app.route('/lifts/remove/<lift>', methods=['POST', 'GET'])
 @is_logged_in
-def remove_lift():
+def remove_lift(lift=None):
 	if request.method == 'POST' and request.data:
 		lift_id = request.data
 		# Check if user already exists in lifts table
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is not None:
 			for index, store in enumerate(user_lifts['lifts']):
-				for key, value in user_lifts['lifts'][index].iteritems(): # Not necessary now but probably helpful for future lift tables
-					if key == 'deadlift':
-						del user_lifts['lifts'][index]['deadlift'][int(lift_id)]
+				for key, value in user_lifts['lifts'][index].iteritems():
+					if key == lift:
+						del user_lifts['lifts'][index][lift][int(lift_id)]
 						lifts.save(user_lifts)
-						print "Removed lift " + lift_id + " from DB"
+						print "Removed", lift, "from DB"
 						break
 		return lift_id
 	return redirect(url_for('index'))
