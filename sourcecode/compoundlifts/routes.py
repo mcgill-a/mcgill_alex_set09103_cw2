@@ -292,26 +292,35 @@ def athlete_edit(id=None):
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
-		deadlifts = []
+		
+		deadlift = []
 		bench = []
 		squat = []
 		
 		if user_lifts is not None:
 			for index, store in enumerate(user_lifts['lifts']):
 				for key, value in user_lifts['lifts'][index].iteritems():
-					if key == 'deadlift':
-						for index2, store2 in enumerate(user_lifts['lifts'][index]['deadlift']):
+					if key == "deadlift":
+						deadlift = user_lifts['lifts'][index][key]
+					elif key == "bench":
+						bench = user_lifts['lifts'][index][key]
+					elif key == "squat":
+						squat = user_lifts['lifts'][index][key]
+						#for index2, store2 in enumerate(user_lifts['lifts'][index]['deadlift']):
 							#print index2, store2
-							deadlifts.append(store2)
+							#deadlifts.append(store2)
 
 		# Sort the lifts by date (most recent first)
-		sorted_deadlifts = sorted(deadlifts, key=itemgetter('date'), reverse=True)
+		#sorted_deadlifts = sorted(liftLists[key], key=itemgetter('date'), reverse=True)
 
 		if athlete is not None:
 			if str(current_user['_id']) == id or current_user['account_level'] == 10:
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
 				
-				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=sorted_deadlifts, bench=bench, squat=squat, oid=user_lifts['_id'])
+				if user_lifts is not None:
+					return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat, oid=user_lifts['_id'])
+				else:
+					return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
@@ -319,9 +328,9 @@ def athlete_edit(id=None):
 	return redirect(url_for('athletes'))
 
 
-@app.route('/lifts/add/', methods=['POST', 'GET'])
+@app.route('/lifts/add/<lift>', methods=['POST', 'GET'])
 @is_logged_in
-def add_lift():
+def add_lift(lift=None):
 	if request.method == 'POST' and request.data:
 		response = request.data
 		data = json.loads(response)
@@ -332,19 +341,20 @@ def add_lift():
 			lifts.insert(
 			{
 				'user_id' : ObjectId(session.get('id')),
-				'lifts' : [ {'deadlift': [ data ]} ]
+				'lifts' : [ {lift : [ data ] } ]
 			})
 		else:
 			for index, store in enumerate(user_lifts['lifts']):
 				for key, value in user_lifts['lifts'][index].iteritems():
-					if key == 'deadlift':
-						deadlifts = user_lifts['lifts'][index]['deadlift']
-						deadlifts.append(data)
-						sorted_deadlifts = sorted(deadlifts, key=itemgetter('date'), reverse=True)
-						user_lifts['lifts'][index]['deadlift'] = sorted_deadlifts
+					if key == lift:
+						current_lift = user_lifts['lifts'][index][lift]
+						current_lift.append(data)
+						# Sort the current list of lifts by date (most recent first)
+						sorted_lift = sorted(current_lift, key=itemgetter('date'), reverse=True)
+						user_lifts['lifts'][index][lift] = sorted_lift
 						lifts.save(user_lifts)
 						break
-		print "Added lift to DB"
+		print "Added", lift, "to DB"
 		return response
 	return redirect(url_for('index'))
 
