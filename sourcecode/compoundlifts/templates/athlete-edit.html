@@ -145,11 +145,22 @@
 					'<td>' + actions + '</td>' +
 				'</tr>';
 
-				if ($(this).attr('id') == 'deadlift-new') { $('#deadlift').append(row); }
-				else if ($(this).attr('id') == 'bench-new') { $('#bench').append(row); }
-				else if ($(this).attr('id') == 'squat-new') { $('#squat').append(row); }
-
-				$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+				if ($(this).attr('id') == 'deadlift-new')
+				{
+					$('#deadlift').append(row);
+					$('table#deadlift tbody tr').eq(index + 1).find(".add, .edit").toggle();
+				}
+				if ($(this).attr('id') == 'bench-new')
+				{
+					$('#bench').append(row);
+					$('table#bench tbody tr').eq(index + 1).find(".add, .edit").toggle();
+				}
+				if ($(this).attr('id') == 'squat-new')
+				{
+					$('#squat').append(row);
+					$('table#squat tbody tr').eq(index + 1).find(".add, .edit").toggle();
+				}
+				
 				$('[data-toggle="tooltip"]').tooltip();
 			});
 			// Add row on add button click
@@ -227,7 +238,7 @@
 				var lift_type = $(this).closest('table').attr('id');
 				var post_url = "/lifts/remove/" + lift_type;
 				console.log(post_url);
-				
+				/*
 				//Post the table row removal to the DB
 				$.ajax({
 					type : "POST",
@@ -238,7 +249,8 @@
 						console.log("Removed Lift: " + result);
 					}
 				});
-				//location.reload();
+				location.reload();
+				*/
 			});
 		});
 	</script>
