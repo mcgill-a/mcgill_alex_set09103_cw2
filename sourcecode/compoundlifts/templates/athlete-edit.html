@@ -6,13 +6,14 @@
 		<br />
 		<div class="settings">
 			<div class="settings-list">
-				<ul>
-					<a href="#"><li>Profile</li></a>
-					<a class="active" href="#"><li>Lifts</li></a>
-				</ul>
+				<button id="btn-profile" class="btn active" onclick="openTab('tab-profile');">Profile</button>
+				<button id="btn-lifts" class="btn" onclick="openTab('tab-lifts');">Lifts</button>
 			</div>
 			<div class="settings-content">				
-				<div class="table-wrapper">
+				<div id="tab-profile" class="tab">
+					<h3>Profile</h3>
+				</div>
+				<div id="tab-lifts" class="table-wrapper tab" style="display:none;">
 					<div class="table-title">
 						<div class="row">
 							<div class="col-sm-8"><h2>Deadlift</h2></div>
@@ -125,6 +126,34 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		function openTab(content)
+		{
+			var i;
+			var x = document.getElementsByClassName("tab");
+			for (i = 0; i < x.length; i++)
+			{
+				x[i].style.display = "none";
+			}
+			document.getElementById(content).style.display = "block";
+			
+			if(content == "tab-profile")
+			{
+				console.log(content);
+				$("#btn-lifts").removeClass("active");
+				$("#btn-profile").removeClass("active");
+				$("#btn-profile").addClass("active");
+			}
+			if (content == "tab-lifts")
+			{
+				console.log(content);
+				$("#btn-profile").removeClass("active");
+				$("#btn-lifts").removeClass("active");
+				$("#btn-lifts").addClass("active");
+			}
+		}
+	</script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();

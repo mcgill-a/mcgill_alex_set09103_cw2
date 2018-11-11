@@ -709,42 +709,30 @@ button.follow-btn:hover {
 	background: rgb(255, 255, 255);
 }
 
-.settings-list ul {
-	list-style-type: none;
-	text-align: center;
-	width: 100%;
-	margin: 0 !important;
-	padding: 0;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-
-.settings-list ul a {
+.settings-list button {
 	text-align: left;
-	width: 100%;
+	width: 170px;
 	height: auto;
 	color: black;
 	font-size: 20px;
 	border: 1px solid rgb(146, 146, 146);
-	border-bottom: none;
+	margin-bottom: 4px;
 	padding: 5px;
 	font-size: 15px;
 	font-family: 'Montserrat', sans-serif;
 }
 
-.settings-list ul a.active{
+
+.settings-list button.active, .settings-list button.active:hover {
 	background: #ec3642 !important;
 }
 
-.settings-list ul a.active li {
-	color: white;
+.settings-list button:hover {
+	background: white;
 }
 
-.settings-list ul a:hover, .settings-list ul a:visited {
-	text-decoration: none;
-	background: white;
+.settings-list button.active:hover {
+	color: white;
 }
 
 .settings-list ul li.active a {
@@ -756,6 +744,18 @@ button.follow-btn:hover {
 
 .settings-list ul a li {
 	color: rgb(58, 58, 58);
+}
+
+.settings .tab {
+	width: 1000px;
+}
+
+.settings #tab-profile {
+	padding: 20px;
+}
+
+.settings #tab-profile h3 {
+	margin-top: 4px;
 }
 
 .table-wrapper {
