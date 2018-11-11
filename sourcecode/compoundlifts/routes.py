@@ -311,7 +311,7 @@ def athlete_edit(id=None):
 			if str(current_user['_id']) == id or current_user['account_level'] == 10:
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
 				
-				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=sorted_deadlifts)
+				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=sorted_deadlifts, oid=user_lifts['_id'])
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
@@ -326,7 +326,7 @@ def add_lift():
 		response = request.data
 		data = json.loads(response)
 		# Check if user already exists in lifts table
-		# Use PROFILE ID NOT SESSION ID TO PREVENT ADMIN EDITING USER PROFILE AND ACCIDENTALLY ADDING TO THEIR OWN
+		# CHANGE TO PROFILE ID NOT SESSION ID TO PREVENT ADMIN EDITING USER PROFILE AND ACCIDENTALLY ADDING TO THEIR OWN
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is None:
 			lifts.insert(
@@ -338,7 +338,10 @@ def add_lift():
 			for index, store in enumerate(user_lifts['lifts']):
 				for key, value in user_lifts['lifts'][index].iteritems():
 					if key == 'deadlift':
-						user_lifts['lifts'][index]['deadlift'].append(data)
+						deadlifts = user_lifts['lifts'][index]['deadlift']
+						deadlifts.append(data)
+						sorted_deadlifts = sorted(deadlifts, key=itemgetter('date'), reverse=True)
+						user_lifts['lifts'][index]['deadlift'] = sorted_deadlifts
 						lifts.save(user_lifts)
 						break
 		print "Added lift to DB"
@@ -350,20 +353,18 @@ def add_lift():
 @is_logged_in
 def remove_lift():
 	if request.method == 'POST' and request.data:
-		oid = request.data
+		lift_id = request.data
 		# Check if user already exists in lifts table
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is not None:
 			for index, store in enumerate(user_lifts['lifts']):
-				for key, value in user_lifts['lifts'][index].iteritems():
+				for key, value in user_lifts['lifts'][index].iteritems(): # Not necessary now but probably helpful for future lift tables
 					if key == 'deadlift':
-						for index2, store2 in enumerate(user_lifts['lifts'][index]['deadlift']):
-							if user_lifts['lifts'][index]['deadlift'][index2]['_id'] == ObjectId(oid):
-								del user_lifts['lifts'][index]['deadlift'][index2]
-								lifts.save(user_lifts)
-								break
-		print "Removed lift from DB"
-		return oid
+						del user_lifts['lifts'][index]['deadlift'][int(lift_id)]
+						lifts.save(user_lifts)
+						print "Removed lift " + lift_id + " from DB"
+						break
+		return lift_id
 	return redirect(url_for('index'))
 
 
