@@ -13,125 +13,46 @@
 			</div>
 			<div class="settings-content">
 				<p>Lifts</p>
-				<!--<table id="deadlift" class="table table-striped table-bordered table-hover">
-					<thead class="thead-dark">
-						<tr>
-							<th>#</th>
-							<th>DATE</th>
-							<th>WEIGHT (KG)</th>
-							<th>DESCRIPTION</th>
-							<th>VIDEO URL</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>10/10/2018</td>
-							<td>140</td>
-							<td>Something here</td>
-							<td>https://www.youtube.com/</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>05/10/2018</td>
-							<td>130</td>
-							<td>Something here</td>
-							<td>https://www.youtube.com/</td>
-						</tr>
-					</tbody>
-				</table>
-				<p>Bench</p>
-				<table id="bench" class="table table-striped table-bordered table-hover">
-					<thead class="thead-dark">
-						<tr>
-							<th>#</th>
-							<th>DATE</th>
-							<th>WEIGHT (KG)</th>
-							<th>DESCRIPTION</th>
-							<th>VIDEO URL</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>10/10/2018</td>
-							<td>90</td>
-							<td>Something here</td>
-							<td>https://www.youtube.com/</td>
-						</tr>
-					</tbody>
-				</table>
-				<p>Squat</p>
-				<table id="squat" class="table table-striped table-bordered table-hover">
-				<thead class="thead-dark">
-					<tr>
-						<th>#</th>
-						<th>DATE</th>
-						<th>WEIGHT (KG)</th>
-						<th>DESCRIPTION</th>
-						<th>VIDEO URL</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>10/10/2018</td>
-						<td>125</td>
-						<td>Something here</td>
-						<td>https://www.youtube.com/</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-		</div>
-		{#<div class="edit-profile">
-			<div class="info-banner">
-				<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=120px height=120px/>
-				<div class="details">
-					<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
-					<h2>{{athlete.email}}</h2>
-				</div>
-			</div>
-		</div>#}
-		<br />-->
-		
-		<div class="table-wrapper">
-			<div class="table-title">
-				<div class="row">
-					<div class="col-sm-8"><h2>Deadlift</h2></div>
-					<div class="col-sm-4">
-						<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+						
+				<div class="table-wrapper">
+					<div class="table-title">
+						<div class="row">
+							<div class="col-sm-8"><h2>Deadlift</h2></div>
+							<div class="col-sm-4">
+								<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+							</div>
+						</div>
 					</div>
+					<table class="table table-bordered table-hover" id="{{oid|string}}">
+						<thead>
+							<tr>
+								<th width="170px">Date</th>
+								<th width="100px">Weight (KG)</th>
+								<th width="250px">Video URL</th>
+								<th width="300px">Description</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% if deadlifts is not none %}
+								{% for lift in deadlifts %}
+									<tr id="{{loop.index - 1}}">
+										<td>{{lift['date']}}</td>
+										<td>{{lift['weight']}}</td>
+										<td>{{lift['video_url']}}</td>
+										<td>{{lift['description']}}</td>
+										<td>
+											<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>
+											<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>
+											<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-remove"></i></a>
+										</td>
+									</tr>
+								{% endfor %}
+							{% endif %}
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<table class="table table-bordered table-hover" id="{{oid|string}}">
-				<thead>
-					<tr>
-						<th width="170px">Date</th>
-						<th width="100px">Weight (KG)</th>
-						<th width="250px">Video URL</th>
-						<th width="300px">Description</th>
-						<th>Actions</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% if deadlifts is not none %}
-						{% for lift in deadlifts %}
-							<tr id="{{loop.index - 1}}">
-								<td>{{lift['date']}}</td>
-								<td>{{lift['weight']}}</td>
-								<td>{{lift['video_url']}}</td>
-								<td>{{lift['description']}}</td>
-								<td>
-									<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>
-									<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>
-									<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-remove"></i></a>
-								</td>
-							</tr>
-						{% endfor %}
-					{% endif %}
-				</tbody>
-			</table>
 		</div>
 	</div>
 	<script type="text/javascript">
@@ -207,10 +128,15 @@
 				location.reload();
 			});
 			// Edit row on edit button click
-			$(document).on("click", ".edit", function(){		
+			$(document).on("click", ".edit", function(){
+				var count = 0;
 				$(this).parents("tr").find("td:not(:last-child)").each(function(){
-					$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
-				});		
+					if(count == 0) { $(this).html('<input type="date" class="form-control" value="' + $(this).text() + '">');}
+					else if(count == 1) { $(this).html('<input type="number" class="form-control" value="' + $(this).text() + '">');}
+					else if(count == 2) { $(this).html('<input type="url" class="form-control" value="' + $(this).text() + '">');}
+					else { $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');}
+					count++;
+				});
 				$(this).parents("tr").find(".add, .edit").toggle();
 				$(".add-new").attr("disabled", "disabled");
 			});
