@@ -678,7 +678,7 @@ button.follow-btn:hover {
 .settings {
 	display: flex;
 	flex-direction: row;
-	height: 700px;
+	min-height: 700px;
 	width: 100%;
 	background: rgb(88, 231, 95);
 	justify-content: center;

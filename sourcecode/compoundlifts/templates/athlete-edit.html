@@ -19,7 +19,7 @@
 						<div class="row">
 							<div class="col-sm-8"><h2>Deadlift</h2></div>
 							<div class="col-sm-4">
-								<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+								<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
 							</div>
 						</div>
 					</div>
@@ -51,7 +51,79 @@
 							{% endif %}
 						</tbody>
 					</table>
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-8"><h2>Bench</h2></div>
+						<div class="col-sm-4">
+							<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
+						</div>
+					</div>
 				</div>
+				<table class="table table-bordered table-hover" id="{{oid|string}}">
+					<thead>
+						<tr>
+							<th width="170px">Date</th>
+							<th width="100px">Weight (KG)</th>
+							<th width="250px">Video URL</th>
+							<th width="300px">Description</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if bench is not none %}
+							{% for lift in bench %}
+								<tr id="{{loop.index - 1}}">
+									<td>{{lift['date']}}</td>
+									<td>{{lift['weight']}}</td>
+									<td>{{lift['video_url']}}</td>
+									<td>{{lift['description']}}</td>
+									<td>
+										<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>
+										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>
+										<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-remove"></i></a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+				<div class="table-title">
+					<div class="row">
+						<div class="col-sm-8"><h2>Squat</h2></div>
+						<div class="col-sm-4">
+							<button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i>Add New</button>
+						</div>
+					</div>
+				</div>
+				<table class="table table-bordered table-hover" id="{{oid|string}}">
+					<thead>
+						<tr>
+							<th width="170px">Date</th>
+							<th width="100px">Weight (KG)</th>
+							<th width="250px">Video URL</th>
+							<th width="300px">Description</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% if squat is not none %}
+							{% for lift in squat %}
+								<tr id="{{loop.index - 1}}">
+									<td>{{lift['date']}}</td>
+									<td>{{lift['weight']}}</td>
+									<td>{{lift['video_url']}}</td>
+									<td>{{lift['description']}}</td>
+									<td>
+										<a class="add" title="Confirm" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-ok"></i></a>
+										<a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-pencil"></i></a>
+										<a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons"><span class="glyphicon glyphicon-remove"></i></a>
+									</td>
+								</tr>
+							{% endfor %}
+						{% endif %}
+					</tbody>
+				</table>
+				
 			</div>
 		</div>
 	</div>
@@ -92,6 +164,7 @@
 						$(this).removeClass("error");
 					}
 				});
+
 				$(this).parents("tr").find(".error").first().focus();
 				if(!empty){
 					input.each(function(){
@@ -99,33 +172,30 @@
 					});			
 					$(this).parents("tr").find(".add, .edit").toggle();
 					$(".add-new").removeAttr("disabled");
-				}
-				
-				// Post the new table row to the DB
-				var output = [];
-				input.each(function(){
-					output.push($(this).val());
-				});
-				// Match format with existing DB date time
-				//var date = new Date(output[0]);
-				
-				var lift = {
-					'date' : output[0],
-					'weight' : parseInt(output[1]),
-					'video_url' : output[2],
-					'description' : output[3]
-				}
-				
-				$.ajax({
-					type : "POST",
-					url : "/lifts/add/",
-					data: JSON.stringify(lift),
-					contentType: 'application/json;charset=UTF-8',
-					success: function(result) {
-						console.log("Added Lift: " + result);
+					// Post the new table row to the DB
+					var output = [];
+					input.each(function(){
+						output.push($(this).val());
+					});
+					
+					var lift = {
+						'date' : output[0],
+						'weight' : parseInt(output[1]),
+						'video_url' : output[2],
+						'description' : output[3]
 					}
-				});
-				location.reload();
+					
+					$.ajax({
+						type : "POST",
+						url : "/lifts/add/",
+						data: JSON.stringify(lift),
+						contentType: 'application/json;charset=UTF-8',
+						success: function(result) {
+							console.log("Added Lift: " + result);
+						}
+					});
+					location.reload();
+				}
 			});
 			// Edit row on edit button click
 			$(document).on("click", ".edit", function(){
@@ -133,13 +203,14 @@
 				$(this).parents("tr").find("td:not(:last-child)").each(function(){
 					if(count == 0) { $(this).html('<input type="date" class="form-control" value="' + $(this).text() + '">');}
 					else if(count == 1) { $(this).html('<input type="number" class="form-control" value="' + $(this).text() + '">');}
-					else if(count == 2) { $(this).html('<input type="url" class="form-control" value="' + $(this).text() + '">');}
+					else if(count == 2) { $(this).html('<input type="url" class="form-control url" value="' + $(this).text() + '">');}
 					else { $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');}
 					count++;
 				});
 				$(this).parents("tr").find(".add, .edit").toggle();
 				$(".add-new").attr("disabled", "disabled");
 			});
+
 			// Delete row on delete button click
 			$(document).on("click", ".delete", function(){
 				id = $(this).closest("tr").attr('id');

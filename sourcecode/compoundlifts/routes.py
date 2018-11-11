@@ -293,6 +293,8 @@ def athlete_edit(id=None):
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
 		deadlifts = []
+		bench = []
+		squat = []
 		
 		if user_lifts is not None:
 			for index, store in enumerate(user_lifts['lifts']):
@@ -309,7 +311,7 @@ def athlete_edit(id=None):
 			if str(current_user['_id']) == id or current_user['account_level'] == 10:
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
 				
-				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=sorted_deadlifts, oid=user_lifts['_id'])
+				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=sorted_deadlifts, bench=bench, squat=squat, oid=user_lifts['_id'])
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
