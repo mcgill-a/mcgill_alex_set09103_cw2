@@ -674,6 +674,10 @@ button.follow-btn:hover {
 	margin-left: 10px;
 }
 
+.info-banner .details h1 {
+	color: black;
+}
+
 .info-banner .details h2 {
 	margin: 0;
 }

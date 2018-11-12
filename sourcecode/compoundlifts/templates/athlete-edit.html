@@ -11,7 +11,15 @@
 			</div>
 			<div class="settings-content">				
 				<div id="tab-profile" class="tab">
-					<h3>Profile</h3>
+					<div class="edit-profile">
+						<div class="info-banner">
+							<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=120px height=120px/>
+							<div class="details">
+								<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+								<h2>{{athlete.email}}</h2>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div id="tab-lifts" class="table-wrapper tab" style="display:none;">
 					<div class="table-title">
