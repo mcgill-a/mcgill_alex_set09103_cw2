@@ -83,9 +83,9 @@ def signup():
 	form = SignupForm(request.form)
 	if request.method == 'POST' and form.validate():
 		# Set the user inputs
-		# Make only the first character in first and last name capitalised
+		# Force only the initial character in first name to be capitalised
 		first_name = (form.firstname.data.lower()).capitalize()
-		last_name = (form.lastname.data.lower()).capitalize()
+		last_name = form.lastname.data
 		email = form.email.data.lower()
 		# Set the default inputs
 		current_datetime = datetime.datetime.now()
