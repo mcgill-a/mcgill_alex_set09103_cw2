@@ -41,8 +41,10 @@
 	('javascript:void(0)', 'tab6', 'Sign Up'),
 	] -%}
 
-{% set dropdown = [
-	] -%}
+	{% set dropdown = [
+		('/athletes/', 'myprofile', 'My Profile'),
+		('/edit/', 'editprofile', 'Edit Profile'),
+		] -%}
 
 
 {#{% set active_page = active_page|default('index') -%}#}
@@ -80,8 +82,22 @@
 			<div class="form-inline navbar-right">
 				<ul>
 					{% if session.logged_in %}
-						<li {% if active_page == "my_profile" %} class="active" {% endif %}>
-							<a href="/athletes/{{session.id}}">My Profile</a>
+						{% if active_page == "my_profile" %}
+						<li class="dropdown active">
+						{% else %}
+						<li class="dropdown">
+						{% endif %}
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li {% if active_page == "athlete" %} class="active" {% endif %}>
+									<a href="/athletes/{{ session.id }}">My Profile</a>
+								</li>
+								<li {% if active_page == "athlete-edit" %} class="active" {% endif %}>
+									<a href="/athletes/edit/{{ session.id }}">Edit Profile</a>
+								</li>
+							</ul>
+						
+							<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">{{session.fullname}} <span class="caret"></span></a>
+							<!--<a href="/athletes/{{session.id}}">My Profile</a>-->
 						</li>
 						<li>
 							<a href="/logout">Logout</a>

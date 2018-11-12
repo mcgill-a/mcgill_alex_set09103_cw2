@@ -60,6 +60,7 @@ def login():
 				session['logged_in'] = True
 				session['email'] = result.get('email')
 				session['id'] = str(result.get('_id'))
+				session['fullname'] = result.get('first_name') + " " + result.get('last_name')
 				flash('You are now logged in', 'success')
 				return redirect(url_for('index'))
 				

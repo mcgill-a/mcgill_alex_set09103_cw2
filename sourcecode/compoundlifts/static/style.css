@@ -133,7 +133,7 @@ button:focus, input:focus {
 	font-family: 'Montserrat', sans-serif;
 	font-size: 14px;
 	font-weight: bold;
-	padding: 4px 0 !important;
+	padding: 4px 0;
 	margin: 0 15px;
 	background: none;
 	border: none;
@@ -141,7 +141,6 @@ button:focus, input:focus {
 }
 
 .navbar li a:hover, .nav-btn:hover {
-	margin-top: 0;
 	font-weight: bolder;
 	text-decoration: none !important;
 	background: none;
@@ -155,12 +154,67 @@ button:focus, input:focus {
 .navbar li a:focus {
 	background: none;
 	outline: 0;
+	text-decoration: none;
 }
 
-.form-inline {
-	display: flex;
-	align-items: center;
+/* DROPDOWN START */
+
+.form-inline li ul.dropdown-menu {
+	display: none;
 }
+
+.form-inline li.open ul.dropdown-menu {
+	display: flex;
+	flex-direction: column;
+}
+
+.form-inline li.open {
+	text-decoration: none;
+}
+
+
+ul.dropdown-menu {
+	box-shadow: black 2px;
+	background: #0f0f0f !important;
+	flex-direction: column;
+	justify-content: right;
+	padding: 5px 0 0 0;
+	margin: 0;
+	height: auto !important;
+	min-width: 100px;
+}
+
+ul.dropdown-menu li {
+	height: 40px;
+	width: 100%;
+	margin: 12px;
+} 
+
+ul.dropdown-menu li a {
+	height: auto;
+	width: auto;
+	margin: 0;
+	padding: 4px 0;
+	text-align: left;
+}
+ul.dropdown-menu li a:hover {
+	margin: 0;
+}
+
+.navbar ul.dropdown-neby li .active {
+	border-bottom: 2px solid white;
+}
+
+.form-inline ul li a:hover {
+	border-bottom: none;
+}
+
+.form-inline ul li ul li a:hover {
+	border-bottom: 2px solid #ec3642;
+}
+
+/* DROPDOWN END */
+
 
 .navbar .active a {
 	background: none !important;
@@ -171,8 +225,9 @@ button:focus, input:focus {
 	color: #ec3642;
 }
 
-
 .form-inline {
+	display: flex;
+	align-items: center;
 	height: 100%;
 	padding-left: 0;
 	width: auto;
