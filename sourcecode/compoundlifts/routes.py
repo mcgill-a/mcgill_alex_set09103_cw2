@@ -87,7 +87,7 @@ def signup():
 		# Force only the initial character in first name to be capitalised
 		first_name = (form.firstname.data.lower()).capitalize()
 		last_name = form.lastname.data
-		email = form.email.data.lower()
+		email = form.email.data
 		# Set the default inputs
 		current_datetime = datetime.datetime.now()
 		ip = request.environ['REMOTE_ADDR']
@@ -99,7 +99,7 @@ def signup():
 		cover_pic = "https://i.imgur.com/2MxjfEn.jpg"
 
 		# Check if the email address already exists
-		existing_user = users.find_one({'email' : email})
+		existing_user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
 
 		if existing_user is not None:
 			flash('Account already exists', 'danger')
@@ -191,7 +191,7 @@ def reset_request():
 	form = RequestPasswordResetForm()
 	if request.method == 'POST' and form.validate():
 		email = form.email.data
-		user = users.find_one({'email' : email.lower()})
+		user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
 		
 		if user is None:
 			error = "wrong_email"
@@ -316,9 +316,9 @@ def athlete_edit():
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
 
 				if request.method == 'POST' and form.validate():
-					
+					email = form.email.data
 					# Check if the email address already exists
-					existing_user = users.find_one({'email' : form.email.data})
+					existing_user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
 
 					if existing_user is not None and existing_user != current_user:
 						flash('Account already exists', 'danger')
@@ -330,6 +330,7 @@ def athlete_edit():
 						current_user['email'] = form.email.data
 
 						users.save(current_user)
+						session['email'] = current_user['email']
 						session['fullname'] = current_user['first_name'] + " " + current_user['last_name']
 
 					flash("Your account has been updated", "success")
