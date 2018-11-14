@@ -160,7 +160,7 @@ def get_reset_token(self, expires_sec=1800):
 # Send an email containing the password reset token
 def send_reset_email(user):
 	token = get_reset_token(user)
-	reset_url = {url_for('reset_token', token=token, _external=True)}
+	reset_url = url_for('reset_token', token=token, _external=True)
 
 	subject = 'Compound Lifts | Password Reset Request'
 	template = render_template('email.html', reset_url=reset_url, user=user)
