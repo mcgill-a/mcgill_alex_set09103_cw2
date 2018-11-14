@@ -317,10 +317,20 @@ def athlete_edit():
 
 				if request.method == 'POST' and form.validate():
 					
-					current_user['first_name'] = form.firstname.data
-					current_user['last_name'] = form.lastname.data
-					users.save(current_user)
-					session['fullname'] = current_user['first_name'] + " " + current_user['last_name']
+					# Check if the email address already exists
+					existing_user = users.find_one({'email' : form.email.data})
+
+					if existing_user is not None and existing_user != current_user:
+						flash('Account already exists', 'danger')
+						return redirect('athletes/edit/')
+					else:
+
+						current_user['first_name'] = form.firstname.data
+						current_user['last_name'] = form.lastname.data
+						current_user['email'] = form.email.data
+
+						users.save(current_user)
+						session['fullname'] = current_user['first_name'] + " " + current_user['last_name']
 
 					flash("Your account has been updated", "success")
 					return redirect('athletes/edit/')
