@@ -6,11 +6,12 @@
 		<br />
 		<div class="settings">
 			<div class="settings-list">
-				<button id="btn-profile" class="btn active" onclick="openTab('tab-profile');">Profile</button>
-				<button id="btn-lifts" class="btn" onclick="openTab('tab-lifts');">Lifts</button>
+				<button id="btn-lifts" class="btn active" onclick="openTab('tab-lifts');">Lifts</button>
+				<button id="btn-profile" class="btn" onclick="openTab('tab-profile');">Profile</button>
+				<button id="btn-account" class="btn" onclick="openTab('tab-account');">Account</button>
 			</div>
 			<div class="settings-content">				
-				<div id="tab-profile" class="tab">
+				<div id="tab-profile" class="tab" style="display:none;">
 					<div class="edit-profile">
 						<div class="info-banner">
 							<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=120px height=120px/>
@@ -21,7 +22,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="tab-lifts" class="table-wrapper tab" style="display:none;">
+				<div id="tab-lifts" class="table-wrapper tab">
 					<div class="table-title">
 						<div class="row">
 							<div class="col-sm-8"><h2>Deadlift</h2></div>
@@ -130,7 +131,35 @@
 						{% endif %}
 					</tbody>
 				</table>
-				
+			</div>
+			<div id="tab-account" class="tab" style="display:none;">
+				<div class="edit-account">
+					<h1>Edit Account</h1>
+					{% from "includes/_formhelpers.html" import render_field %}
+					<div class="edit-account-form">
+						<form method='POST' action="">
+								<div class="section">
+									<p>FIRST NAME:</p>
+									{{render_field(form.firstname, autocomplete="given-name")}}
+								</div>
+								<div class="section">
+									<p>LAST NAME:</p>
+									{{render_field(form.lastname, autocomplete="family-name")}}
+								</div>
+								<div class="section">
+									<p>EMAIL:</p>
+									{{render_field(form.email, autocomplete="email")}}
+								</div>
+								<div class="footer">
+									<button type="submit">UPDATE</button>
+								</div>
+								{{ form.hidden_tag() }}
+							</form>
+						<div class="flashes">
+							<br /><br /><br />
+							{% include 'includes/_messages.html' %}
+						</div>
+					</div>
 			</div>
 		</div>
 	</div>
@@ -150,6 +179,7 @@
 			{
 				console.log(content);
 				$("#btn-lifts").removeClass("active");
+				$("#btn-account").removeClass("active");
 				$("#btn-profile").removeClass("active");
 				$("#btn-profile").addClass("active");
 			}
@@ -157,8 +187,17 @@
 			{
 				console.log(content);
 				$("#btn-profile").removeClass("active");
+				$("#btn-account").removeClass("active");
 				$("#btn-lifts").removeClass("active");
 				$("#btn-lifts").addClass("active");
+			}
+			if (content == "tab-account")
+			{
+				console.log(content);
+				$("#btn-profile").removeClass("active");
+				$("#btn-lifts").removeClass("active");
+				$("#btn-account").removeClass("active");
+				$("#btn-account").addClass("active");
 			}
 		}
 	</script>

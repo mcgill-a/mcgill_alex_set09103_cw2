@@ -47,5 +47,3 @@ class EditUser(FlaskForm):
 		validators.Regexp('^\\w+$', message="Last name may only contain letters")
 		])
 	email = StringField('email', [validators.Email()])
-
-#class EditAthlete(FlaskForm)

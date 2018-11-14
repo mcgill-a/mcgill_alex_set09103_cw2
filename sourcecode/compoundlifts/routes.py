@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson
 from logging.handlers import RotatingFileHandler
 from functools import wraps
-from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm
+from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm, EditUser
 from compoundlifts import app, mail, users, profiles, lifts 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
@@ -283,13 +283,18 @@ def athlete(id=None):
 	return redirect(url_for('athletes'))
 
 
-@app.route('/athletes/edit/<id>')
+@app.route('/athletes/edit/', methods=['POST', 'GET'])
 @is_logged_in
-def athlete_edit(id=None):
+def athlete_edit():
 	current_user = None
 	if session.get('logged_in'):
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
-
+	else:
+		flash('Access restricted. Please login first', 'danger')
+		return redirect(url_for('login'))
+	
+	form = EditUser(request.form)
+	id = str(current_user['_id'])
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
 		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
@@ -297,7 +302,7 @@ def athlete_edit(id=None):
 		deadlift = []
 		bench = []
 		squat = []
-		
+
 		if user_lifts is not None:
 			if "deadlift" in user_lifts['lifts']:
 				deadlift = user_lifts['lifts']['deadlift']
@@ -305,15 +310,27 @@ def athlete_edit(id=None):
 				bench = user_lifts['lifts']['bench']
 			if "squat" in user_lifts['lifts']:
 				squat = user_lifts['lifts']['squat']
-
+		
 		if athlete is not None:
-			if str(current_user['_id']) == id or current_user['account_level'] == 10:
+			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
-				
-				if user_lifts is not None:
-					return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat, oid=user_lifts['_id'])
-				else:
-					return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat)
+
+				if request.method == 'POST' and form.validate():
+					
+					current_user['first_name'] = form.firstname.data
+					current_user['last_name'] = form.lastname.data
+					users.save(current_user)
+					session['fullname'] = current_user['first_name'] + " " + current_user['last_name']
+
+					flash("Your account has been updated", "success")
+					return redirect('athletes/edit/')
+
+				elif request.method == 'GET':
+					form.firstname.data = current_user['first_name']
+					form.lastname.data = current_user['last_name']
+					form.email.data = current_user['email']
+
+				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat, form=form)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
