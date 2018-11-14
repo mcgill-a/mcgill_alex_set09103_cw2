@@ -46,23 +46,28 @@
 				<div class="title">
 					<h1>FEATURED</h1>
 				</div>
-
 				<div class="cards">
-					<div class="card">
-						<img src="/static/resources/lifts/deadlift.jpg">
-						<p class="weight">140 KG</p>
-						<h2>DEADLIFT</h2>
-					</div>
-					<div class="card">
-						<img src="/static/resources/lifts/bench.jpg">
-						<p class="weight">90 KG</p>
-						<h2>BENCH</h2>
-					</div>
+					{% if "deadlift" in user_lifts['lifts'] %}
+						<div class="card">
+							<img src="/static/resources/lifts/deadlift.jpg">
+							<p class="weight">{{user_lifts['lifts']['deadlift'][0]['weight']}} KG</p>
+							<h2>DEADLIFT</h2>
+						</div>
+					{% endif %}
+					{% if "bench" in user_lifts['lifts'] %}
+						<div class="card">
+							<img src="/static/resources/lifts/bench.jpg">
+							<p class="weight">{{user_lifts['lifts']['bench'][0]['weight']}} KG</p>
+							<h2>BENCH</h2>
+						</div>
+					{% endif %}
+					{% if "squat" in user_lifts['lifts'] %}
 					<div class="card">
 						<img src="/static/resources/lifts/squat2.jpg">
-						<p class="weight">125 KG</p>
+						<p class="weight">{{user_lifts['lifts']['squat'][0]['weight']}}  KG</p>
 						<h2>SQUAT</h2>
 					</div>
+					{% endif %}
 				</div>
 			</div>
 			

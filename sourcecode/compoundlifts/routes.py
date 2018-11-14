@@ -49,10 +49,10 @@ def login():
 	ip = request.environ['REMOTE_ADDR']
 	form = LoginForm(request.form)
 	if request.method =='POST' and form.validate():
-		email = form.email.data.lower()
+		email = form.email.data
 		password_entered = form.password.data
 
-		result = users.find_one({'email' : email})
+		result = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
 
 		if result is not None:
 			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
@@ -274,8 +274,12 @@ def athlete(id=None):
 	
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
+
 		if athlete is not None:
-			return render_template('athlete.html', athlete=athlete, current_user=current_user)
+
+			user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
+
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, current_user=current_user)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
