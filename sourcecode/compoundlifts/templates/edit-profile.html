@@ -25,22 +25,24 @@
 						<div class="edit-form">
 							<form method='POST' action="">
 								<div class="section">
+									<p>BIO:</p>
+									{{render_field(profile_form.bio, autocomplete="bio")}}
+								</div>
+								<div class="section">
 									<p>CITY:</p>
 									{{render_field(profile_form.city, autocomplete="city")}}
+								</div>
+								<div class="section">
 									<p>COUNTRY:</p>
 									{{render_field(profile_form.country, autocomplete="country")}}
 								</div>
 								<div class="section">
 									<p>GENDER:</p>
-									{{render_field(profile_form.gender, autocomplete="gender")}}
+									{{render_field(profile_form.gender)}}
 								</div>
 								<div class="section">
 									<p>AGE:</p>
 									{{render_field(profile_form.age, autocomplete="age")}}
-								</div>
-								<div class="section">
-									<p>BIO:</p>
-									{{render_field(profile_form.bio, autocomplete="bio")}}
 								</div>
 								<div class="section">
 									<p>WEIGHT:</p>

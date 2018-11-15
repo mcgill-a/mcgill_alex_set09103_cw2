@@ -365,7 +365,7 @@ def athlete_edit_account():
 						session['fullname'] = current_user['first_name'] + " " + current_user['last_name']
 
 					flash("Your account has been updated", "success")
-					return redirect('athletes/edit/')
+					return redirect('athletes/edit/account')
 
 				elif request.method == 'GET':
 					account_form.firstname.data = current_user['first_name']
