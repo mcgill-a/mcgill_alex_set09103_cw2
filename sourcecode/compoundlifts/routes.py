@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson
 from logging.handlers import RotatingFileHandler
 from functools import wraps
-from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm, EditUser
+from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm, EditAccount, EditProfile
 from compoundlifts import app, mail, users, profiles, lifts 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
@@ -287,9 +287,9 @@ def athlete(id=None):
 	return redirect(url_for('athletes'))
 
 
-@app.route('/athletes/edit/', methods=['POST', 'GET'])
+@app.route('/athletes/edit/lifts', methods=['POST', 'GET'])
 @is_logged_in
-def athlete_edit():
+def athlete_edit_lifts():
 	current_user = None
 	if session.get('logged_in'):
 		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
@@ -297,7 +297,6 @@ def athlete_edit():
 		flash('Access restricted. Please login first', 'danger')
 		return redirect(url_for('login'))
 	
-	form = EditUser(request.form)
 	id = str(current_user['_id'])
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
@@ -319,8 +318,36 @@ def athlete_edit():
 			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
 				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
 
-				if request.method == 'POST' and form.validate():
-					email = form.email.data
+				return render_template('edit-lifts.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat)
+			else:
+				flash("Access restricted. You do not have permission to do that", 'danger')
+				return redirect(url_for('athletes'))
+	flash('Invalid Athlete ID', 'danger')
+	return redirect(url_for('athletes'))
+
+@app.route('/athletes/edit/account', methods=['POST', 'GET'])
+@is_logged_in
+def athlete_edit_account():
+	current_user = None
+	if session.get('logged_in'):
+		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+	else:
+		flash('Access restricted. Please login first', 'danger')
+		return redirect(url_for('login'))
+	
+	account_form = EditAccount(request.form)
+	id = str(current_user['_id'])
+	if id is not None and bson.objectid.ObjectId.is_valid(id):
+		athlete = users.find_one({'_id' : ObjectId(id)})
+		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
+		
+				
+		if athlete is not None:
+			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
+				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
+
+				if request.method == 'POST' and account_form.validate():
+					email = account_form.email.data
 					# Check if the email address already exists
 					existing_user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
 
@@ -329,9 +356,9 @@ def athlete_edit():
 						return redirect('athletes/edit/')
 					else:
 
-						current_user['first_name'] = form.firstname.data
-						current_user['last_name'] = form.lastname.data
-						current_user['email'] = form.email.data
+						current_user['first_name'] = account_form.firstname.data
+						current_user['last_name'] = account_form.lastname.data
+						current_user['email'] = account_form.email.data
 
 						users.save(current_user)
 						session['email'] = current_user['email']
@@ -341,11 +368,39 @@ def athlete_edit():
 					return redirect('athletes/edit/')
 
 				elif request.method == 'GET':
-					form.firstname.data = current_user['first_name']
-					form.lastname.data = current_user['last_name']
-					form.email.data = current_user['email']
+					account_form.firstname.data = current_user['first_name']
+					account_form.lastname.data = current_user['last_name']
+					account_form.email.data = current_user['email']
 
-				return render_template('athlete-edit.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat, form=form)
+				return render_template('edit-account.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, account_form=account_form)
+			else:
+				flash("Access restricted. You do not have permission to do that", 'danger')
+				return redirect(url_for('athletes'))
+	flash('Invalid Athlete ID', 'danger')
+	return redirect(url_for('athletes'))
+
+@app.route('/athletes/edit/')
+@app.route('/athletes/edit/profile', methods=['POST', 'GET'])
+@is_logged_in
+def athlete_edit_profile():
+	current_user = None
+	if session.get('logged_in'):
+		current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+	else:
+		flash('Access restricted. Please login first', 'danger')
+		return redirect(url_for('login'))
+	
+	profile_form = EditProfile(request.form)
+	id = str(current_user['_id'])
+	if id is not None and bson.objectid.ObjectId.is_valid(id):
+		athlete = users.find_one({'_id' : ObjectId(id)})
+		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
+			
+		if athlete is not None:
+			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
+				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
+
+				return render_template('edit-profile.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, profile_form=profile_form)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))

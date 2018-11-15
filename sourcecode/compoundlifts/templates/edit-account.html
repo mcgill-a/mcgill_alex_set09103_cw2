@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% set active_page = 'athletes' %}
+{% block content %}
+	<br />
+	<div class="no-padding container">
+		<br />
+		<div class="settings">
+			<div class="settings-list">
+				<a href="/athletes/edit/profile"><button id="btn-profile" class="btn">Profile</button></a>
+				<a href="/athletes/edit/lifts"><button id="btn-lifts" class="btn">Lifts</button></a>
+				<a href="/athletes/edit/account"><button id="btn-account" class="btn active">Account</button></a>
+			</div>
+			<div class="settings-content">
+				<div id="tab-account" class="tab">
+					<div class="edit-account">
+						<h1>Edit Account</h1>
+						{% from "includes/_formhelpers.html" import render_field %}
+						<div class="edit-form">
+							<form method='POST' action="">
+								<div class="section">
+									<p>FIRST NAME:</p>
+									{{render_field(account_form.firstname, autocomplete="given-name")}}
+								</div>
+								<div class="section">
+									<p>LAST NAME:</p>
+									{{render_field(account_form.lastname, autocomplete="family-name")}}
+								</div>
+								<div class="section">
+									<p>EMAIL:</p>
+									{{render_field(account_form.email, autocomplete="email")}}
+								</div>
+								<div class="footer">
+									<button type="submit">UPDATE</button>
+								</div>
+								{{ account_form.hidden_tag() }}
+							</form>
+						<div class="flashes">
+							<br /><br /><br />
+							{% include 'includes/_messages.html' %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -818,11 +818,11 @@ button.follow-btn:hover {
 	margin-top: 4px;
 }
 
-.settings #tab-account h1 {
+.settings-content h1 {
 	color: black;
 }
 
-.settings #tab-account .edit-account-form {
+.settings #tab-account .edit-form {
 	width: 300px;
 }
 
