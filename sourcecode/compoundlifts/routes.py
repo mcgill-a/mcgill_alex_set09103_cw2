@@ -258,18 +258,18 @@ def athletes(id=None):
 		search_match = True
 	else:
 		athletes = users.find().limit(10)
-	testing = []
+	display = []
 	for current in athletes:
 		current_profile = None
 		current_profile = profiles.find_one({'user_id' : current['_id']})
 		if current_profile is not None:
 			current['city'] = current_profile['location_city']
 			current['country'] = current_profile['location_country']
-		testing.append(current)
+		display.append(current)
 	if search_match:
-		return render_template('athletes.html', athletes=testing, current_user=current_user, search_query=search_query)
+		return render_template('athletes.html', athletes=display, current_user=current_user, search_query=search_query)
 	else:
-		return render_template('athletes.html', athletes=testing, current_user=current_user)
+		return render_template('athletes.html', athletes=display, current_user=current_user)
 
 
 @app.route('/athletes/<id>')
@@ -413,8 +413,8 @@ def athlete_edit_profile():
 				
 				profile = {
 					'user_id' 			: ObjectId(id),
-					'location_city' 	: profile_form.city.data,
-					'location_country' 	: profile_form.country.data,
+					'location_city' 	: profile_form.city.data.capitalize(),
+					'location_country' 	: profile_form.country.data.capitalize(),
 					'gender' 			: profile_form.gender.data,
 					'dob' 				: dob,
 					'weight'			: profile_form.weight.data,
