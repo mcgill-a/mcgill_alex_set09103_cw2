@@ -10,6 +10,7 @@ from compoundlifts import app, mail, users, profiles, lifts
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 from operator import itemgetter
+from urllib2 import urlopen
 
 
 @app.before_request
@@ -95,7 +96,8 @@ def signup():
 		followers = []
 		following = []
 		
-		profile_pic = "default.jpg" # MAKE SURE IT WORKS PROPERLY
+		profile_pic = "/static/resources/profile-pics/default.jpg"
+		print profile_pic
 		cover_pic = "https://i.imgur.com/2MxjfEn.jpg"
 
 		# Check if the email address already exists
@@ -121,6 +123,39 @@ def signup():
 				'profile_pic' : profile_pic,
 				'cover_pic' : cover_pic
 			})
+
+			# Retrieve the ID of the newly created user
+			new_user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
+			user_id = new_user['_id']
+
+			# Setup the new user profile
+			token = app.config['IP_INFO_TOKEN']
+			url = 'https://ipinfo.io/json?token=' + token
+			response = urlopen(url)
+			ip_data = json.load(response)
+
+			city= ip_data['city']
+			country = ip_data['country']
+			if country == 'GB':
+				country = 'United Kingdom'
+
+			profiles.insert({
+				'user_id' 			: user_id,
+				'location_city' 	: city,
+				'location_country' 	: country,
+				'gender' 			: "",
+				'dob' 				: "",
+				'weight'			: "",
+				'profile_bio'		: "",
+				'current_program' 	: 
+				{
+					'name' 			: "",
+					'date_started' 	: "",
+					'desc' 			: "",
+				}
+			})
+
+
 			print "INFO: New user has been created with email", email
 			flash('Account registered', 'success')
         	return redirect(url_for('login'))
@@ -383,6 +418,7 @@ def athlete_edit_account():
 	flash('Invalid Athlete ID', 'danger')
 	return redirect(url_for('athletes'))
 
+
 @app.route('/athletes/edit/', methods=['POST', 'GET'])
 @app.route('/athletes/edit/profile', methods=['POST', 'GET'])
 @is_logged_in
@@ -426,7 +462,7 @@ def athlete_edit_profile():
 						'desc' 			: profile_form.program_desc.data,
 					}
 				}
-				
+						
 				if user_profile is None:
 					profiles.insert(profile)
 				else:
