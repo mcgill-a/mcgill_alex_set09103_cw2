@@ -257,13 +257,19 @@ def athletes(id=None):
 		athletes = athlete_name_search(search_query)
 		search_match = True
 	else:
-
 		athletes = users.find().limit(10)
-
+	testing = []
+	for current in athletes:
+		current_profile = None
+		current_profile = profiles.find_one({'user_id' : current['_id']})
+		if current_profile is not None:
+			current['city'] = current_profile['location_city']
+			current['country'] = current_profile['location_country']
+		testing.append(current)
 	if search_match:
-		return render_template('athletes.html', athletes=athletes, current_user=current_user, search_query=search_query)
+		return render_template('athletes.html', athletes=testing, current_user=current_user, search_query=search_query)
 	else:
-		return render_template('athletes.html', athletes=athletes, current_user=current_user)
+		return render_template('athletes.html', athletes=testing, current_user=current_user)
 
 
 @app.route('/athletes/<id>')
@@ -338,9 +344,7 @@ def athlete_edit_account():
 	account_form = EditAccount(request.form)
 	id = str(current_user['_id'])
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
-		athlete = users.find_one({'_id' : ObjectId(id)})
-		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
-		
+		athlete = users.find_one({'_id' : ObjectId(id)})		
 				
 		if athlete is not None:
 			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
@@ -422,7 +426,7 @@ def athlete_edit_profile():
 						'desc' 			: profile_form.program_desc.data,
 					}
 				}
-
+				
 				if user_profile is None:
 					profiles.insert(profile)
 				else:

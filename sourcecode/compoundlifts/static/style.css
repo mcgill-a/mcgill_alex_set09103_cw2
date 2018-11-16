@@ -884,11 +884,11 @@ button.follow-btn:hover {
 }
 
 .profile-form form .right .inline-group input  {
-	width: 100px;
+	width: 105px;
 }
 
 .profile-form form .right select {
-	width: 100px;
+	width: 105px;
 	border-radius: 5px;
 	font-family: 'Montserrat', sans-serif;
 }
