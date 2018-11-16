@@ -360,11 +360,11 @@ form .section input {
 	width: 100%;
 	padding: 0 2px;
 }
-form .footer {
+.footer {
 	float: right;
 }
 
-form .footer button {
+.footer button {
 	border: none;
 	background: #2cd5ab;
 	color: white;
@@ -698,56 +698,11 @@ button.follow-btn:hover {
 	font-size: 50px;
 }
 
-.edit-profile {
-	width: 300px;
-}
-
-.edit-profile .profile-pic {
-	width: 120px;
-	height: 120px;
-	border-radius: 50%;
-	border: 4px solid white;
-	background: lightgreen;
-	object-fit: cover;
-	margin-top: 0;
-}
-
-.info-banner {
-	display: flex;
-	flex-direction: row;
-	color: black;
-	width: 600px;
-	background: white;
-	padding: 15px;
-	border: 2px solid #ccc;
-}
-
-.info-banner .details {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	margin-left: 10px;
-}
-
-.info-banner .details h1 {
-	color: black;
-}
-
-.info-banner .details h2 {
-	margin: 0;
-}
-
-.edit-profile input {
-	color: black;
-	font-family: 'Montserrat', sans-serif;
-}
-
 .settings {
 	display: flex;
 	flex-direction: row;
 	min-height: 700px;
 	width: 100%;
-	background: rgb(88, 231, 95);
 	justify-content: center;
 }
 
@@ -762,7 +717,7 @@ button.follow-btn:hover {
 }
 
 .settings-content {
-	width: 100%;
+	width: inherit;
 	height: 100%;
 	min-height: 700px;
 	background: rgb(255, 255, 255);
@@ -806,12 +761,15 @@ button.follow-btn:hover {
 }
 
 .settings .tab {
-	width: 1000px;
 	padding: 10px;
 }
 
 .settings #tab-profile {
 	padding: 20px;
+}
+
+.settings #tab-lifts {
+	width: inherit;
 }
 
 .settings #tab-profile h3 {
@@ -826,8 +784,154 @@ button.follow-btn:hover {
 	width: 300px;
 }
 
+.edit-profile {
+	width: 100%;
+}
+
+.edit-profile .profile-pic {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 4px solid white;
+	background: lightgreen;
+	object-fit: cover;
+	margin-top: 0;
+}
+
+.info-banner {
+	display: flex;
+	flex-direction: row;
+	color: black;
+	width: 600px;
+	background: white;
+	padding: 15px;
+	border: 2px solid #ccc;
+}
+
+.info-banner .details {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-left: 10px;
+}
+
+.info-banner .details h1 {
+	color: black;
+}
+
+.info-banner .details h2 {
+	margin: 0;
+}
+
+.edit-profile input, .edit-profile textarea {
+	color: black;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.profile-form form {
+	max-width: 100%;
+	padding: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.profile-form form .left {
+	background: rgb(255, 255, 255);
+	
+	width: 62%;
+}
+
+.profile-form form .left .section {
+	border: 1px solid #ccc;
+	padding: 10px;
+}
+
+.profile-form form .left .section:last-child {
+	margin-bottom: 0 !important;
+}
+
+.profile-form form .right {
+	background: rgb(255, 255, 255);
+	width: 35%;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+.profile-form form .section p {
+	font-size: 15px;
+	color: black;
+}
+
+.profile-form form .left textarea {
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 200px;
+	max-height: 250px;
+	border-radius: 5px;
+}
+
+.profile-form form .right .inline-group {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+
+}
+
+.profile-form form .right .inline-group .section {
+	text-align: left;
+	margin: 5px;
+}
+
+.profile-form form .right .inline-group input  {
+	width: 100px;
+}
+
+.profile-form form .right select {
+	width: 100px;
+	border-radius: 5px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+@media only screen and (max-width: 1025px) {
+    .profile-form form .right .inline-group input  {
+		width: 65px;
+	}
+	
+	.profile-form form .right select {
+		width: 65px;
+	}
+
+}
+
+.small-section {
+	width: 100%;
+}
+
+.profile-form form .left .training-header {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px;
+}
+
+.profile-form form .left .training-header input {
+	width: 70%;
+	border: 1px solid #ccc;
+}
+
+.profile-form form .left .training-header input:last-of-type {
+	width: 30%;
+	margin-left: 5px;
+}
+
+.profile-form form .section input {
+	border: 1px solid rgb(184, 184, 184);
+	padding: 0 2px;
+	border-radius: 5px;
+}
+
 .table-wrapper {
-	width: 1000px;
+	width: inherit !important;
 	margin: 0 auto 30px auto;
 	background: #fff;
 	padding: 20px;	

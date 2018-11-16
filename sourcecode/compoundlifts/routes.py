@@ -379,7 +379,7 @@ def athlete_edit_account():
 	flash('Invalid Athlete ID', 'danger')
 	return redirect(url_for('athletes'))
 
-@app.route('/athletes/edit/')
+@app.route('/athletes/edit/', methods=['POST', 'GET'])
 @app.route('/athletes/edit/profile', methods=['POST', 'GET'])
 @is_logged_in
 def athlete_edit_profile():
@@ -394,16 +394,66 @@ def athlete_edit_profile():
 	id = str(current_user['_id'])
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
-		user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
-			
-		if athlete is not None:
-			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
-				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
+		user_profile = profiles.find_one({'user_id' : ObjectId(session.get('id'))})
 
-				return render_template('edit-profile.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, profile_form=profile_form)
-			else:
-				flash("Access restricted. You do not have permission to do that", 'danger')
-				return redirect(url_for('athletes'))
+		if str(current_user['_id']) == id:
+			if request.method == 'POST' and profile_form.validate():
+				
+				dob = None
+				if profile_form.dob.data is not None:
+					date_started = datetime.datetime.combine(profile_form.dob.data, datetime.time.min)
+				
+				date_started = None
+				if profile_form.program_start_date.data is not None:
+					date_started = datetime.datetime.combine(profile_form.program_start_date.data, datetime.time.min)
+				
+				profile = {
+					'user_id' 			: ObjectId(id),
+					'location_city' 	: profile_form.city.data,
+					'location_country' 	: profile_form.country.data,
+					'gender' 			: profile_form.gender.data,
+					'dob' 				: dob,
+					'weight'			: profile_form.weight.data,
+					'profile_bio'		: profile_form.bio.data,
+					'current_program' 	: 
+					{
+						'name' 			: profile_form.program_name.data,
+						'date_started' 	: date_started,
+						'desc' 			: profile_form.program_desc.data,
+					}
+				}
+
+				if user_profile is None:
+					profiles.insert(profile)
+				else:
+					user_profile['profile_bio'] = profile['profile_bio']
+					user_profile['location_city'] = profile['location_city']
+					user_profile['location_country'] = profile['location_country']
+					user_profile['gender'] = profile['gender']
+					user_profile['dob'] = profile['dob']
+					user_profile['weight'] = profile['weight']
+					user_profile['current_program'] = profile['current_program']
+					profiles.save(user_profile)
+
+				flash("Your account has been updated", "success")
+				return redirect('athletes/edit/profile')
+
+			elif request.method == 'GET' and user_profile is not None:
+				profile_form.city.data = user_profile['location_city']
+				profile_form.country.data = user_profile['location_country']
+				profile_form.gender.data = user_profile['gender']
+				profile_form.dob.data = user_profile['dob']
+				profile_form.weight.data = user_profile['weight']
+				profile_form.bio.data = user_profile['profile_bio']
+				profile_form.program_name.data = user_profile['current_program']['name']
+				profile_form.program_start_date.data = user_profile['current_program']['date_started']
+				profile_form.program_desc.data = user_profile['current_program']['desc']
+
+			return render_template('edit-profile.html', athlete=athlete, current_user=current_user, profile_form=profile_form)
+		else:
+			flash("Access restricted. You do not have permission to do that", 'danger')
+			return redirect(url_for('athletes'))
+
 	flash('Invalid Athlete ID', 'danger')
 	return redirect(url_for('athletes'))
 
