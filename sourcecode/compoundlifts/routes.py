@@ -96,9 +96,8 @@ def signup():
 		followers = []
 		following = []
 		
-		profile_pic = "/static/resources/profile-pics/default.jpg"
-		print profile_pic
-		cover_pic = "https://i.imgur.com/2MxjfEn.jpg"
+		profile_pic = "/static/resources/profile-pics/default-profile.jpg"
+		cover_pic = "/static/resources/profile-pics/default-cover.jpg"
 
 		# Check if the email address already exists
 		existing_user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
