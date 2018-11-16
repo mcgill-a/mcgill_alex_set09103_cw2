@@ -139,18 +139,18 @@ def signup():
 				country = 'United Kingdom'
 
 			profiles.insert({
-				'user_id' 			: user_id,
-				'location_city' 	: city,
-				'location_country' 	: country,
-				'gender' 			: "",
-				'dob' 				: "",
-				'weight'			: "",
-				'profile_bio'		: "",
-				'current_program' 	: 
+				'user_id' : user_id,
+				'location_city' : city,
+				'location_country' : country,
+				'gender' : "",
+				'dob' : "",
+				'weight' : "",
+				'profile_bio' : "",
+				'current_program' : 
 				{
-					'name' 			: "",
-					'date_started' 	: "",
-					'desc' 			: "",
+					'name' : "",
+					'date_started' : "",
+					'desc' : "",
 				}
 			})
 
@@ -447,18 +447,18 @@ def athlete_edit_profile():
 					date_started = datetime.datetime.combine(profile_form.program_start_date.data, datetime.time.min)
 				
 				profile = {
-					'user_id' 			: ObjectId(id),
-					'location_city' 	: profile_form.city.data.capitalize(),
-					'location_country' 	: profile_form.country.data.capitalize(),
-					'gender' 			: profile_form.gender.data,
-					'dob' 				: dob,
-					'weight'			: profile_form.weight.data,
-					'profile_bio'		: profile_form.bio.data,
-					'current_program' 	: 
+					'user_id' : ObjectId(id),
+					'location_city' : profile_form.city.data.capitalize(),
+					'location_country' : profile_form.country.data.capitalize(),
+					'gender' : profile_form.gender.data,
+					'dob' : dob,
+					'weight' : profile_form.weight.data,
+					'profile_bio' : profile_form.bio.data,
+					'current_program' : 
 					{
-						'name' 			: profile_form.program_name.data,
-						'date_started' 	: date_started,
-						'desc' 			: profile_form.program_desc.data,
+						'name' : profile_form.program_name.data,
+						'date_started' : date_started,
+						'desc' : profile_form.program_desc.data,
 					}
 				}
 						
