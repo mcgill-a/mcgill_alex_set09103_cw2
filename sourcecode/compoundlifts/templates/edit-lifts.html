@@ -234,18 +234,20 @@
 				$(this).parents("tr").remove();
 				$(".add-new").removeAttr("disabled");
 				
-				//Post the table row removal to the DB
-				$.ajax({
-					type : "POST",
-					url : post_url,
-					data: id,
-					contentType: 'application/json;charset=UTF-8',
-					success: function(result) {
-						console.log("Removed Lift: " + result);
-					}
-				});
-				location.reload();
-				
+				if (id != null)
+				{
+					//Post the table row removal to the DB
+					$.ajax({
+						type : "POST",
+						url : post_url,
+						data: id,
+						contentType: 'application/json;charset=UTF-8',
+						success: function(result) {
+							console.log("Removed Lift: " + result);
+						}
+					});
+					location.reload();
+				}				
 			});
 		});
 	</script>
