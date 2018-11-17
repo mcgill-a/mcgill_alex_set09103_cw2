@@ -440,20 +440,22 @@ def athlete_edit_profile():
 
 		if str(current_user['_id']) == id:
 			if request.method == 'POST' and profile_form.validate():
-				
+				# Convert date of birth and program start date to DateTime objects
 				dob = None
 				if profile_form.dob.data is not None:
-					date_started = datetime.datetime.combine(profile_form.dob.data, datetime.time.min)
-				
+					dob = datetime.datetime.combine(profile_form.dob.data, datetime.time.min)
 				date_started = None
 				if profile_form.program_start_date.data is not None:
 					date_started = datetime.datetime.combine(profile_form.program_start_date.data, datetime.time.min)
 				
+				# Capitalise first letter of each word
 				city = profile_form.city.data.title()
 				country = profile_form.country.data.title()
 				# Replace multiple spaces and trailing space
 				city = ' '.join(city.split())
 				country = ' '.join(country.split())
+				
+				# Create profile dictionary				
 				profile = {
 					'user_id' : ObjectId(id),
 					'location_city' : city,
