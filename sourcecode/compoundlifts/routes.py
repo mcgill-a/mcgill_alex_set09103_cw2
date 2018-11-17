@@ -137,6 +137,8 @@ def signup():
 			country = ip_data['country']
 			if country == 'GB':
 				country = 'United Kingdom'
+			elif country == 'US':
+				country = 'United States of America'
 
 			profiles.insert({
 				'user_id' : user_id,
@@ -446,10 +448,16 @@ def athlete_edit_profile():
 				if profile_form.program_start_date.data is not None:
 					date_started = datetime.datetime.combine(profile_form.program_start_date.data, datetime.time.min)
 				
+				city = profile_form.city.data.title()
+				country = profile_form.country.data.title()
+				# Replace multiple spaces and trailing space
+				city = ' '.join(city.split())
+				country = ' '.join(country.split())
+
 				profile = {
 					'user_id' : ObjectId(id),
-					'location_city' : profile_form.city.data.capitalize(),
-					'location_country' : profile_form.country.data.capitalize(),
+					'location_city' : city,
+					'location_country' : country,
 					'gender' : profile_form.gender.data,
 					'dob' : dob,
 					'weight' : profile_form.weight.data,
