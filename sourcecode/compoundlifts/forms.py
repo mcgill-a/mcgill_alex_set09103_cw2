@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, TextAreaField, PasswordField, IntegerField , validators, DateField, DecimalField
+from wtforms import StringField, SelectField, TextAreaField, PasswordField, IntegerField , validators, DateField, FloatField
 
 class LoginForm(FlaskForm):
 	email = StringField('email', [validators.Email()])
@@ -53,7 +53,7 @@ class EditProfile(FlaskForm):
 	country = StringField('city')
 	gender = SelectField('Gender', choices=[('', 'Select'), ('male', 'Male'), ('female', 'Female')])
 	dob = DateField('dob', [validators.optional()])
-	weight = IntegerField('weight', [
+	weight = FloatField('weight', [
 		validators.optional()
 		])
 	bio = TextAreaField('bio')

@@ -49,21 +49,19 @@
 										<p>COUNTRY:</p>
 										{{render_field(profile_form.country, autocomplete="country")}}
 									</div>
-									<div class="inline-group">
-										<div class="section">
-											<p>DOB:</p>
-											{{render_field(profile_form.dob, autocomplete="dob", placeholder="YYYY-MM-DD")}}
-										</div>
-										<div class="section">
-											<p>GENDER:</p>
-											{{render_field(profile_form.gender)}}
-										</div>
+									<div class="section section-small">
+										<p>DOB:</p>
+										{{render_field(profile_form.dob, autocomplete="dob", placeholder="YYYY-MM-DD")}}
 									</div>
-									
-									<div class="section small-section">
+									<div class="section section-small">
+										<p>GENDER:</p>
+										{{render_field(profile_form.gender)}}
+									</div>
+									<div class="section section-small">
 										<p>WEIGHT (KG):</p>
 										{{render_field(profile_form.weight, autocomplete="weight")}}
 									</div>
+									
 								</div>
 							</div>
 						</div>

@@ -11,6 +11,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 from operator import itemgetter
 from urllib2 import urlopen
+from bson.decimal128 import Decimal128
 
 
 @app.before_request
@@ -453,7 +454,6 @@ def athlete_edit_profile():
 				# Replace multiple spaces and trailing space
 				city = ' '.join(city.split())
 				country = ' '.join(country.split())
-
 				profile = {
 					'user_id' : ObjectId(id),
 					'location_city' : city,

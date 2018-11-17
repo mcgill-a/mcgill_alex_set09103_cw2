@@ -905,8 +905,8 @@ button.follow-btn:hover {
 
 }
 
-.small-section {
-	width: 100%;
+.section.section-small input {
+	width: 105px !important;
 }
 
 .profile-form form .left .training-header {
