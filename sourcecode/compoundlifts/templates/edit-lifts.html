@@ -143,18 +143,42 @@
 
 				if ($(this).attr('id') == 'deadlift-new')
 				{
+					var count = $('#deadlift tr').length
 					$('#deadlift').append(row);
-					$('table#deadlift tbody tr').eq(index + 1).find(".add, .edit").toggle();
+					if (count > 1)
+					{
+						$('table#deadlift tbody tr').eq(index + 1).find(".add, .edit").toggle();
+					}
+					else
+					{
+						$('table#deadlift tbody tr').eq(index).find(".add, .edit").toggle();
+					}
 				}
-				if ($(this).attr('id') == 'bench-new')
+				else if ($(this).attr('id') == 'bench-new')
 				{
+					var count = $('#bench tr').length
 					$('#bench').append(row);
-					$('table#bench tbody tr').eq(index + 1).find(".add, .edit").toggle();
+					if (count > 1)
+					{
+						$('table#bench tbody tr').eq(index + 1).find(".add, .edit").toggle();
+					}
+					else
+					{
+						$('table#bench tbody tr').eq(index).find(".add, .edit").toggle();
+					}
 				}
-				if ($(this).attr('id') == 'squat-new')
+				else if ($(this).attr('id') == 'squat-new')
 				{
+					var count = $('#squat tr').length
 					$('#squat').append(row);
-					$('table#squat tbody tr').eq(index + 1).find(".add, .edit").toggle();
+					if (count > 1)
+					{
+						$('table#squat tbody tr').eq(index + 1).find(".add, .edit").toggle();
+					}
+					else
+					{
+						$('table#squat tbody tr').eq(index).find(".add, .edit").toggle();
+					}					
 				}
 				
 				$('[data-toggle="tooltip"]').tooltip();
