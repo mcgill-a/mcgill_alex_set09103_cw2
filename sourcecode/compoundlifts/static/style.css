@@ -859,9 +859,11 @@ button.follow-btn:hover {
 	border: 1px solid #ccc;
 }
 
-.profile-form form .section p {
+.profile-form form .section p, .profile-form form .section label {
 	font-size: 15px;
 	color: black;
+	font-weight: normal;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .profile-form form .left textarea {
@@ -929,6 +931,14 @@ button.follow-btn:hover {
 	border: 1px solid rgb(184, 184, 184);
 	padding: 0 2px;
 	border-radius: 5px;
+}
+
+.profile-form form .section input.form-control-file {
+	border: none;
+}
+
+.profile-form form .section label {
+
 }
 
 .table-wrapper {

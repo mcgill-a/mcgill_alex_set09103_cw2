@@ -22,7 +22,7 @@
 						</div>#}
 						{% from "includes/_formhelpers.html" import render_field %}
 						<div class="profile-form">
-							<form method='POST' action="">
+							<form method='POST' action="" enctype="multipart/form-data">
 								<div class="left">
 									<div class="section">
 										<p>BIO:</p>
@@ -41,6 +41,24 @@
 									</div>
 								</div>
 								<div class="right">
+									<div class="section">
+										{{profile_form.profile_pic.label()}}
+										{{profile_form.profile_pic(class="form-control-file")}}
+										{% if profile_form.profile_pic.errors %}
+											{% for error in profile_form.profile_pic.errors %}
+												<p class="error">{{ error }}</p>
+											{% endfor %}
+										{% endif %}
+									</div>
+									<div class="section">
+										{{profile_form.cover_pic.label()}}
+										{{profile_form.cover_pic(class="form-control-file")}}
+										{% if profile_form.cover_pic.errors %}
+											{% for error in profile_form.cover_pic.errors %}
+												<p class="error">{{ error }}</p>
+											{% endfor %}
+										{% endif %}
+									</div>
 									<div class="section">
 										<p>CITY:</p>
 										{{render_field(profile_form.city, autocomplete="city")}}

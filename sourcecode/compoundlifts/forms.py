@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, SelectField, TextAreaField, PasswordField, IntegerField , validators, DateField, FloatField
 
 class LoginForm(FlaskForm):
@@ -49,6 +50,8 @@ class EditAccount(FlaskForm):
 	email = StringField('email', [validators.Email()])
 
 class EditProfile(FlaskForm):
+	profile_pic = FileField('UPDATE PROFILE PICTURE:', validators=[FileAllowed(['jpg', 'png'])])
+	cover_pic = FileField('UPDATE COVER PICTURE:', validators=[FileAllowed(['jpg', 'png'])])
 	city = StringField('city')
 	country = StringField('city')
 	gender = SelectField('Gender', choices=[('', 'Select'), ('male', 'Male'), ('female', 'Female')])
@@ -60,3 +63,4 @@ class EditProfile(FlaskForm):
 	program_name = StringField('program-name')
 	program_start_date = DateField('program-start-date', [validators.optional()])
 	program_desc = TextAreaField('program-desc')
+	

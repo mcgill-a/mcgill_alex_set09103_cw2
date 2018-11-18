@@ -11,7 +11,6 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 from operator import itemgetter
 from urllib2 import urlopen
-from bson.decimal128 import Decimal128
 
 
 @app.before_request
@@ -96,9 +95,6 @@ def signup():
 		account_level = 0
 		followers = []
 		following = []
-		
-		profile_pic = "/static/resources/profile-pics/default-profile.jpg"
-		cover_pic = "/static/resources/profile-pics/default-cover.jpg"
 
 		# Check if the email address already exists
 		existing_user = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
@@ -119,9 +115,7 @@ def signup():
 				'last_ip' : ip,
 				'account_level' : account_level,
 				'followers' : followers,
-				'following' : following,
-				'profile_pic' : profile_pic,
-				'cover_pic' : cover_pic
+				'following' : following
 			})
 
 			# Retrieve the ID of the newly created user
@@ -141,8 +135,13 @@ def signup():
 			elif country == 'US':
 				country = 'United States of America'
 
+			profile_pic = "/static/resources/users/profile/default-profile.jpg"
+			cover_pic = "/static/resources/users/cover/default-cover.jpg"
+
 			profiles.insert({
 				'user_id' : user_id,
+				'profile_pic' : profile_pic,
+				'cover_pic' : cover_pic,
 				'location_city' : city,
 				'location_country' : country,
 				'gender' : "",
@@ -302,6 +301,9 @@ def athletes(id=None):
 		if current_profile is not None:
 			current['city'] = current_profile['location_city']
 			current['country'] = current_profile['location_country']
+			if 'profile_pic' in current_profile and 'cover_pic' in current_profile:
+				current['profile_pic'] = current_profile['profile_pic']
+				current['cover_pic'] = current_profile['cover_pic']
 		display.append(current)
 	if search_match:
 		return render_template('athletes.html', athletes=display, current_user=current_user, search_query=search_query)
@@ -321,8 +323,8 @@ def athlete(id=None):
 		if athlete is not None:
 
 			user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
-
-			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, current_user=current_user)
+			user_profile = profiles.find_one({'user_id' : ObjectId(id)})
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, current_user=current_user)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
@@ -385,7 +387,7 @@ def athlete_edit_account():
 				
 		if athlete is not None:
 			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
-				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
+				#profile_pic = url_for('static', filename="resources/users/profile" + current_user['use'])
 
 				if request.method == 'POST' and account_form.validate():
 					email = account_form.email.data
@@ -413,13 +415,31 @@ def athlete_edit_account():
 					account_form.lastname.data = current_user['last_name']
 					account_form.email.data = current_user['email']
 
-				return render_template('edit-account.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, account_form=account_form)
+				return render_template('edit-account.html', athlete=athlete, current_user=current_user, account_form=account_form)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
 	flash('Invalid Athlete ID', 'danger')
 	return redirect(url_for('athletes'))
 
+
+def store_profile_pic(form_pic, profile_user_id):
+	_, ext = os.path.splitext(form_pic.filename)
+	picture_fn = id + ext
+	picture_path = os.path.join(app.root_path, 'static/resources/users/profile', picture_fn)
+
+	form_pic.save(picture_path)
+
+	return picture_fn
+
+def store_cover_pic(form_pic, profile_user_id):
+	_, ext = os.path.splitext(form_pic.filename)
+	picture_fn = id + ext
+	picture_path = os.path.join(app.root_path, 'static/resources/users/cover', picture_fn)
+
+	form_pic.save(picture_path)
+
+	return picture_fn
 
 @app.route('/athletes/edit/', methods=['POST', 'GET'])
 @app.route('/athletes/edit/profile', methods=['POST', 'GET'])
@@ -455,9 +475,32 @@ def athlete_edit_profile():
 				city = ' '.join(city.split())
 				country = ' '.join(country.split())
 				
+				# Only set default pics the first time otherwise they might get reset when the user doesn't upload anything
+				# (move this from here to fix this issue...)
+				profile_pic = "/static/resources/users/profile/default-profile.jpg"
+				cover_pic = "/static/resources/users/cover/default-cover.jpg"
+				
+				# Current issue with file upload:
+					# File extensions are not validating properly.. any ext works
+					# No data is being retrieved from file (profile_form.profile_pic.data)
+					# No data is being retrieved from file (profile_form.cover_pic.data)
+				
+				if profile_form.profile_pic.data:
+					print "profile pic data found"
+					profile_pic = store_profile_pic(profile_form.profile_pic.data, user_profile['user_id'])
+				
+				if profile_form.cover_pic.data:
+					print "cover pic data found"
+					cover_pic = store_cover_pic(profile_form.profile_pic.data, user_profile['user_id'])
+
+				print profile_pic
+				print cover_pic
+				
 				# Create profile dictionary				
 				profile = {
 					'user_id' : ObjectId(id),
+					'profile_pic' : profile_pic,
+					'cover_pic' : cover_pic,
 					'location_city' : city,
 					'location_country' : country,
 					'gender' : profile_form.gender.data,
@@ -488,6 +531,8 @@ def athlete_edit_profile():
 				return redirect('athletes/edit/profile')
 
 			elif request.method == 'GET' and user_profile is not None:
+				profile_form.profile_pic.data = ""
+				profile_form.cover_pic.data = ""
 				profile_form.city.data = user_profile['location_city']
 				profile_form.country.data = user_profile['location_country']
 				profile_form.gender.data = user_profile['gender']

@@ -4,7 +4,7 @@
 	<br />
 	<div class="athlete no-padding container ">
 		<br />
-		<div class="cover-pic" style="background: url({{athlete.cover_pic|e}});">
+		<div class="cover-pic" style="background: url({{user_profile.cover_pic|e}});">
 
 		</div>
 		
@@ -12,7 +12,7 @@
 			{% include 'includes/_messages.html' %}
 			<div class="top">
 				<div class="social">
-					<img class="profile-pic" src='{{athlete.profile_pic|e}}' width=200px height=200px/>	
+					<img class="profile-pic" src='{{user_profile.profile_pic|e}}' width=200px height=200px/>	
 					<div class="follow">
 						<div class="followers">
 							<a id="follower-count" href="#">{{athlete.followers | length}}</a>
