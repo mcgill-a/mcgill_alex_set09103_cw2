@@ -367,10 +367,9 @@ def athlete_edit_lifts():
 				squat = user_lifts['lifts']['squat']
 		
 		if athlete is not None:
-			if str(current_user['_id']) == id: # (disabled) or current_user['account_level'] == 10
-				profile_pic = url_for('static', filename="resources/profile-pics/" + current_user['profile_pic'])
+			if str(current_user['_id']) == id: # or current_user['account_level'] == 10 (to let admin modify user profile/lifts/account)
 
-				return render_template('edit-lifts.html', athlete=athlete, current_user=current_user, profile_pic=profile_pic, deadlifts=deadlift, bench=bench, squat=squat)
+				return render_template('edit-lifts.html', athlete=athlete, current_user=current_user, deadlifts=deadlift, bench=bench, squat=squat)
 			else:
 				flash("Access restricted. You do not have permission to do that", 'danger')
 				return redirect(url_for('athletes'))
