@@ -585,6 +585,7 @@ button.follow-btn:hover {
 {
 	display: flex;
 	flex-direction: column;
+	margin-left: 10px;
 }
 
 .athlete .social button {

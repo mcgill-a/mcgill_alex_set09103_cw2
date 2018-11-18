@@ -326,17 +326,40 @@ def athlete(id=None):
 		if athlete is not None:
 
 			user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
-			user_profile = profiles.find_one({'user_id' : ObjectId(id)})
+			
+			deadlift_max = None
+			if 'deadlift' in user_lifts['lifts'] and len(user_lifts['lifts']['deadlift']) >= 1 :
+				deadlift_max = findMaxLift(user_lifts['lifts']['deadlift'])
 
+			bench_max = None
+			if 'bench' in user_lifts['lifts'] and len(user_lifts['lifts']['bench']) >= 1 :
+				bench_max = findMaxLift(user_lifts['lifts']['bench'])
+
+			squat_max = None
+			if 'squat' in user_lifts['lifts'] and len(user_lifts['lifts']['squat']) >= 1 :
+				squat_max = findMaxLift(user_lifts['lifts']['squat'])
+
+			user_profile = profiles.find_one({'user_id' : ObjectId(id)})
 			profile_pic_path = url_for('static', filename='resources/users/profile/' + user_profile['profile_pic'])
 			cover_pic_path = url_for('static', filename='resources/users/cover/' + user_profile['cover_pic'])
 
-			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, current_user=current_user)
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
 	flash('Invalid Athlete ID entered', 'danger')
 	return redirect(url_for('athletes'))
+
+
+def findMaxLift(lifts):
+	maxWeight = 0
+	maxLift = None
+
+	for current in lifts:
+		if current['weight'] > maxWeight:
+			maxWeight = current['weight']
+			maxLift = current
+	return maxLift
 
 
 @app.route('/athletes/edit/lifts', methods=['POST', 'GET'])
@@ -569,7 +592,7 @@ def add_lift(lift=None):
 				'lifts' :  {lift : [ data ] }
 			})
 		else:
-			# if key not in list of lifts then add it
+			# If key is not in the list then add it
 			if lift in user_lifts['lifts']:
 				print "in"
 				current_lift = user_lifts['lifts'][lift]
@@ -578,12 +601,9 @@ def add_lift(lift=None):
 				sorted_lift = sorted(current_lift, key=itemgetter('date'), reverse=True)
 				user_lifts['lifts'][lift] = sorted_lift
 				lifts.save(user_lifts)
-				print "Added", lift, "to existing list DB"
 			else:
 				user_lifts['lifts'][lift] = [ data ]
-				lifts.save(user_lifts)
-				print "Added", lift, "to new list DB"
-				
+				lifts.save(user_lifts)	
 	
 		return response
 	return redirect(url_for('index'))
