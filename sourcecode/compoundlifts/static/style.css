@@ -476,10 +476,12 @@ form .section input:focus {
 }
 
 .athletes-content .athlete-overview .profile-pic img{
-	max-width: 90%;
-	max-height: 90%;
+	width: 96px;
+	height: 96px;
 	background: white;
 	object-fit: cover;
+	border-radius: 40%;
+	border: 1px solid rgba(0,0,0,0.1)
 }
 
 .athlete-overview .basic-info {
@@ -567,7 +569,7 @@ button.follow-btn:hover {
 .athlete .profile-pic {
 	width: 210px;
 	height: 210px;
-	border-radius: 50%;
+	border-radius: 40%;
 	border: 4px solid white;
 	margin-top: -100px;
 	background: white;
