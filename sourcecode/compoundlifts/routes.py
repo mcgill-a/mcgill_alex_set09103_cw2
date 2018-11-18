@@ -302,6 +302,9 @@ def athletes(id=None):
 			current['city'] = current_profile['location_city']
 			current['country'] = current_profile['location_country']
 			if 'profile_pic' in current_profile and 'cover_pic' in current_profile:
+				current_profile['profile_pic'] = url_for('static', filename='resources/users/profile/' + current_profile['profile_pic'])
+				current_profile['cover_pic'] = url_for('static', filename='resources/users/cover/' + current_profile['cover_pic'])
+				
 				current['profile_pic'] = current_profile['profile_pic']
 				current['cover_pic'] = current_profile['cover_pic']
 		display.append(current)
@@ -324,7 +327,11 @@ def athlete(id=None):
 
 			user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
 			user_profile = profiles.find_one({'user_id' : ObjectId(id)})
-			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, current_user=current_user)
+
+			profile_pic_path = url_for('static', filename='resources/users/profile/' + user_profile['profile_pic'])
+			cover_pic_path = url_for('static', filename='resources/users/cover/' + user_profile['cover_pic'])
+
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, current_user=current_user)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
@@ -425,16 +432,16 @@ def athlete_edit_account():
 
 def store_profile_pic(form_pic, profile_user_id):
 	_, ext = os.path.splitext(form_pic.filename)
-	picture_fn = id + ext
+	picture_fn = profile_user_id + ext
 	picture_path = os.path.join(app.root_path, 'static/resources/users/profile', picture_fn)
-
+	
 	form_pic.save(picture_path)
 
 	return picture_fn
 
 def store_cover_pic(form_pic, profile_user_id):
 	_, ext = os.path.splitext(form_pic.filename)
-	picture_fn = id + ext
+	picture_fn = profile_user_id + ext
 	picture_path = os.path.join(app.root_path, 'static/resources/users/cover', picture_fn)
 
 	form_pic.save(picture_path)
@@ -452,7 +459,7 @@ def athlete_edit_profile():
 		flash('Access restricted. Please login first', 'danger')
 		return redirect(url_for('login'))
 	
-	profile_form = EditProfile(request.form)
+	profile_form = EditProfile()
 	id = str(current_user['_id'])
 	if id is not None and bson.objectid.ObjectId.is_valid(id):
 		athlete = users.find_one({'_id' : ObjectId(id)})
@@ -475,27 +482,17 @@ def athlete_edit_profile():
 				city = ' '.join(city.split())
 				country = ' '.join(country.split())
 				
-				# Only set default pics the first time otherwise they might get reset when the user doesn't upload anything
-				# (move this from here to fix this issue...)
-				profile_pic = "/static/resources/users/profile/default-profile.jpg"
-				cover_pic = "/static/resources/users/cover/default-cover.jpg"
+				profile_pic = "default-profile.jpg"
+				cover_pic = "default-cover.jpg"
 				
-				# Current issue with file upload:
-					# File extensions are not validating properly.. any ext works
-					# No data is being retrieved from file (profile_form.profile_pic.data)
-					# No data is being retrieved from file (profile_form.cover_pic.data)
-				
+				# If a file was provided by the user then upload and store it
+				# Then store the name of the new file in the user profile DB
 				if profile_form.profile_pic.data:
-					print "profile pic data found"
-					profile_pic = store_profile_pic(profile_form.profile_pic.data, user_profile['user_id'])
+					profile_pic = store_profile_pic(profile_form.profile_pic.data, str(user_profile['user_id']))
 				
 				if profile_form.cover_pic.data:
-					print "cover pic data found"
-					cover_pic = store_cover_pic(profile_form.profile_pic.data, user_profile['user_id'])
+					cover_pic = store_cover_pic(profile_form.cover_pic.data, str(user_profile['user_id']))
 
-				print profile_pic
-				print cover_pic
-				
 				# Create profile dictionary				
 				profile = {
 					'user_id' : ObjectId(id),
@@ -518,6 +515,10 @@ def athlete_edit_profile():
 				if user_profile is None:
 					profiles.insert(profile)
 				else:
+					if profile_form.profile_pic.data:
+						user_profile['profile_pic'] = profile['profile_pic']
+					if profile_form.cover_pic.data:
+						user_profile['cover_pic'] = profile['cover_pic']
 					user_profile['profile_bio'] = profile['profile_bio']
 					user_profile['location_city'] = profile['location_city']
 					user_profile['location_country'] = profile['location_country']
@@ -543,6 +544,7 @@ def athlete_edit_profile():
 				profile_form.program_start_date.data = user_profile['current_program']['date_started']
 				profile_form.program_desc.data = user_profile['current_program']['desc']
 
+			
 			return render_template('edit-profile.html', athlete=athlete, current_user=current_user, profile_form=profile_form)
 		else:
 			flash("Access restricted. You do not have permission to do that", 'danger')
