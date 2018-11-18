@@ -135,8 +135,8 @@ def signup():
 			elif country == 'US':
 				country = 'United States of America'
 
-			profile_pic = "/static/resources/users/profile/default-profile.jpg"
-			cover_pic = "/static/resources/users/cover/default-cover.jpg"
+			profile_pic = "default-profile.jpg"
+			cover_pic = "default-cover.jpg"
 
 			profiles.insert({
 				'user_id' : user_id,
