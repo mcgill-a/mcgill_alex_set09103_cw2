@@ -328,16 +328,20 @@ def athlete(id=None):
 			user_lifts = lifts.find_one({'user_id' : ObjectId(id)})
 			
 			deadlift_max = None
-			if 'deadlift' in user_lifts['lifts'] and len(user_lifts['lifts']['deadlift']) >= 1 :
-				deadlift_max = findMaxLift(user_lifts['lifts']['deadlift'])
-
 			bench_max = None
-			if 'bench' in user_lifts['lifts'] and len(user_lifts['lifts']['bench']) >= 1 :
-				bench_max = findMaxLift(user_lifts['lifts']['bench'])
-
 			squat_max = None
-			if 'squat' in user_lifts['lifts'] and len(user_lifts['lifts']['squat']) >= 1 :
-				squat_max = findMaxLift(user_lifts['lifts']['squat'])
+
+			if user_lifts is not None:
+				if 'deadlift' in user_lifts['lifts'] and len(user_lifts['lifts']['deadlift']) >= 1 :
+					deadlift_max = findMaxLift(user_lifts['lifts']['deadlift'])
+
+				
+				if 'bench' in user_lifts['lifts'] and len(user_lifts['lifts']['bench']) >= 1 :
+					bench_max = findMaxLift(user_lifts['lifts']['bench'])
+
+				
+				if 'squat' in user_lifts['lifts'] and len(user_lifts['lifts']['squat']) >= 1 :
+					squat_max = findMaxLift(user_lifts['lifts']['squat'])
 
 			user_profile = profiles.find_one({'user_id' : ObjectId(id)})
 			profile_pic_path = url_for('static', filename='resources/users/profile/' + user_profile['profile_pic'])
