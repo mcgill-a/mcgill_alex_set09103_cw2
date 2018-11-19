@@ -656,6 +656,45 @@ button.follow-btn:hover {
 	border-bottom: 1px solid rgb(38,38,38);
 }
 
+.athlete-tabs {
+	display: flex;
+	flex-direction: row;
+	margin-top: 20px;
+	height: 40px;
+	width: 80%;
+	/* padding: 0 10%; */
+	margin: 20px auto;
+	justify-content: left;
+	border-bottom: 1px solid #ccc;
+}
+
+.athlete-tabs .tab {
+	height: 40px;
+	border-bottom: 1px solid #ccc;
+}
+
+.athlete-tabs .tab.active {
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-top: 2px solid #ec3642;
+	border-bottom: 1px solid white;
+}
+
+.athlete-tabs .tab button {
+	padding: 8px 16px;
+	align-items: center;
+	border: none;
+	background: none;
+}
+
+.athlete-tabs .tab button:hover {
+	background: #e9e9e9;
+}
+
+.tab-content {
+	display: flex;
+}
+
 .featured .title {
 	text-transform: uppercase;
 	border-bottom: 1px solid black;

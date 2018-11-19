@@ -334,12 +334,10 @@ def athlete(id=None):
 			if user_lifts is not None:
 				if 'deadlift' in user_lifts['lifts'] and len(user_lifts['lifts']['deadlift']) >= 1 :
 					deadlift_max = findMaxLift(user_lifts['lifts']['deadlift'])
-
 				
 				if 'bench' in user_lifts['lifts'] and len(user_lifts['lifts']['bench']) >= 1 :
 					bench_max = findMaxLift(user_lifts['lifts']['bench'])
 
-				
 				if 'squat' in user_lifts['lifts'] and len(user_lifts['lifts']['squat']) >= 1 :
 					squat_max = findMaxLift(user_lifts['lifts']['squat'])
 
