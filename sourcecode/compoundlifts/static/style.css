@@ -576,6 +576,10 @@ button.follow-btn:hover {
 	object-fit: cover;
 }
 
+.athlete .profile-pic.no-margin {
+	margin-top: 0;
+}
+
 .athlete .top {
 	display: flex;
 	flex-direction: row;
@@ -979,9 +983,9 @@ button.follow-btn:hover {
 	border: none;
 }
 
-.profile-form form .section label {
+/*.profile-form form .section label {
 
-}
+}*/
 
 .table-wrapper {
 	width: inherit !important;

@@ -1,0 +1,46 @@
+<div class="athletes-content">
+    <div class="athlete-search">
+        <form method="GET" class="">
+            {% if search_query is defined %}
+            <input type="text" name="name" size="41" placeholder="Athlete Name" value="{{search_query}}">
+            <button type="submit" class="btn btn-primary">SEARCH</button>
+            <a href="/athletes/" class="btn btn-danger">RESET</a>
+            {% else %}
+            <input type="text" name="name" size="40" placeholder="Athlete Name">
+            <button type="submit" class="btn btn-info">SEARCH</button>
+            {% endif %}
+        </form>
+    </div>
+    {% for athlete in athletes %}
+    <div class="athlete-overview">
+        <div class="profile-pic">
+            <img src="{{athlete.profile_pic|e}}">
+        </div>
+        <div class="basic-info">
+            <p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
+            <p>
+                {% if 'city' in athlete and athlete.city|length > 1 %}
+                    <span class="glyphicon glyphicon-map-marker"></span> 
+                    {% if 'country' in athlete and athlete.country|length > 1 %}
+                        {{athlete.city}}, {{athlete.country}}
+                    {% else %}
+                        {{athlete.city}}
+                    {% endif %}
+                {% elif 'country' in athlete and athlete.country|length > 1 %}
+                    <span class="glyphicon glyphicon-map-marker"></span> {{athlete.country}}
+                {% else %}
+                    <br />
+                {% endif %}
+            </p>
+            {% if current_user is not none and athlete._id != current_user._id %}
+                {% if athlete._id|string in current_user.following %}
+                    <button class="unfollow-btn" type="submit" name="{{athlete._id|string}}"></button>
+                {% else %}
+                    <button class="follow-btn" type="submit" name="{{athlete._id|string}}"></button>
+                {% endif %}
+            {% endif %}
+        </div>
+        
+    </div>
+    {% endfor %}
+</div>

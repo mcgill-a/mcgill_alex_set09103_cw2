@@ -279,6 +279,24 @@ def athlete_name_search(search_query):
 	return matched
 
 
+def add_location(athletes):
+	output = []
+	for current in athletes:
+		current_profile = None
+		current_profile = profiles.find_one({'user_id' : current['_id']})
+		if current_profile is not None:
+			current['city'] = current_profile['location_city']
+			current['country'] = current_profile['location_country']
+			if 'profile_pic' in current_profile and 'cover_pic' in current_profile:
+				current_profile['profile_pic'] = url_for('static', filename='resources/users/profile/' + current_profile['profile_pic'])
+				current_profile['cover_pic'] = url_for('static', filename='resources/users/cover/' + current_profile['cover_pic'])
+				
+				current['profile_pic'] = current_profile['profile_pic']
+				current['cover_pic'] = current_profile['cover_pic']
+		output.append(current)
+	return output
+
+
 @app.route('/athletes/')
 def athletes(id=None):
 	current_user = None
@@ -294,20 +312,9 @@ def athletes(id=None):
 		search_match = True
 	else:
 		athletes = users.find().limit(10)
-	display = []
-	for current in athletes:
-		current_profile = None
-		current_profile = profiles.find_one({'user_id' : current['_id']})
-		if current_profile is not None:
-			current['city'] = current_profile['location_city']
-			current['country'] = current_profile['location_country']
-			if 'profile_pic' in current_profile and 'cover_pic' in current_profile:
-				current_profile['profile_pic'] = url_for('static', filename='resources/users/profile/' + current_profile['profile_pic'])
-				current_profile['cover_pic'] = url_for('static', filename='resources/users/cover/' + current_profile['cover_pic'])
-				
-				current['profile_pic'] = current_profile['profile_pic']
-				current['cover_pic'] = current_profile['cover_pic']
-		display.append(current)
+	
+	display = add_location(athletes)
+
 	if search_match:
 		return render_template('athletes.html', athletes=display, current_user=current_user, search_query=search_query)
 	else:
@@ -345,7 +352,21 @@ def athlete(id=None):
 			profile_pic_path = url_for('static', filename='resources/users/profile/' + user_profile['profile_pic'])
 			cover_pic_path = url_for('static', filename='resources/users/cover/' + user_profile['cover_pic'])
 
-			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user)
+			following = []
+			followers = []
+
+			for current_id in athlete['followers']:
+				current = users.find_one({'_id' : ObjectId(current_id)})
+				followers.append(current)
+
+			for current_id in athlete['following']:
+				current = users.find_one({'_id' : ObjectId(current_id)})
+				following.append(current)
+
+			followers = add_location(followers)
+			following = add_location(following)
+
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
