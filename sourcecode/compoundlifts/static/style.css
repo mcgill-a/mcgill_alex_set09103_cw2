@@ -630,6 +630,7 @@ button.follow-btn:hover {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
+	margin-left: 10px;
 }
 
 .athlete .top .split .breadcrumb {
@@ -640,7 +641,7 @@ button.follow-btn:hover {
 
 .info {
 	margin: 0;
-	padding: 0 5px;
+	padding: 5px 5px;
 	color: black;
 	border: 1px solid black;
 	/*background: #161616; */
@@ -656,10 +657,34 @@ button.follow-btn:hover {
 	color: black;
 }
 
+.info .tags  {
+	display: flex;
+	flex-direction: row;
+}
+
+.info .tags p {
+	padding: 2px 6px;
+	border: 1px solid #ccc;
+	margin: 0 5px;
+}
+
+.info .bio {
+	margin: 10px 5px 5px 5px;
+	
+}
+
+.info .bio p {
+	padding: 2px 6px;
+	border: 1px solid #ccc;
+	min-height: 40px;
+	text-align: center;
+}
+
+/*
 .athlete .top .info p {
 	border-bottom: 1px solid rgb(38,38,38);
 }
-
+*/
 .athlete-tabs {
 	display: flex;
 	flex-direction: row;
@@ -699,7 +724,13 @@ button.follow-btn:hover {
 	display: flex;
 }
 
+.featured {
+	margin: 0 auto;
+	width: 90%;
+}
+
 .featured .title {
+	width: inherit;
 	text-transform: uppercase;
 	border-bottom: 1px solid black;
 	font-family: 'Montserrat', sans-serif;

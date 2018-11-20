@@ -54,7 +54,7 @@ class EditProfile(FlaskForm):
 	cover_pic = FileField('UPDATE COVER PICTURE:', validators=[FileAllowed(['jpg', 'png'])])
 	city = StringField('city')
 	country = StringField('city')
-	gender = SelectField('Gender', choices=[('', 'Select'), ('male', 'Male'), ('female', 'Female')])
+	gender = SelectField('Gender', choices=[('', 'Select'), ('Male', 'Male'), ('Female', 'Female')])
 	dob = DateField('dob', [validators.optional()])
 	weight = FloatField('weight', [
 		validators.optional()

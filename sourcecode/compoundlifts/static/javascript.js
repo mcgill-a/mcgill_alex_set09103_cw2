@@ -46,26 +46,26 @@ function openTab(tab)
   document.getElementById(tab).style.display = "flex";
 
   // Set the correct active tab
-  if (tab == "tab-overview")
+  if (tab == "tab-overview-content")
   {
-    document.getElementById("btn-overview").classList.remove('active');
-    document.getElementById("btn-overview").classList.add('active');
-    document.getElementById("btn-followers").classList.remove('active');
-    document.getElementById("btn-following").classList.remove('active');
+    document.getElementById("tab-overview").classList.remove('active');
+    document.getElementById("tab-overview").classList.add('active');
+    document.getElementById("tab-followers").classList.remove('active');
+    document.getElementById("tab-following").classList.remove('active');
   }
-  else if (tab == "tab-followers")
+  else if (tab == "tab-followers-content")
   {
-    document.getElementById("btn-followers").classList.remove('active');
-    document.getElementById("btn-followers").classList.add('active');
-    document.getElementById("btn-overview").classList.remove('active');
-    document.getElementById("btn-following").classList.remove('active');
+    document.getElementById("tab-followers").classList.remove('active');
+    document.getElementById("tab-followers").classList.add('active');
+    document.getElementById("tab-overview").classList.remove('active');
+    document.getElementById("tab-following").classList.remove('active');
   }
-  else if (tab == "tab-following")
+  else if (tab == "tab-following-content")
   {
-    document.getElementById("btn-following").classList.remove('active');
-    document.getElementById("btn-following").classList.add('active');
-    document.getElementById("btn-overview").classList.remove('active');
-    document.getElementById("btn-followers").classList.remove('active');
+    document.getElementById("tab-following").classList.remove('active');
+    document.getElementById("tab-following").classList.add('active');
+    document.getElementById("tab-overview").classList.remove('active');
+    document.getElementById("tab-followers").classList.remove('active');
   }
 }
 

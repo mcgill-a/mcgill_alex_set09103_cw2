@@ -15,11 +15,11 @@
 					<img class="profile-pic" src='{{profile_pic|e}}' width=200px height=200px/>	
 					<div class="follow">
 						<div class="followers">
-							<a id="follower-count" href="#">{{athlete.followers | length}}</a>
+							<a id="follower-count" href="#" onclick="openTab('tab-followers-content');">{{athlete.followers | length}}</a>
 							<p>Followers</p>
 						</div>
 						<div class="following">
-							<a id="following-count" href="#">{{athlete.following | length}}</a>
+							<a id="following-count" href="#" onclick="openTab('tab-following-content');">{{athlete.following | length}}</a>
 							<p>Following</p>
 						</div>
 					</div>
@@ -37,22 +37,52 @@
 					</div>
 					<div class="info">
 						<h1>{{athlete.first_name}} {{athlete.last_name}}</h1>
+						<div class="tags">
+							{% if user_profile.location_city|length > 1 %} 
+								{% if user_profile.location_country|length > 1 %}
+									<p>Location: {{user_profile.location_city}}, {{user_profile.location_country}}</p>
+								{% else %}
+									<p>Location: {{user_profile.location_city}}</p>
+								{% endif %}
+							{% elif user_profile.location_country|length > 1 %}
+								<p>Location: {{user_profile.location_country}}</p>
+							{% endif %}
+							
+							{% if user_profile.dob %}
+								<p>Age: {{updated_age}}</p>
+							{% endif %}
+
+							{% if user_profile.weight %}
+								<p>Weight: {{user_profile.weight}}KG</p>
+							{% endif %}
+
+							{% if user_profile.gender|length > 1 %}
+								<p>Gender: {{user_profile.gender}}</p>
+							{% endif %}
+						</div>
+						<div class="bio">
+							{% if user_profile.profile_bio %}
+								<p>{{user_profile.profile_bio}}</p>
+							{% else %}
+								<p>Default profile bio</p>
+							{% endif %}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="athlete-tabs">
-			<div id="btn-overview" class="tab active">
-				<button onclick="openTab('tab-overview');">Overview</button>
+			<div id="tab-overview" class="tab active">
+				<button id="btn-overview" onclick="openTab('tab-overview-content');">Overview</button>
 			</div>
-			<div id="btn-followers" class="tab">
-				<button onclick="openTab('tab-followers');">Followers</button>
+			<div id="tab-followers" class="tab">
+				<button id="btn-followers" onclick="openTab('tab-followers-content');">Followers</button>
 			</div>
-			<div id="btn-following" class="tab">
-				<button onclick="openTab('tab-following');">Following</button>
+			<div id="tab-following" class="tab">
+				<button id="btn-following" onclick="openTab('tab-following-content');">Following</button>
 			</div>
 		</div>
-		<div id="tab-overview" class="tab-content">
+		<div id="tab-overview-content" class="tab-content">
 			{% if user_lifts is not none %}
 			<div class="featured">
 				<div class="title">
@@ -84,13 +114,13 @@
 			</div>
 			{% endif %}
 		</div>
-		<div id="tab-followers" class="tab-content" style="display: none;">
+		<div id="tab-followers-content" class="tab-content" style="display: none;">
 			<div class="no-padding container">
 				{% include 'includes/_messages.html' %}
 				{% include 'includes/_followers.html' %}
 			</div>
 		</div>
-		<div id="tab-following" class="tab-content" style="display: none;">
+		<div id="tab-following-content" class="tab-content" style="display: none;">
 			<div class="no-padding container">
 				{% include 'includes/_messages.html' %}
 				{% include 'includes/_following.html' %}
@@ -99,7 +129,36 @@
 		<br />
 	</div>
 	<script>
+		/*
+		document.addEventListener("DOMContentLoaded", function(event) { 
+			if (window.location.hash == "#followers")
+			{
+				openTab('tab-followers-content');
+			}
+			else if (window.location.hash == "#following")
+			{
+				openTab('tab-following-content');
+			}
+		}); */
+
 		$(document).ready(function(){
+			/*
+			$('#btn-overview').on('click', function(){
+				window.location.hash = '';
+			});
+			
+			$('#btn-followers').on('click', function(){
+				window.location.hash = 'followers';
+				location.reload();
+			});
+			
+			$('#btn-following').on('click', function(){
+				window.location.hash = 'following';
+				location.reload();
+			});
+			*/
+
+
 			$("button.follow-btn").on('click', function(){
 				var id = $(this).attr('name');
 

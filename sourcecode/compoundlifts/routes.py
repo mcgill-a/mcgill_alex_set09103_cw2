@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for, jsonify, request, redirect, s
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson
+import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson, math
 from logging.handlers import RotatingFileHandler
 from functools import wraps
 from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm, EditAccount, EditProfile
@@ -279,7 +279,7 @@ def athlete_name_search(search_query):
 	return matched
 
 
-def add_location(athletes):
+def add_extras(athletes):
 	output = []
 	for current in athletes:
 		current_profile = None
@@ -313,7 +313,7 @@ def athletes(id=None):
 	else:
 		athletes = users.find().limit(10)
 	
-	display = add_location(athletes)
+	display = add_extras(athletes)
 
 	if search_match:
 		return render_template('athletes.html', athletes=display, current_user=current_user, search_query=search_query)
@@ -363,10 +363,14 @@ def athlete(id=None):
 				current = users.find_one({'_id' : ObjectId(current_id)})
 				following.append(current)
 
-			followers = add_location(followers)
-			following = add_location(following)
+			followers = add_extras(followers)
+			following = add_extras(following)
 
-			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following)
+			updated_age = -1
+			if user_profile['dob']:
+				updated_age = math.floor(((datetime.datetime.utcnow() - user_profile['dob']).days) / 365)
+				updated_age = int(updated_age)
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
