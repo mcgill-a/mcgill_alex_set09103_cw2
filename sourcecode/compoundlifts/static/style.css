@@ -920,9 +920,10 @@ button.follow-btn:hover {
 	background: lightblue;
 }
 
-.expanded-lift .lift .field .right .video {
-	max-width: 100%;
-	height: inherit;
+
+.expanded-lift .lift .field .right .video img {
+	height: 270px;
+	width: 480px;
 }
 
 iframe {

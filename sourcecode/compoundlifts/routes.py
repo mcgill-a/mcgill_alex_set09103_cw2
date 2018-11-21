@@ -627,8 +627,11 @@ def add_lift(lift=None):
 	if request.method == 'POST' and request.data:
 		response = request.data
 		data = json.loads(response)
+
+		original_url = data['video_url']
+		embed_url = original_url.replace("watch?v=", "embed/")
+		data['embed_url'] = embed_url
 		# Check if user already exists in lifts table
-		# CHANGE TO PROFILE ID NOT SESSION ID TO PREVENT ADMIN EDITING USER PROFILE AND ACCIDENTALLY ADDING TO THEIR OWN
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is None:
 			lifts.insert(
