@@ -114,7 +114,6 @@
 				{% if deadlift_max is not none %}
 				<div id="deadlift" class="expanded-lift">
 					<h1>Deadlift</h1>
-					{# {{'deadlift-' + (current lift lift)}} #}
 					{% if user_lifts['lifts']['deadlift'] and user_lifts['lifts']['deadlift']|length > 0 %}
 					{% for lift in user_lifts['lifts']['deadlift'] %}
 					<div id="{{loop.index - 1}}" class="lift">						
@@ -143,13 +142,13 @@
 									{% for comment in lift['comments'] %}
 									<div class="comment">
 										<div class="profile-pic">
-											<a href="#"><img src="https://i.imgur.com/MgIyDUH.png"></a>
+											<a href="/athletes/{{comment.user_id}}"><img src="{{comment.profile_pic|e}}"></a>
 										</div>
 										<div class="content">
 											<div class="basic-info">
-												<p><a href="#">Alex McGill</a></p>
+												<p><a href="/athletes/{{comment.user_id}}">{{comment.full_name}}</a></p>
 												<p>{{comment.comment}}</p>
-												<p class="date">November 21, 2018</p>
+												<p class="date">{{comment.date}}</p>
 											</div>
 										</div>
 									</div>
@@ -237,6 +236,8 @@
 						console.log("New Comment: " + result);
 					}
 				});
+
+				location.reload();
 			});
 
 			$("button.follow-btn").on('click', function(){
