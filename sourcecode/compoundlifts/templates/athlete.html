@@ -128,8 +128,16 @@
 									<h4>DESCRIPTION:</h4>
 									<p>{{lift.description}}</p>
 								</div>
-
-								<div class="comments">
+								<div class="video">
+									{% if lift.video_url|length > 5 %}
+										<iframe src="{{lift.embed_url}}" frameborder="0" allowfullscreen width="450" height="253" class="video"></iframe>
+									{% else %}
+										<img src="https://i.imgur.com/2L2vWO6.png">
+									{% endif %}
+								</div>
+							</div>
+							<div class="right">
+								<div class="comments scrollbar">
 									<h4>COMMENTS:</h4>
 									<div class="submit-comment">
 										<form>
@@ -153,15 +161,6 @@
 										</div>
 									</div>
 									{% endfor %}
-								</div>
-							</div>
-							<div class="right">
-								<div class="video">
-									{% if lift.video_url|length > 5 %}
-										<iframe src="{{lift.embed_url}}" frameborder="0" allowfullscreen width="480" height="270" class="video"></iframe>
-									{% else %}
-										<img src="https://i.imgur.com/2L2vWO6.png">
-									{% endif %}
 								</div>
 							</div>
 						</div>

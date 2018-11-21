@@ -785,10 +785,11 @@ button.follow-btn:hover {
 
 .expanded-lift .lift {
 	padding: 10px;
-	height: 600px;
+	height: auto;
 	width: 100% !important;
 	border: 1px solid gray;
 	font-family: 'Montserrat', sans-serif;
+	margin-bottom: 10px;
 }
 
 
@@ -798,7 +799,7 @@ button.follow-btn:hover {
 	justify-content: space-around;
 }
 
-.expanded-lift .lift .field .left {
+.expanded-lift .lift .field .left,  .expanded-lift .lift .field .right {
 	width: 450px;
 }
 
@@ -828,6 +829,11 @@ button.follow-btn:hover {
 	border: none;
 }
 
+.scrollbar {
+	height: 488px;
+	overflow: auto;
+}
+
 .expanded-lift .lift .comments {
 	border: 1px solid #ccc;
 	padding: 5px;
@@ -835,7 +841,7 @@ button.follow-btn:hover {
 	min-height: 100px;
 }
 
-.expanded-lift .lift .field, .left .comments h4 {
+.expanded-lift .lift .field, .right .comments h4 {
 	padding: 0;
 	margin: 0;
 	margin-bottom: 5px;
@@ -915,20 +921,20 @@ button.follow-btn:hover {
 
 .expanded-lift .lift .field .right {
 	margin: 5px;
-	width: auto;
-	height: 270px;
-	background: lightblue;
+	height: auto;
 }
 
 
-.expanded-lift .lift .field .right .video img {
-	height: 270px;
-	width: 480px;
+.expanded-lift .lift .field .left .video img {
+	margin: 5px;
+	width: 440px;
+	height: 248px;
 }
 
 iframe {
-	max-width: 100vw;
-	max-height: 56.25vw;
+	margin: 5px;
+	width: 440px;
+	height: 248px;
 }
 
 .settings {
