@@ -756,6 +756,7 @@ button.follow-btn:hover {
 	align-items: center;
 	margin: 0 10px;
 	margin-bottom: 20px;
+	cursor: pointer;
 }
 
 .cards .card img {
@@ -774,6 +775,44 @@ button.follow-btn:hover {
 .cards .card h2 {
 	margin: 0;
 	font-size: 50px;
+}
+
+.expanded-lift {
+	border: 1px solid #ccc;
+	padding: 0;
+	margin: 0;
+}
+
+.expanded-lift .lift {
+	padding: 10px;
+	height: 600px;
+	width: 100% !important;
+	background: lightgreen;
+}
+
+
+.expanded-lift .lift .field {
+	display: flex;
+	flex-direction: row;
+}
+
+.expanded-lift .lift .field .left {
+	width: 42%;
+	min-height: 400px;
+}
+
+.expanded-lift .lift .field .right {
+	width: 58%;
+	min-height: 400px;
+}
+
+.expanded-lift .lift .field .right .video {
+	max-width: 100%;
+}
+
+iframe {
+	max-width: 100vw;
+	max-height: 56.25vw;
 }
 
 .settings {

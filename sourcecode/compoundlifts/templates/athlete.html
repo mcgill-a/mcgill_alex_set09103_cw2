@@ -111,6 +111,27 @@
 					</div>
 					{% endif %}
 				</div>
+				{% if deadlift_max is not none %}
+				<div id="deadlift-expanded" class="expanded-lift">
+					<div class="lift">
+						<h1>Deadlift</h1>
+						<div class="field">
+							<div class="left">
+								<h3>DATE: 12/12/3012</h3>
+								<h3>WEIGHT: 469 KG</h3>
+								<p class="description">Silverback Gym</p>
+							</div>
+							<div class="right">
+								<div class="video">
+									<iframe src="http://www.youtube.com/embed/W7qWa52k-nE" frameborder="0" allowfullscreen width="560" height="315" class="video"></iframe>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				{% endif %}
 			</div>
 			{% endif %}
 		</div>
