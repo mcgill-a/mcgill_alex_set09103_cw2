@@ -882,6 +882,27 @@ button.follow-btn:hover {
 
 .expanded-lift .lift .comments .comment .content p {
 	margin-bottom: 0;
+	word-break: break-all;
+}
+
+.expanded-lift .lift .comments .submit-comment {
+	margin: 10px 5px;
+}
+
+.expanded-lift .lift .comments .submit-comment .submit-btn {
+	display: flex;
+	width: 100%;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.expanded-lift .lift .comments .submit-comment textarea {
+	padding: 3px;
+	min-width: 100%;
+	max-width: 100%;
+	min-height: 50px;
+	max-height: 100px;
+	border-radius: 5px;
 }
 
 .expanded-lift .lift .comments .comment .content p.date {
