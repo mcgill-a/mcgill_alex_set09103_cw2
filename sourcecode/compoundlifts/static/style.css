@@ -781,6 +781,7 @@ button.follow-btn:hover {
 	border: 1px solid #ccc;
 	padding: 10px;
 	margin: 0;
+	font-family: 'Montserrat', sans-serif;
 }
 
 .expanded-lift .lift {
