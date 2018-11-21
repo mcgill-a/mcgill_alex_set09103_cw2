@@ -2,7 +2,7 @@
 {% set active_page = "athletes" %}
 {% block content %}
 	<br />
-	<div class="athlete no-padding container ">
+	<div id="{{athlete._id}}" class="athlete no-padding container ">
 		<br />
 		<div class="cover-pic" style="background: url({{cover_pic|e}});">
 
@@ -112,31 +112,35 @@
 					{% endif %}
 				</div>
 				{% if deadlift_max is not none %}
-				<div id="deadlift-expanded" class="expanded-lift">
+				<div id="deadlift" class="expanded-lift">
 					<h1>Deadlift</h1>
-					<div class="lift">						
+					{# {{'deadlift-' + (current lift lift)}} #}
+					{% if user_lifts['lifts']['deadlift'] and user_lifts['lifts']['deadlift']|length > 0 %}
+					{% for lift in user_lifts['lifts']['deadlift'] %}
+					<div id="{{loop.index - 1}}" class="lift">						
 						<div class="field">
 							<div class="left">
 								<div class="inline-headers">
-									<h4 class="individual">WEIGHT: 469 KG</h4>
-									<h4 class="individual">DATE: 12/12/3012</h4>
+									<h4 class="individual">WEIGHT: {{lift.weight}} KG</h4>
+									<h4 class="individual">DATE: {{lift.date}}</h4>
 								</div>
 								
 								<div class="description">
 									<h4>DESCRIPTION:</h4>
-									<p>Silverback Gym</p>
+									<p>{{lift.description}}</p>
 								</div>
 
 								<div class="comments">
 									<h4>COMMENTS:</h4>
 									<div class="submit-comment">
-										<textarea placeholder="Write a comment here"></textarea>
-										
+										<form>
+											<textarea id="deadlift-comment-{{loop.index -1}}" name="comment" placeholder="Write a comment here"></textarea>
+										</form>
 										<div class="submit-btn">
-											<button class="btn btn-primary">SUBMIT</button>
-										</div>
-										
+											<button class="btn btn-primary btn-submit-comment">SUBMIT</button>
+										</div>						
 									</div>
+									{% for comment in lift['comments'] %}
 									<div class="comment">
 										<div class="profile-pic">
 											<a href="#"><img src="https://i.imgur.com/MgIyDUH.png"></a>
@@ -144,12 +148,12 @@
 										<div class="content">
 											<div class="basic-info">
 												<p><a href="#">Alex McGill</a></p>
-												<p>Nice one!</p>
+												<p>{{comment.comment}}</p>
 												<p class="date">November 21, 2018</p>
 											</div>
 										</div>
-										
 									</div>
+									{% endfor %}
 								</div>
 							</div>
 							<div class="right">
@@ -159,6 +163,8 @@
 							</div>
 						</div>
 					</div>
+					{% endfor %}
+					{% endif %}
 				</div>
 				{% endif %}
 			</div>
@@ -207,7 +213,31 @@
 				location.reload();
 			});
 			*/
+			$(".btn-submit-comment").on('click', function(){
+				var athlete_id = "{{athlete._id}}"
+				var commenter_id = "{{current_user._id}}";
+				var lift_type = $(this).closest('.expanded-lift').attr('id');
+				var lift_index = $(this).closest('.lift').attr('id');
+				var comment = $('#deadlift-comment-' + lift_index).val();
+				
+				data = {
+					'athlete_id' : athlete_id,
+					'commenter_id' : commenter_id,
+					'comment' : comment,
+					'lift_type' : lift_type,
+					'lift_index' : lift_index
+				};
 
+				$.ajax({
+					type : "POST",
+					url : "/comment/add",
+					data: JSON.stringify(data),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("New Comment: " + result);
+					}
+				});
+			});
 
 			$("button.follow-btn").on('click', function(){
 				var id = $(this).attr('name');

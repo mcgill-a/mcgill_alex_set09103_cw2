@@ -687,3 +687,39 @@ def unfollow():
 				})
 			return id_to_unfollow
 	return redirect(url_for('index'))
+
+
+@app.route('/comment/add', methods=['POST', 'GET'])
+@is_logged_in
+def comment_add():
+	if request.method == 'POST' and request.data:
+		data = request.data
+		data = data.encode('utf-8')
+		data = json.loads(data)
+		
+		athlete_id = data['athlete_id']
+		commenter_id = data['commenter_id']
+		comment = data['comment']
+		lift_type = data['lift_type']
+		lift_index = data['lift_index']
+
+		# Check if user already exists in lifts table
+		user_lifts = lifts.find_one({'user_id' : ObjectId(athlete_id)})
+		if user_lifts is not None:
+
+			current_datetime = datetime.datetime.now()
+
+			new_comment = {
+				'user_id' : commenter_id,
+				'comment' : comment,
+				'date' : current_datetime
+			}
+			if 'comments' in user_lifts['lifts'][lift_type][int(lift_index)]:
+				user_lifts['lifts'][lift_type][int(lift_index)]['comments'].append(new_comment)
+			else:
+				user_lifts['lifts'][lift_type][int(lift_index)]['comments'] = [new_comment]
+			lifts.save(user_lifts)
+			print commenter_id, "added a new comment on", lift_type, lift_index
+
+		return str(data)
+	return redirect(url_for('index'))
