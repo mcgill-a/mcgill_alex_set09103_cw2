@@ -484,7 +484,7 @@ form .section input:focus {
 	border: 1px solid rgba(0,0,0,0.1)
 }
 
-.athlete-overview .basic-info {
+.basic-info {
 	display: flex;
 	flex-direction: column;
 	width: 400px;
@@ -493,17 +493,17 @@ form .section input:focus {
 	font-size: 15px;
 }
 
-.athlete-overview .basic-info a {
+.basic-info a {
 	font-size: 18px;
 	font-weight: bolder !important;
 }
 
-.athlete-overview .basic-info .glyphicon {
+.basic-info .glyphicon {
 	color: rgb(126, 126, 126);
 }
 
 
-.athlete-overview .basic-info button {
+.basic-info button {
 	width: 100px;
 	height: 30px;
 	color: white;
@@ -779,7 +779,7 @@ button.follow-btn:hover {
 
 .expanded-lift {
 	border: 1px solid #ccc;
-	padding: 0;
+	padding: 10px;
 	margin: 0;
 }
 
@@ -787,27 +787,121 @@ button.follow-btn:hover {
 	padding: 10px;
 	height: 600px;
 	width: 100% !important;
-	background: lightgreen;
+	border: 1px solid gray;
+	font-family: 'Montserrat', sans-serif;
 }
 
 
 .expanded-lift .lift .field {
 	display: flex;
 	flex-direction: row;
+	justify-content: space-around;
 }
 
 .expanded-lift .lift .field .left {
-	width: 42%;
-	min-height: 400px;
+	width: 450px;
+}
+
+.expanded-lift .lift .field .left .inline-headers {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.expanded-lift .lift .field .left h4.individual {
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px 5px 15px 5px;
+}
+
+.expanded-lift .lift .field .left .description {
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px 5px 15px 5px;
+	min-height: 100px;
+}
+
+.expanded-lift .lift .field .left .description h4 {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 5px;
+	border: none;
+}
+
+.expanded-lift .lift .comments {
+	border: 1px solid #ccc;
+	padding: 5px;
+	margin: 5px 5px 15px 5px;
+	min-height: 100px;
+}
+
+.expanded-lift .lift .field, .left .comments h4 {
+	padding: 0;
+	margin: 0;
+	margin-bottom: 5px;
+	border: none;
+}
+
+.expanded-lift .lift .comments .comment {
+	padding: 5px;
+	margin: 5px;
+	border: 1px solid #ccc;
+	display: flex;
+	flex-direction: row;
+}
+
+.expanded-lift .lift .comments .comment .profile-pic {
+	height: 70px;
+    width: 70px;
+    display: flex;
+    justify-content: center;
+	align-items: center;
+	margin-top: 0;
+}
+
+.expanded-lift .lift .comments .comment .profile-pic img {
+	width: 65px;
+	height: 65px;
+	border-radius: 40%;
+	object-fit: cover;
+}
+
+.expanded-lift .lift .comments .comment .content {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 100%;
+}
+
+.expanded-lift .lift .comments .comment .content .basic-info {
+	width: 100%;
+	height: 100%;
+	padding-left: 10px;
+	margin-left: 0;
+}
+
+.expanded-lift .lift .comments .comment .content p {
+	margin-bottom: 0;
+}
+
+.expanded-lift .lift .comments .comment .content p.date {
+	font-size: 12px;
+	color: rgb(85, 85, 85);
+	float: right;
+	text-align: right;
+	margin-top: 5px;
 }
 
 .expanded-lift .lift .field .right {
-	width: 58%;
-	min-height: 400px;
+	margin: 5px;
+	width: auto;
+	height: 270px;
+	background: lightblue;
 }
 
 .expanded-lift .lift .field .right .video {
 	max-width: 100%;
+	height: inherit;
 }
 
 iframe {

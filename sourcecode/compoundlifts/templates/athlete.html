@@ -53,7 +53,7 @@
 							{% endif %}
 
 							{% if user_profile.weight %}
-								<p>Weight: {{user_profile.weight}}KG</p>
+								<p>Weight: {{user_profile.weight}} KG</p>
 							{% endif %}
 
 							{% if user_profile.gender|length > 1 %}
@@ -113,21 +113,42 @@
 				</div>
 				{% if deadlift_max is not none %}
 				<div id="deadlift-expanded" class="expanded-lift">
-					<div class="lift">
-						<h1>Deadlift</h1>
+					<h1>Deadlift</h1>
+					<div class="lift">						
 						<div class="field">
 							<div class="left">
-								<h3>DATE: 12/12/3012</h3>
-								<h3>WEIGHT: 469 KG</h3>
-								<p class="description">Silverback Gym</p>
+								<div class="inline-headers">
+									<h4 class="individual">WEIGHT: 469 KG</h4>
+									<h4 class="individual">DATE: 12/12/3012</h4>
+								</div>
+								
+								<div class="description">
+									<h4>DESCRIPTION:</h4>
+									<p>Silverback Gym</p>
+								</div>
+								<div class="comments">
+									<h4>COMMENTS:</h4>
+									<div class="comment">
+										<div class="profile-pic">
+											<a href="#"><img src="https://i.imgur.com/MgIyDUH.png"></a>
+										</div>
+										<div class="content">
+											<div class="basic-info">
+												<p><a href="#">Alex McGill</a></p>
+												<p>Nice one!</p>
+												<p class="date">November 21, 2018</p>
+											</div>
+											
+										</div>
+										
+									</div>
+								</div>
 							</div>
 							<div class="right">
 								<div class="video">
-									<iframe src="http://www.youtube.com/embed/W7qWa52k-nE" frameborder="0" allowfullscreen width="560" height="315" class="video"></iframe>
+									<iframe src="http://www.youtube.com/embed/w9sbxOBZkk0" frameborder="0" allowfullscreen width="480" height="270" class="video"></iframe>
 								</div>
-								
 							</div>
-							
 						</div>
 					</div>
 				</div>

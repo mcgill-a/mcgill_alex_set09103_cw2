@@ -63,4 +63,3 @@ class EditProfile(FlaskForm):
 	program_name = StringField('program-name')
 	program_start_date = DateField('program-start-date', [validators.optional()])
 	program_desc = TextAreaField('program-desc')
-	

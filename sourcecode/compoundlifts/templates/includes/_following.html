@@ -2,7 +2,7 @@
     {% for athlete in following %}
     <div class="athlete-overview">
         <div class="profile-pic no-margin">
-            <img src="{{athlete.profile_pic|e}}">
+            <a href="/athletes/{{athlete._id}}"><img src="{{athlete.profile_pic|e}}"></a>
         </div>
         <div class="basic-info">
             <p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
