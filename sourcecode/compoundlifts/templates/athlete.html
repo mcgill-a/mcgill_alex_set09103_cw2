@@ -138,17 +138,27 @@
 							</div>
 							<div class="right">
 								<div class="comments scrollbar">
-									<h4>COMMENTS:</h4>
-									<div class="submit-comment">
-										<form>
-											<textarea id="deadlift-comment-{{loop.index -1}}" name="comment" placeholder="Write a comment here"></textarea>
-										</form>
-										<div class="submit-btn">
-											<button class="btn btn-primary btn-submit-comment">SUBMIT</button>
-										</div>						
-									</div>
+									<h4>COMMENTS ({{lift['comments']|length}}):</h4>
+									{% if current_user is not none %}
+										<div class="submit-comment">
+											<form>
+												<textarea id="deadlift-comment-{{loop.index -1}}" name="comment" placeholder="Write a comment here"></textarea>
+											</form>
+											<div class="inline-end">
+												<p>Logged in as <a href="/athletes/{{session.id}}">{{session.fullname}}</a></p>
+												<div class="submit-btn">
+													<button class="btn btn-primary btn-submit-comment">SUBMIT</button>
+												</div>
+											</div>
+																
+										</div>
+									{% else %}
+										<div class="submit-comment">
+											<p class="individual">You must be <a href="/login">logged in</a> to post a comment</p>
+										</div>
+									{% endif %}
 									{% for comment in lift['comments'] %}
-									<div class="comment">
+									<div data-commenter="{{comment.user_id}}" data-index="{{loop.index -1}}" class="comment">
 										<div class="profile-pic">
 											<a href="/athletes/{{comment.user_id}}"><img src="{{comment.profile_pic|e}}"></a>
 										</div>
@@ -156,7 +166,11 @@
 											<div class="basic-info">
 												<p><a href="/athletes/{{comment.user_id}}">{{comment.full_name}}</a></p>
 												<p>{{comment.comment}}</p>
-												<p class="date">{{comment.date}}</p>
+												<div class="inline">
+													<button class="btn-delete-comment">Delete</button>
+													<p class="date">{{comment.date}}</p>
+												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -221,7 +235,7 @@
 				var lift_type = $(this).closest('.expanded-lift').attr('id');
 				var lift_index = $(this).closest('.lift').attr('id');
 				var comment = $('#deadlift-comment-' + lift_index).val();
-				
+				console.log(commenter_id);
 				data = {
 					'athlete_id' : athlete_id,
 					'commenter_id' : commenter_id,
@@ -241,6 +255,37 @@
 				});
 
 				location.reload();
+			});
+
+			$(".btn-delete-comment").on('click', function(){
+				var athlete_id = "{{athlete._id}}"
+				var commenter_id = $(this).closest('.comment').data('commenter');
+				var lift_type = $(this).closest('.expanded-lift').attr('id');
+				var lift_index = $(this).closest('.lift').attr('id');
+				var comment = $('#deadlift-comment-' + lift_index).val();
+				var comment_index = $(this).closest('.comment').data('index');
+				
+				data = {
+					'athlete_id' : athlete_id,
+					'commenter_id' : commenter_id,
+					'comment' : comment,
+					'lift_type' : lift_type,
+					'lift_index' : lift_index,
+
+				};
+				/*
+				$.ajax({
+					type : "POST",
+					url : "/comment/delete",
+					data: JSON.stringify(data),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("Removed Comment: " + result);
+					}
+				});
+
+				location.reload();*/
+				
 			});
 
 			$("button.follow-btn").on('click', function(){

@@ -804,13 +804,13 @@ button.follow-btn:hover {
 	width: 450px;
 }
 
-.expanded-lift .lift .field .left .inline-headers {
+.inline-headers {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 }
 
-.expanded-lift .lift .field .left h4.individual {
+.individual {
 	border: 1px solid #ccc;
 	padding: 5px;
 	margin: 5px 5px 15px 5px;
@@ -898,9 +898,26 @@ button.follow-btn:hover {
 	margin: 10px 5px;
 }
 
+.expanded-lift .lift .comments .submit-comment p.individual {
+	text-align: center;
+}
+
+.expanded-lift .lift .comments .submit-comment .inline-end {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.expanded-lift .lift .comments .submit-comment .inline-end p {
+	margin: 6px;
+	height: 22px;
+	width: 350px !important;
+	text-align: left;
+}
+
 .expanded-lift .lift .comments .submit-comment .submit-btn {
 	display: flex;
-	width: 100%;
+	width: auto;
 	flex-direction: row;
 	justify-content: flex-end;
 }
