@@ -1344,10 +1344,14 @@ table.table td .add {
 .calc .top {
 	padding: 20px 20px 0 20px;
 	width: 650px;
-	height: 220px;
+	height: 180px;
 	background: rgba(0,0,0,0.5);
 	text-align: center;
 	font-family: 'Montserrat', sans-serif;
+}
+
+.calc .top h1 {
+	margin-top: 0;
 }
 
 .calc-input {
