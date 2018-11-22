@@ -332,7 +332,9 @@ def add_comment_extras(user_lifts):
 					commenter_profile = profiles.find_one({'user_id' : current_comment['user_id']})
 
 					current_comment['profile_pic'] = url_for('static', filename='resources/users/profile/' + commenter_profile['profile_pic'])
-					current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']	
+					current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']
+
+					current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
 	
 	return user_lifts
 

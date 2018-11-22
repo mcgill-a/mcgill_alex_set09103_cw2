@@ -819,8 +819,10 @@ button.follow-btn:hover {
 .expanded-lift .lift .field .left .description {
 	border: 1px solid #ccc;
 	padding: 5px;
-	margin: 5px 5px 15px 5px;
+	margin: 5px;
 	min-height: 100px;
+	max-height: 100px;
+	overflow: auto;
 }
 
 .expanded-lift .lift .field .left .description h4 {
@@ -831,14 +833,14 @@ button.follow-btn:hover {
 }
 
 .scrollbar {
-	height: 488px;
+	max-height: 410px;
 	overflow: auto;
 }
 
 .expanded-lift .lift .comments {
 	border: 1px solid #ccc;
 	padding: 5px;
-	margin: 5px 5px 15px 5px;
+	margin: 5px 5px 0 5px;
 	min-height: 100px;
 }
 
@@ -921,7 +923,7 @@ button.follow-btn:hover {
 }
 
 .expanded-lift .lift .field .right {
-	margin: 5px;
+	margin: 0 5px 5px 5px;
 	height: auto;
 }
 
