@@ -760,6 +760,15 @@ button.follow-btn:hover {
 	cursor: pointer;
 }
 
+.cards a {
+	color: white;
+}
+
+.cards a:hover, .cards a:visited, .cards a:active {
+	text-decoration: none;
+	color: #ccc;
+}
+
 .cards .card img {
 	height: 200px;
 	width: 100%;
@@ -781,7 +790,7 @@ button.follow-btn:hover {
 .expanded-lift {
 	border: 1px solid #ccc;
 	padding: 10px;
-	margin: 0;
+	margin-bottom: 20px;
 	font-family: 'Montserrat', sans-serif;
 }
 
@@ -794,6 +803,9 @@ button.follow-btn:hover {
 	margin-bottom: 10px;
 }
 
+.expanded-lift h1 {
+	margin-top: 0;
+}
 
 .expanded-lift .lift .field {
 	display: flex;

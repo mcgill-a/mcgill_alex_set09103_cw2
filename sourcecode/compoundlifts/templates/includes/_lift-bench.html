@@ -1,0 +1,80 @@
+<div id="bench" class="expanded-lift">
+    <h1>Bench</h1>
+    {% for lift in user_lifts['lifts']['bench'] %}
+    <div id="{{loop.index - 1}}" class="lift">						
+        <div class="field">
+            <div class="left">
+                <div class="inline-headers">
+                    <h4 class="individual">WEIGHT: {{lift.weight}} KG</h4>
+                    <h4 class="individual">DATE: {{lift.date}}</h4>
+                </div>
+                
+                <div class="description">
+                    <h4>DESCRIPTION:</h4>
+                    <p>{{lift.description}}</p>
+                </div>
+                <div class="video">
+                    {% if lift.video_url|length > 5 %}
+                        <iframe src="{{lift.embed_url}}" frameborder="0" allowfullscreen width="450" height="253" class="video"></iframe>
+                    {% else %}
+                        {#<img src="/static/resources/placeholder.jpg">#}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="right">
+                <div class="comments scrollbar">
+                    <h4>COMMENTS ({{lift['comments']|length}}):</h4>
+                    {% if current_user is not none %}
+                        <div class="submit-comment">
+                            <form>
+                                <textarea id="bench-comment-{{loop.index -1}}" name="comment" placeholder="Write a comment here"></textarea>
+                            </form>
+                            <div class="inline-end">
+                                <p>Logged in as <a href="/athletes/{{session.id}}">{{session.fullname}}</a></p>
+                                <div class="submit-btn">
+                                    <button class="btn btn-primary btn-submit-comment">SUBMIT</button>
+                                </div>
+                            </div>
+                                                
+                        </div>
+                    {% else %}
+                        <div class="submit-comment">
+                            <p class="individual">You must be <a href="/login">logged in</a> to post a comment</p>
+                        </div>
+                    {% endif %}
+                    {% for comment in lift['comments'] %}
+                    <div data-commenter="{{comment.user_id}}" data-index="{{loop.index -1}}" class="comment">
+                        <div class="profile-pic">
+                            <a href="/athletes/{{comment.user_id}}"><img src="{{comment.profile_pic|e}}"></a>
+                        </div>
+                        <div class="content">
+                            <div class="basic-info">
+                                <p><a href="/athletes/{{comment.user_id}}">{{comment.full_name}}</a></p>
+                                <p>{{comment.comment}}</p>
+                                <textarea name="comment" placeholder="Write a comment here" style="display: none;"></textarea>
+                                <div class="inline">
+                                    {% if current_user._id == comment.user_id or current_user._id == athlete._id %}
+                                        <button class="btn-delete-comment">Delete</button>
+                                    {% endif %}
+                                    {#
+                                    {% if current_user._id == comment.user_id or current_user.account_level == 10 %}
+                                        <button class="btn-edit-comment">Edit</button>
+                                        <button class="btn-edit-comment" style="display: none;">Cancel</button>
+                                        <button class="btn-edit-comment" style="display: none;">Confirm</button>
+                                    {% endif %}
+                                    #}
+                                    <p class="date">{{comment.date}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% if lift['comments']|length < 1 %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
