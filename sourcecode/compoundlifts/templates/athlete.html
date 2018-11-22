@@ -112,89 +112,15 @@
 					{% endif %}
 				</div>
 				{% if deadlift_max is not none %}
-				<div id="deadlift" class="expanded-lift">
-					<h1>Deadlift</h1>
-					{% if user_lifts['lifts']['deadlift'] and user_lifts['lifts']['deadlift']|length > 0 %}
-					{% for lift in user_lifts['lifts']['deadlift'] %}
-					<div id="{{loop.index - 1}}" class="lift">						
-						<div class="field">
-							<div class="left">
-								<div class="inline-headers">
-									<h4 class="individual">WEIGHT: {{lift.weight}} KG</h4>
-									<h4 class="individual">DATE: {{lift.date}}</h4>
-								</div>
-								
-								<div class="description">
-									<h4>DESCRIPTION:</h4>
-									<p>{{lift.description}}</p>
-								</div>
-								<div class="video">
-									{% if lift.video_url|length > 5 %}
-										<iframe src="{{lift.embed_url}}" frameborder="0" allowfullscreen width="450" height="253" class="video"></iframe>
-									{% else %}
-										{#<img src="/static/resources/placeholder.jpg">#}
-									{% endif %}
-								</div>
-							</div>
-							<div class="right">
-								<div class="comments scrollbar">
-									<h4>COMMENTS ({{lift['comments']|length}}):</h4>
-									{% if current_user is not none %}
-										<div class="submit-comment">
-											<form>
-												<textarea id="deadlift-comment-{{loop.index -1}}" name="comment" placeholder="Write a comment here"></textarea>
-											</form>
-											<div class="inline-end">
-												<p>Logged in as <a href="/athletes/{{session.id}}">{{session.fullname}}</a></p>
-												<div class="submit-btn">
-													<button class="btn btn-primary btn-submit-comment">SUBMIT</button>
-												</div>
-											</div>
-																
-										</div>
-									{% else %}
-										<div class="submit-comment">
-											<p class="individual">You must be <a href="/login">logged in</a> to post a comment</p>
-										</div>
-									{% endif %}
-									{% for comment in lift['comments'] %}
-									<div data-commenter="{{comment.user_id}}" data-index="{{loop.index -1}}" class="comment">
-										<div class="profile-pic">
-											<a href="/athletes/{{comment.user_id}}"><img src="{{comment.profile_pic|e}}"></a>
-										</div>
-										<div class="content">
-											<div class="basic-info">
-												<p><a href="/athletes/{{comment.user_id}}">{{comment.full_name}}</a></p>
-												<p>{{comment.comment}}</p>
-												<textarea name="comment" placeholder="Write a comment here" style="display: none;"></textarea>
-												<div class="inline">
-													{% if current_user._id == comment.user_id or current_user._id == athlete._id %}
-														<button class="btn-delete-comment">Delete</button>
-													{% endif %}
-													{#
-													{% if current_user._id == comment.user_id or current_user.account_level == 10 %}
-														<button class="btn-edit-comment">Edit</button>
-														<button class="btn-edit-comment" style="display: none;">Cancel</button>
-														<button class="btn-edit-comment" style="display: none;">Confirm</button>
-													{% endif %}
-													#}
-													<p class="date">{{comment.date}}</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									{% endfor %}
-									{% if lift['comments']|length < 1 %}
-
-									{% endif %}
-								</div>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-					{% endif %}
-				</div>
+					{% include 'includes/_lift-deadlift.html' %}
 				{% endif %}
+				{% if bench is not none %}
+					{% include 'includes/_lift-bench.html' %}
+				{% endif %}
+				{% if squat is not none %}
+					{% include 'includes/_lift-squat.html' %}
+				{% endif %}
+
 			</div>
 			{% endif %}
 		</div>
@@ -213,34 +139,10 @@
 		<br />
 	</div>
 	<script>
-		/*
-		document.addEventListener("DOMContentLoaded", function(event) { 
-			if (window.location.hash == "#followers")
-			{
-				openTab('tab-followers-content');
-			}
-			else if (window.location.hash == "#following")
-			{
-				openTab('tab-following-content');
-			}
-		}); */
+		
 
 		$(document).ready(function(){
-			/*
-			$('#btn-overview').on('click', function(){
-				window.location.hash = '';
-			});
 			
-			$('#btn-followers').on('click', function(){
-				window.location.hash = 'followers';
-				location.reload();
-			});
-			
-			$('#btn-following').on('click', function(){
-				window.location.hash = 'following';
-				location.reload();
-			});
-			*/
 			$(".btn-submit-comment").on('click', function(){
 				var athlete_id = "{{athlete._id}}"
 				var commenter_id = "{{current_user._id}}";
@@ -301,41 +203,6 @@
 					}
 				});
 			});
-
-			/*
-			$(".btn-edit-comment").on('click', function(){
-				var athlete_id = "{{athlete._id}}"
-				var commenter_id = $(this).closest('.comment').data('commenter');
-				var lift_type = $(this).closest('.expanded-lift').attr('id');
-				var lift_index = $(this).closest('.lift').attr('id');
-				var comment = $('#deadlift-comment-' + lift_index).val();
-				var comment_index = $(this).closest('.comment').data('index');
-				
-				var comment_div = $(this).closest('.comment');
-				
-				data = {
-					'athlete_id' : athlete_id,
-					'commenter_id' : commenter_id,
-					'comment_index' : comment_index,
-					'comment' : comment,
-					'lift_type' : lift_type,
-					'lift_index' : lift_index,
-
-				};
-				
-				$.ajax({
-					type : "POST",
-					url : "/comment/edit",
-					data: JSON.stringify(data),
-					contentType: 'application/json;charset=UTF-8',
-					success: function(result) {
-						console.log("Edited Comment: " + result);
-						// Hide comment to remove without needing a page refresh
-						comment_div.hide();
-					}
-				});
-			});
-			*/
 
 			$("button.follow-btn").on('click', function(){
 				var id = $(this).attr('name');
