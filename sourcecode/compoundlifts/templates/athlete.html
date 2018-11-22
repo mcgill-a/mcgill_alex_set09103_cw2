@@ -265,15 +265,18 @@
 				var comment = $('#deadlift-comment-' + lift_index).val();
 				var comment_index = $(this).closest('.comment').data('index');
 				
+				var comment_div = $(this).closest('.comment');
+				
 				data = {
 					'athlete_id' : athlete_id,
 					'commenter_id' : commenter_id,
+					'comment_index' : comment_index,
 					'comment' : comment,
 					'lift_type' : lift_type,
 					'lift_index' : lift_index,
 
 				};
-				/*
+				
 				$.ajax({
 					type : "POST",
 					url : "/comment/delete",
@@ -281,11 +284,10 @@
 					contentType: 'application/json;charset=UTF-8',
 					success: function(result) {
 						console.log("Removed Comment: " + result);
+						// Hide comment to remove without needing a page refresh
+						comment_div.hide();
 					}
 				});
-
-				location.reload();*/
-				
 			});
 
 			$("button.follow-btn").on('click', function(){
