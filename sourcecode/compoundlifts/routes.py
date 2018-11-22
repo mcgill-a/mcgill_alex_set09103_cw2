@@ -324,18 +324,19 @@ def athletes(id=None):
 def add_comment_extras(user_lifts):
 
 	# Inject the user profile picture and full name of each commenter to the lift comments
-	if user_lifts['lifts']['deadlift'] and len(user_lifts['lifts']['deadlift']) >= 1:
-		for index, lift in enumerate(user_lifts['lifts']['deadlift']):
-			if 'comments' in user_lifts['lifts']['deadlift'][index]:
-				for current_comment in user_lifts['lifts']['deadlift'][index]['comments']:
-					commenter_user = users.find_one({'_id' : current_comment['user_id']})
-					commenter_profile = profiles.find_one({'user_id' : current_comment['user_id']})
+	for lift_type in user_lifts['lifts']:
+		if len(user_lifts['lifts'][lift_type]) >= 1:
+			for index, lift in enumerate(user_lifts['lifts'][lift_type]):
+				if 'comments' in user_lifts['lifts'][lift_type][index]:
+					for current_comment in user_lifts['lifts'][lift_type][index]['comments']:
+						commenter_user = users.find_one({'_id' : current_comment['user_id']})
+						commenter_profile = profiles.find_one({'user_id' : current_comment['user_id']})
 
-					current_comment['profile_pic'] = url_for('static', filename='resources/users/profile/' + commenter_profile['profile_pic'])
-					current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']
+						current_comment['profile_pic'] = url_for('static', filename='resources/users/profile/' + commenter_profile['profile_pic'])
+						current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']
 
-					current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
-	
+						current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
+		
 	return user_lifts
 
 
@@ -384,7 +385,8 @@ def athlete(id=None):
 			followers = add_extras(followers)
 			following = add_extras(following)
 
-			user_lifts = add_comment_extras(user_lifts)
+			if user_lifts is not None:
+				user_lifts = add_comment_extras(user_lifts)
 
 			updated_age = -1
 			if user_profile['dob']:
