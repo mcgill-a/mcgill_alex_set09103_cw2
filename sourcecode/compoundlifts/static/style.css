@@ -889,6 +889,21 @@ button.follow-btn:hover {
 	margin-left: 0;
 }
 
+.expanded-lift .lift .comments .comment .content .basic-info .inline button {
+	color: white;
+	background: #ec3642;
+	padding: 1px;
+	border: none;
+	width: 60px;
+	height: 24px;
+	font-size: 12px;
+	margin-top: 2px;
+}
+
+.expanded-lift .lift .comments .comment .content .basic-info .inline button.edit {
+	background: rgb(39, 51, 219) !important;
+}
+
 .expanded-lift .lift .comments .comment .content p {
 	margin-bottom: 0;
 	word-break: break-all;

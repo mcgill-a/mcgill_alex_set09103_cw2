@@ -167,7 +167,12 @@
 												<p><a href="/athletes/{{comment.user_id}}">{{comment.full_name}}</a></p>
 												<p>{{comment.comment}}</p>
 												<div class="inline">
-													<button class="btn-delete-comment">Delete</button>
+													{% if current_user._id == comment.user_id or current_user._id == athlete._id %}
+														<button class="btn-delete-comment">Delete</button>
+													{% endif %}
+													{% if current_user._id == comment.user_id or current_user.account_level == 10 %}
+														<button class="edit">Edit</button>
+													{% endif %}
 													<p class="date">{{comment.date}}</p>
 												</div>
 												
