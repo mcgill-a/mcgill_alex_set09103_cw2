@@ -900,7 +900,7 @@ button.follow-btn:hover {
 	margin-top: 2px;
 }
 
-.expanded-lift .lift .comments .comment .content .basic-info .inline button.edit {
+.expanded-lift .lift .comments .comment .content .basic-info .inline button.btn-edit-comment {
 	background: rgb(39, 51, 219) !important;
 }
 

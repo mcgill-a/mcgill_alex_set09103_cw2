@@ -758,7 +758,6 @@ def comment_remove():
 		
 		athlete_id = data['athlete_id']
 		commenter_id = data['commenter_id']
-		#comment = data['comment']
 		lift_type = data['lift_type']
 		lift_index = data['lift_index']
 		comment_index = data['comment_index']
@@ -771,5 +770,32 @@ def comment_remove():
 				user_lifts['lifts'][lift_type][int(lift_index)]['comments'].pop(comment_index)
 			lifts.save(user_lifts)
 			print commenter_id, "removed a comment on", lift_type, lift_index, comment_index
+		return str(data)
+	return redirect(url_for('index'))
+
+
+@app.route('/comment/edit', methods=['POST', 'GET'])
+@is_logged_in
+def comment_edit():
+	if request.method == 'POST' and request.data:
+		data = request.data
+		data = data.encode('utf-8')
+		data = json.loads(data)
+		
+		athlete_id = data['athlete_id']
+		commenter_id = data['commenter_id']
+		comment = data['comment']
+		lift_type = data['lift_type']
+		lift_index = data['lift_index']
+		comment_index = data['comment_index']
+
+		# Make sure user exists in lifts table
+		user_lifts = lifts.find_one({'user_id' : ObjectId(athlete_id)})
+		if user_lifts is not None:
+
+			if 'comments' in user_lifts['lifts'][lift_type][int(lift_index)]:
+				user_lifts['lifts'][lift_type][int(lift_index)]['comments'][comment_index] = comment
+			lifts.save(user_lifts)
+			print commenter_id, "edited a comment on", lift_type, lift_index, comment_index
 		return str(data)
 	return redirect(url_for('index'))

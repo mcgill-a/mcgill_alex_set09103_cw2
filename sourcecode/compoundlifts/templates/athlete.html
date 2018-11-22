@@ -166,16 +166,20 @@
 											<div class="basic-info">
 												<p><a href="/athletes/{{comment.user_id}}">{{comment.full_name}}</a></p>
 												<p>{{comment.comment}}</p>
+												<textarea name="comment" placeholder="Write a comment here" style="display: none;"></textarea>
 												<div class="inline">
 													{% if current_user._id == comment.user_id or current_user._id == athlete._id %}
 														<button class="btn-delete-comment">Delete</button>
 													{% endif %}
+													{#
 													{% if current_user._id == comment.user_id or current_user.account_level == 10 %}
-														<button class="edit">Edit</button>
+														<button class="btn-edit-comment">Edit</button>
+														<button class="btn-edit-comment" style="display: none;">Cancel</button>
+														<button class="btn-edit-comment" style="display: none;">Confirm</button>
 													{% endif %}
+													#}
 													<p class="date">{{comment.date}}</p>
 												</div>
-												
 											</div>
 										</div>
 									</div>
@@ -294,6 +298,41 @@
 					}
 				});
 			});
+
+			/*
+			$(".btn-edit-comment").on('click', function(){
+				var athlete_id = "{{athlete._id}}"
+				var commenter_id = $(this).closest('.comment').data('commenter');
+				var lift_type = $(this).closest('.expanded-lift').attr('id');
+				var lift_index = $(this).closest('.lift').attr('id');
+				var comment = $('#deadlift-comment-' + lift_index).val();
+				var comment_index = $(this).closest('.comment').data('index');
+				
+				var comment_div = $(this).closest('.comment');
+				
+				data = {
+					'athlete_id' : athlete_id,
+					'commenter_id' : commenter_id,
+					'comment_index' : comment_index,
+					'comment' : comment,
+					'lift_type' : lift_type,
+					'lift_index' : lift_index,
+
+				};
+				
+				$.ajax({
+					type : "POST",
+					url : "/comment/edit",
+					data: JSON.stringify(data),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("Edited Comment: " + result);
+						// Hide comment to remove without needing a page refresh
+						comment_div.hide();
+					}
+				});
+			});
+			*/
 
 			$("button.follow-btn").on('click', function(){
 				var id = $(this).attr('name');
