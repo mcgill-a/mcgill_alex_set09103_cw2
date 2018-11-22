@@ -799,3 +799,8 @@ def comment_edit():
 			print commenter_id, "edited a comment on", lift_type, lift_index, comment_index
 		return str(data)
 	return redirect(url_for('index'))
+
+
+@app.route('/calculator', methods=['GET'])
+def calculator():
+	return render_template('calculator.html')

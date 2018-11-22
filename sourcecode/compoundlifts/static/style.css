@@ -1329,3 +1329,150 @@ table.table .form-control.error {
 table.table td .add {
 	display: none;
 }
+
+.center-div {
+	display: flex;
+	justify-content: center;
+}
+
+.calc {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.calc .top {
+	padding: 20px 20px 0 20px;
+	width: 650px;
+	height: 220px;
+	background: rgba(0,0,0,0.5);
+	text-align: center;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.calc-input {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.calc-input p {
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+	margin-bottom: 0;
+}
+
+p.weight-warning {
+	color: #ec3642;
+	font-weight: bolder;
+	margin-top: -5px;
+	margin-bottom: 5px;
+	transition: opacity 1s ease-out;
+    opacity: 0; 
+    height: 0;
+    overflow: hidden;
+}
+
+p.weight-warning.active {
+	opacity: 1;
+    height: auto;
+}
+
+.calc-input input {
+	width: 200px;
+	height: 40px;
+	font-size: 25px;
+	padding: 3px;
+	margin-bottom: 10px;
+}
+
+.calc-input select {
+	width: 50px;
+	height: 40px;
+	text-align: center;
+	text-align-last:center;
+}
+
+.calc button {
+	width: 250px;
+	height: 35px;
+	font-size: 22px;
+	background: #ec3642;
+	border: none;
+	border-radius: 3px;
+	color: white;
+	font-weight: bold;
+	transition-property: all;
+  transition-property: transform;
+  transition: all 1s;
+
+}
+
+.calc button:hover {
+	background: #eb212f;
+}
+
+.calc .bottom {
+	padding: 0 20px;
+	width: 650px;
+	height: 450px;
+	background: rgba(0,0,0,0.5);
+}
+
+.calc .bottom {
+	text-align: center;
+}
+
+.calc-results {
+	width: 435px;
+	margin: 0 auto;
+	background: rgb(236, 236, 236);
+	padding: 5px;
+	font-size: 15px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.calc-results .results-subheader {
+	width: 405px;
+	display: flex;
+	flex-direction: row;
+	margin: 0 10px;
+}
+
+.calc-results .results-row {
+	width: 405px;
+	margin: 0 10px;
+}
+
+.calc-results .results-subheader p {
+	width: 190px;
+	margin: 0 5px;
+	color: black;
+}
+
+.calc-results .results-subheader p:last-child {
+	margin-left: 8px;
+}
+
+.calc-results input {
+	height: 40px;
+	font-size: 25px;
+	width: 200px;
+	margin: 0 0 10px 0;
+	padding: 0 10px;
+	text-align: center;
+}
+
+
+
+.calc .bottom h3 {
+	color: white;
+	font-family: 'Montserrat', sans-serif;
+}
