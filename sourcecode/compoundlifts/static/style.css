@@ -643,7 +643,7 @@ button.follow-btn:hover {
 	margin: 0;
 	padding: 5px 5px;
 	color: black;
-	border: 1px solid black;
+	border: 1px solid #ccc;
 	/*background: #161616; */
 	width: 100%;
 	font-family: 'Montserrat', sans-serif;
@@ -660,6 +660,7 @@ button.follow-btn:hover {
 .info .tags  {
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 }
 
 .info .tags p {
