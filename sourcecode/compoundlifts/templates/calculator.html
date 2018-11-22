@@ -79,10 +79,6 @@
 		</div>
     </div>
     <script>
-        /* 
-            1RM FORMULA:
-            1RM = WEIGHT * (1 + (REPS / 30))
-        */
         $(document).ready(function(){
 			
 			$("#calculate").on('click', function(){
@@ -92,13 +88,15 @@
                 if (weight != "")
                 {
                     $(".weight-warning").removeClass("active");
-                    // rep max percentages (% of 1 rep max). 1rep = 100%, 2 rep = 95%...
+                    // Rep max percentages (% of 1 rep max). 1rep = 100%, 2 rep = 95%...
                     var percentages = [100, 95, 93, 90, 87, 85, 83, 80, 77, 75, 73];
+                    // Formula for one rep max calculation = weight * (100 / rep_percentage)
                     var one_rep_max = Math.round(weight * (100 / percentages[reps-1]))
                     $("#1rm").text(one_rep_max);
                     
                     for (i = 2; i <= 11; i++)
                     {
+                        // Formula for X rep max calculation = 1_rep_max_weight * (x_rep_percentage / 100)
                         var current_rm = Math.round(one_rep_max * (percentages[i-1] / 100))
                         $('#' + i + 'rm').val(current_rm);
                     }
@@ -108,10 +106,7 @@
                     $(".weight-warning").removeClass("active");
                     $(".weight-warning").addClass("active");
                 }
-
-                
             });
-
         });
 
     </script>
