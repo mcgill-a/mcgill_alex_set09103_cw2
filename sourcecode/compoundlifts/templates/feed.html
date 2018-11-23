@@ -1,19 +1,23 @@
 {% extends "base.html" %}
 {% set active_page = 'index' %}
 {% block content %}
-	<div class="container">
+	<div class="no-padding container">
 		<br />{% include 'includes/_messages.html' %}
-		<h1>Feed</h1>
 		<div class="activity-feed">
-            {% for item in feed %}
-                <p>{{item.user_id}}</p>
-                <p>{{item.full_name}}</p>
-                <p>{{item.lift_type}}</p>
-                <p>{{item.weight}}</p>
-                <p>{{item.description}}</p>
-                <p>{{item.date_added}}</p>
-                <br />
-            {% endfor %}
+            
+                <div class="lift">
+                    {% include 'includes/_feed-lift.html' %}
+                    
+                    
+                    {#<p>{{lift.user_id}}</p>
+                    <p>{{lift.full_name}}</p>
+                    <p>{{lift.lift_type}}</p>
+                    <p>{{lift.weight}}</p>
+                    <p>{{lift.description}}</p>
+                    <p>{{lift.date}}</p>
+                    <p>{{lift.date_added}}</p>
+                    <img width="100px" height="100px" src={{lift.profile_pic}}>#}
+                </div>
 		</div>
     </div>
 {% endblock %}

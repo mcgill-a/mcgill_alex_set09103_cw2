@@ -322,7 +322,6 @@ def athletes(id=None):
 
 
 def add_comment_extras(user_lifts):
-
 	# Inject the user profile picture and full name of each commenter to the lift comments
 	for lift_type in user_lifts['lifts']:
 		if len(user_lifts['lifts'][lift_type]) >= 1:
@@ -821,7 +820,11 @@ def leaderboards():
 		full_name = user['first_name'] + " " + user['last_name']
 		for lift_type in document['lifts']:
 			for lift in document['lifts'][lift_type]:
-				lift['type'] = lift_type.capitalize()
+				if lift_type == "bench":
+					lift_type = "Bench Press"
+				elif lift_type =="squat":
+					lift_type = "Barbell Squat"
+				lift['type'] = lift_type.title()
 				lift['full_name'] = full_name
 				lift['athlete_id'] = current_id
 				all_lifts.append(lift)
@@ -830,25 +833,51 @@ def leaderboards():
 	return render_template('leaderboards.html', all_lifts=all_lifts)
 
 
+def add_feed_extras(feed):
+	
+	for lift in feed:
+		# Insert additonal comment information (profile pic, full name, nice date)
+		if 'comments' in lift:
+			for current_comment in lift['comments']:
+				commenter_user = users.find_one({'_id' : current_comment['user_id']})
+				commenter_profile = profiles.find_one({'user_id' : current_comment['user_id']})
+
+				current_comment['profile_pic'] = url_for('static', filename='resources/users/profile/' + commenter_profile['profile_pic'])
+				current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']
+
+				current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
+		
+	return feed
+
+
+
 @app.route('/feed', methods=['GET'])
 @is_logged_in
 def feed():
-
-	user = users.find_one({'_id' : ObjectId(session.get('id'))})
+	
+	current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
 
 	feed = []
 
-	for athlete in user['following']:
+	for athlete in current_user['following']:
 		athlete_user = users.find_one({'_id' : ObjectId(athlete)})
+		athlete_profile = profiles.find_one({'user_id' : ObjectId(athlete)})
 		athlete_lifts = lifts.find_one({'user_id' : ObjectId(athlete)})
 		if athlete_lifts is not None:
 			for lift_type in athlete_lifts['lifts']:
 				for lift in athlete_lifts['lifts'][lift_type]:
 					lift['user_id'] = ObjectId(athlete)
-					lift['lift_type'] = lift_type
+					if lift_type == "bench":
+						lift_type = "Bench Press"
+					elif lift_type == "squat":
+						lift_type = "Barbell Squat"
+					lift['lift_type'] = lift_type.title()
 					lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
 					feed.append(lift)
+					lift['profile_pic'] = url_for('static', filename='resources/users/profile/' + athlete_profile['profile_pic'])
 
 	feed.sort(key=lambda item:item['date_added'], reverse=True)
 
-	return render_template('feed.html', feed=feed)
+	feed = add_feed_extras(feed)
+
+	return render_template('feed.html', feed=feed, current_user=current_user)
