@@ -635,6 +635,7 @@ def add_lift(lift=None):
 		original_url = data['video_url']
 		embed_url = original_url.replace("watch?v=", "embed/")
 		data['embed_url'] = embed_url
+		data['date_added'] = datetime.datetime.now()
 		# Check if user already exists in lifts table
 		user_lifts = lifts.find_one({'user_id' : ObjectId(session.get('id'))})
 		if user_lifts is None:
@@ -827,3 +828,27 @@ def leaderboards():
 		
 	
 	return render_template('leaderboards.html', all_lifts=all_lifts)
+
+
+@app.route('/feed', methods=['GET'])
+@is_logged_in
+def feed():
+
+	user = users.find_one({'_id' : ObjectId(session.get('id'))})
+
+	feed = []
+
+	for athlete in user['following']:
+		athlete_user = users.find_one({'_id' : ObjectId(athlete)})
+		athlete_lifts = lifts.find_one({'user_id' : ObjectId(athlete)})
+		if athlete_lifts is not None:
+			for lift_type in athlete_lifts['lifts']:
+				for lift in athlete_lifts['lifts'][lift_type]:
+					lift['user_id'] = ObjectId(athlete)
+					lift['lift_type'] = lift_type
+					lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
+					feed.append(lift)
+
+	feed.sort(key=lambda item:item['date_added'], reverse=True)
+
+	return render_template('feed.html', feed=feed)

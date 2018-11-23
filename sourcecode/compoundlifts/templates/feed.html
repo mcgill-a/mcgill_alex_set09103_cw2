@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% set active_page = 'index' %}
+{% block content %}
+	<div class="container">
+		<br />{% include 'includes/_messages.html' %}
+		<h1>Feed</h1>
+		<div class="activity-feed">
+            {% for item in feed %}
+                <p>{{item.user_id}}</p>
+                <p>{{item.full_name}}</p>
+                <p>{{item.lift_type}}</p>
+                <p>{{item.weight}}</p>
+                <p>{{item.description}}</p>
+                <p>{{item.date_added}}</p>
+                <br />
+            {% endfor %}
+		</div>
+    </div>
+{% endblock %}
