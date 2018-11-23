@@ -1518,4 +1518,36 @@ p.weight-warning.active {
 	background: white;
 	padding: 20px;
 	margin-bottom: 20px;
+	margin-left: 180px;
+}
+
+.display {
+	font-family: 'Montserrat', sans-serif;
+	font-weight: bold;
+}
+
+.dt-searchPanes {
+	width: 150px;
+	height: auto;
+	position: absolute;
+	left: -180px;
+}
+
+.dt-searchPanes .pane {
+	background: white;
+}
+
+.dt-searchPanes span {
+	color: black;
+	font-size: 14px;
+	font-family: 'Montserrat', sans-serif;
+}
+
+.dataTables_filter {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.dataTables_filter input {
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
