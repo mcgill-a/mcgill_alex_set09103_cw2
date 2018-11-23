@@ -13,8 +13,41 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
 	<script>
-		$(document).ready( function () {
-			$('#example').DataTable();
+		$(document).ready(function() {
+			 // Setup - add a text input to each footer cell
+			$('#example tfoot th').each( function () {
+				var title = $(this).text();
+				if(title == "Type")
+				{
+					$(this).html( '<input size="8" type="text" placeholder="Search '+title+'" />' );
+				}
+				
+			});
+			
+			var table = $('#example').DataTable( {
+				"order": [[ 0, "desc" ]],
+				"deferRender": true,
+				"columns": [
+					{ "width": "10%" },
+					{ "width": "10%" },
+					{ "width": "10%" },
+					null,
+					null
+				]
+			});
+			
+			// Apply the search
+			table.columns().every( function () {
+				var that = this;
+				$( 'input', this.footer() ).on( 'keyup change', function () {
+					if (that.search() !== this.value)
+					{
+						that
+							.search( this.value )
+							.draw();
+					}
+				});
+			});
 		});
 	</script>
 {{super()}}
@@ -42,8 +75,8 @@
 {% set navigation_bar = [
 	('/', 'index', 'Home'),
 	('/athletes/', 'athletes', 'Athletes'),
-	('/calculator', 'calculator', 'Calculator'),
 	('/leaderboards', 'leaderboards', 'Leaderboards'),
+	('/calculator', 'calculator', 'Calculator'),
 	] -%}
 
 {% set navigation_bar_forms = [

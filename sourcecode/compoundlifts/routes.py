@@ -810,4 +810,20 @@ def calculator():
 
 @app.route('/leaderboards', methods=['GET'])
 def leaderboards():
-	return render_template('leaderboards.html')
+
+	all_lifts = []
+
+	cursor = lifts.find({})
+	for document in cursor:
+		current_id =  document['user_id']
+		user = users.find_one({'_id' : current_id})
+		full_name = user['first_name'] + " " + user['last_name']
+		for lift_type in document['lifts']:
+			for lift in document['lifts'][lift_type]:
+				lift['type'] = lift_type.capitalize()
+				lift['full_name'] = full_name
+				lift['athlete_id'] = current_id
+				all_lifts.append(lift)
+		
+	
+	return render_template('leaderboards.html', all_lifts=all_lifts)
