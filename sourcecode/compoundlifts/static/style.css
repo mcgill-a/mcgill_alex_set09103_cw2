@@ -768,7 +768,7 @@ button.follow-btn:hover {
 .featured .title {
 	width: inherit;
 	text-transform: uppercase;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ccc;
 	font-family: 'Montserrat', sans-serif;
 	font-weight: bolder;
 	color: black;

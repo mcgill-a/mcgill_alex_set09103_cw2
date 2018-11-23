@@ -64,7 +64,7 @@
 							{% if user_profile.profile_bio %}
 								<p>{{user_profile.profile_bio}}</p>
 							{% else %}
-								<p>Default profile bio</p>
+								<p></p>
 							{% endif %}
 						</div>
 					</div>
@@ -83,52 +83,60 @@
 			</div>
 		</div>
 		<div id="tab-overview-content" class="tab-content">
-			{% if user_lifts is not none %}
+			
 			<div class="featured">
 				<div class="title">
 					<h1>LIFTS</h1>
 				</div>
 				<div class="cards">
-					{% if deadlift_max is not none %}
-						<a href="#deadlift">
-							<div class="card">
-								<img src="/static/resources/lifts/deadlift.jpg">
-								<p class="weight">{{deadlift_max['weight']}} KG</p>
-								<h2>DEADLIFT</h2>
-							</div>
-						</a>
-					{% endif %}
-					{% if bench_max is not none %}
-						<a href="#bench">
-							<div class="card">
-								<img src="/static/resources/lifts/bench.jpg">
-								<p class="weight">{{bench_max['weight']}} KG</p>
-								<h2>BENCH</h2>
-							</div>
-						</a>
-					{% endif %}
-					{% if squat_max is not none %}
-						<a href="#squat">
-							<div class="card">
-								<img src="/static/resources/lifts/squat2.jpg">
-								<p class="weight">{{squat_max['weight']}}  KG</p>
-								<h2>SQUAT</h2>
-							</div>
-						</a>
-					{% endif %}
+					<a href="#deadlift">
+						<div class="card">
+							<img src="/static/resources/lifts/deadlift.jpg">
+							{% if deadlift_max is not none %}
+								<p class="weight">{{deadlift_max['weight']}} KG</p>	
+							{% else %}
+								<p class="weight">No Lifts Added</p>
+							{% endif %}
+							<h2>DEADLIFT</h2>
+						</div>
+					</a>
+				
+					<a href="#bench">
+						<div class="card">
+							<img src="/static/resources/lifts/bench.jpg">
+							{% if bench_max is not none %}
+								<p class="weight">{{bench_max['weight']}} KG</p>	
+							{% else %}
+								<p class="weight">No Lifts Added</p>
+							{% endif %}
+							<h2>BENCH</h2>
+						</div>
+					</a>
+					<a href="#squat">
+						<div class="card">
+							<img src="/static/resources/lifts/squat2.jpg">
+							{% if squat_max is not none %}
+								<p class="weight">{{squat_max['weight']}} KG</p>	
+							{% else %}
+								<p class="weight">No Lifts Added</p>
+							{% endif %}
+							<h2>SQUAT</h2>
+						</div>
+					</a>
 				</div>
-				{% if user_lifts['lifts']['deadlift'] and user_lifts['lifts']['deadlift']|length > 0 %}
-					{% include 'includes/_lift-deadlift.html' %}
+				{% if user_lifts is not none %}
+					{% if user_lifts['lifts']['deadlift'] and user_lifts['lifts']['deadlift']|length > 0 %}
+						{% include 'includes/_lift-deadlift.html' %}
+					{% endif %}
+					{% if user_lifts['lifts']['bench'] and user_lifts['lifts']['bench']|length > 0 %}
+						{% include 'includes/_lift-bench.html' %}
+					{% endif %}
+					{% if user_lifts['lifts']['squat'] and user_lifts['lifts']['squat']|length > 0 %}
+						{% include 'includes/_lift-squat.html' %}
+					{% endif %}
 				{% endif %}
-				{% if user_lifts['lifts']['bench'] and user_lifts['lifts']['bench']|length > 0 %}
-					{% include 'includes/_lift-bench.html' %}
-				{% endif %}
-				{% if user_lifts['lifts']['squat'] and user_lifts['lifts']['squat']|length > 0 %}
-					{% include 'includes/_lift-squat.html' %}
-				{% endif %}
-
 			</div>
-			{% endif %}
+			
 		</div>
 		<div id="tab-followers-content" class="tab-content" style="display: none;">
 			<div class="no-padding container">
