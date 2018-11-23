@@ -1026,6 +1026,7 @@ iframe {
 	min-height: 700px;
 	width: 100%;
 	justify-content: center;
+	border-radius: 4px;
 }
 
 .settings-list {
@@ -1036,6 +1037,7 @@ iframe {
 	border-right: 1px solid #ccc;
 	padding: 5px;
 	padding-top: 10px;
+	border-radius: 4px 0 0 4px !important;
 }
 
 .settings-content {
@@ -1043,6 +1045,7 @@ iframe {
 	height: 100%;
 	min-height: 700px;
 	background: rgb(255, 255, 255);
+	border-radius: 0 4px 4px 0 !important;
 }
 
 .settings-list button {
@@ -1519,6 +1522,7 @@ p.weight-warning.active {
 	padding: 20px;
 	margin-bottom: 20px;
 	margin-left: 180px;
+	border-radius: 4px;
 }
 
 .display {
@@ -1531,6 +1535,11 @@ p.weight-warning.active {
 	height: auto;
 	position: absolute;
 	left: -180px;
+	font-family: 'Montserrat', sans-serif !important;
+}
+
+.dt-searchPanes .title {
+	text-align: center;
 }
 
 .dt-searchPanes .pane {
@@ -1543,7 +1552,7 @@ p.weight-warning.active {
 	font-family: 'Montserrat', sans-serif;
 }
 
-.dataTables_filter {
+.dataTables_filter, .dataTables_length, .dataTables_info, .dataTables_paginate {
 	font-family: 'Montserrat', sans-serif;
 }
 
