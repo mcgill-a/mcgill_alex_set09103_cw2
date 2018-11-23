@@ -391,6 +391,11 @@ def athlete(id=None):
 			if user_profile['dob']:
 				updated_age = math.floor(((datetime.datetime.utcnow() - user_profile['dob']).days) / 365)
 				updated_age = int(updated_age)
+			
+			# Convert raw input line breaks to html line breaks
+			if 'desc' in user_profile['current_program']:
+				user_profile['current_program']['desc'] = user_profile['current_program']['desc'].replace('\n', '<br>')
+
 			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age)
 		else:
 			flash('Athlete not found', 'danger')
