@@ -89,7 +89,7 @@
 					<h1>LIFTS</h1>
 				</div>
 				<div class="cards">
-					<a href="#deadlift">
+					<a id="goto-deadlift" title="Click here to go to the deadlift section">
 						<div class="card">
 							<img src="/static/resources/lifts/deadlift.jpg">
 							{% if deadlift_max is not none %}
@@ -101,7 +101,7 @@
 						</div>
 					</a>
 				
-					<a href="#bench">
+					<a id="goto-bench" title="Click here to go to the bench press section">
 						<div class="card">
 							<img src="/static/resources/lifts/bench.jpg">
 							{% if bench_max is not none %}
@@ -112,7 +112,7 @@
 							<h2>BENCH</h2>
 						</div>
 					</a>
-					<a href="#squat">
+					<a id="goto-squat" title="Click here to go to the barbell squat section">
 						<div class="card">
 							<img src="/static/resources/lifts/squat2.jpg">
 							{% if squat_max is not none %}
@@ -175,6 +175,40 @@
 
 		$(document).ready(function(){
 			
+			function scrollTo(element) {
+				window.scroll({
+					
+					top: element.getBoundingClientRect().top + window.scrollY,
+					left: 0,
+					behavior: 'smooth'
+				});
+			}
+
+			$("a#goto-deadlift").click(function() {
+				var div = document.getElementById("deadlift");
+				if (div != null)
+				{
+					scrollTo(div);
+				}
+			});
+
+			$("a#goto-bench").click(function() {
+				
+				var div = document.getElementById("bench");
+				if (div != null)
+				{
+					scrollTo(div);
+				}
+			});
+
+			$("a#goto-squat").click(function() {
+				var div = document.getElementById("squat");
+				if (div != null)
+				{
+					scrollTo(div);
+				}
+			});
+
 			$(".btn-submit-comment").on('click', function(){
 				var athlete_id = "{{athlete._id}}"
 				var commenter_id = "{{current_user._id}}";
