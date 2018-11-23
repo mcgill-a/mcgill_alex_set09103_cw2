@@ -806,3 +806,8 @@ def comment_edit():
 @app.route('/calculator', methods=['GET'])
 def calculator():
 	return render_template('calculator.html')
+
+
+@app.route('/leaderboards', methods=['GET'])
+def leaderboards():
+	return render_template('leaderboards.html')

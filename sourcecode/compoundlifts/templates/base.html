@@ -7,7 +7,16 @@
 {% import "bootstrap/fixes.html" as fixes %}
 
 {% block head %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready( function () {
+			$('#example').DataTable();
+		});
+	</script>
 {{super()}}
 <!--
 <link rel="shortcut icon" href="{{url_for('static', filename="resources/favicon.ico") }}">
@@ -20,12 +29,13 @@
     <link rel="stylesheet" type="text/css"
           href="{{url_for('static', filename='style.css')}}">
 	<link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik" rel="stylesheet">
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block scripts %}
 	<script src="{{url_for('static', filename='javascript.js')}}"></script>
-	
-	{{super()}}
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	{#{{super()}}#}
 {% endblock %}
 
 {% block navbar %}
@@ -33,7 +43,7 @@
 	('/', 'index', 'Home'),
 	('/athletes/', 'athletes', 'Athletes'),
 	('/calculator', 'calculator', 'Calculator'),
-	('javascript:void(0)', 'tab4', 'Leaderboards'),
+	('/leaderboards', 'leaderboards', 'Leaderboards'),
 	] -%}
 
 {% set navigation_bar_forms = [

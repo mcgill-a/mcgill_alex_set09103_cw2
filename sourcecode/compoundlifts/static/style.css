@@ -33,6 +33,13 @@ button:focus, input:focus {
 	margin-top: -95px;
 }
 
+.fill {
+	width: 100%;
+	height: auto;
+	z-index: 0;
+	margin-top: -95px;
+}
+
 .page-background {
 	width: 100%;
 	height: 102%;
@@ -1372,7 +1379,7 @@ table.table td .add {
 .calc .top {
 	padding: 20px 20px 0 20px;
 	width: 650px;
-	height: 200px;
+	height: 147px;
 	background: rgba(0,0,0,0.5);
 	text-align: center;
 	font-family: 'Montserrat', sans-serif;
@@ -1502,9 +1509,12 @@ p.weight-warning.active {
 	text-align: center;
 }
 
-
-
 .calc .bottom h3 {
 	color: white;
 	font-family: 'Montserrat', sans-serif;
+}
+
+.table-content {
+	background: white;
+	padding: 20px;
 }
