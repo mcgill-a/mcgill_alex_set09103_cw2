@@ -63,8 +63,6 @@
 						<div class="bio">
 							{% if user_profile.profile_bio %}
 								<p>{{user_profile.profile_bio}}</p>
-							{% else %}
-								<p></p>
 							{% endif %}
 						</div>
 					</div>
@@ -73,7 +71,10 @@
 		</div>
 		<div class="athlete-tabs">
 			<div id="tab-overview" class="tab active">
-				<button id="btn-overview" onclick="openTab('tab-overview-content');">Overview</button>
+				<button id="btn-overview" onclick="openTab('tab-overview-content');">Lifts</button>
+			</div>
+			<div id="tab-program" class="tab">
+				<button id="btn-program" onclick="openTab('tab-program-content');">Training Program</button>
 			</div>
 			<div id="tab-followers" class="tab">
 				<button id="btn-followers" onclick="openTab('tab-followers-content');">Followers</button>
@@ -83,23 +84,6 @@
 			</div>
 		</div>
 		<div id="tab-overview-content" class="tab-content">
-			
-			<div class="featured">
-				<div class="title">
-					<h1>TRAINING PROGRAM</h1>
-				</div>
-				{% if user_profile.current_program.name|length > 1 or user_profile.current_program.desc|length > 1 %}
-					<div class="training-program-display">
-						<h3>{{user_profile.current_program.name}}</h3>
-						<p>{{user_profile.current_program.desc|safe}}</p>
-					</div>
-				{% else %}
-				<div class="training-program-display">
-					<h3>{{athlete.first_name}} has not uploaded a training program.</h3>
-				</div>
-				{% endif %}
-			</div>
-
 			<div class="featured">
 				<div class="title">
 					<h1>LIFTS</h1>
@@ -152,8 +136,26 @@
 					{% endif %}
 				{% endif %}
 			</div>
-			
 		</div>
+
+		<div id="tab-program-content" class="tab-content" style="display: none;">
+			<div class="featured">
+				<div class="title">
+					<h1>TRAINING PROGRAM</h1>
+				</div>
+				{% if user_profile.current_program.name|length > 1 or user_profile.current_program.desc|length > 1 %}
+					<div class="training-program-display">
+						<h3>{{user_profile.current_program.name}}</h3>
+						<p>{{user_profile.current_program.desc|safe}}</p>
+					</div>
+				{% else %}
+				<div class="training-program-display">
+					<h3>{{athlete.first_name}} has not uploaded a training program.</h3>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+
 		<div id="tab-followers-content" class="tab-content" style="display: none;">
 			<div class="no-padding container">
 				{% include 'includes/_messages.html' %}

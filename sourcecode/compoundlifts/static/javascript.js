@@ -50,6 +50,15 @@ function openTab(tab)
   {
     document.getElementById("tab-overview").classList.remove('active');
     document.getElementById("tab-overview").classList.add('active');
+    document.getElementById("tab-program").classList.remove('active');
+    document.getElementById("tab-followers").classList.remove('active');
+    document.getElementById("tab-following").classList.remove('active');
+  }
+  else if (tab == "tab-program-content")
+  {
+    document.getElementById("tab-program").classList.remove('active');
+    document.getElementById("tab-program").classList.add('active');
+    document.getElementById("tab-overview").classList.remove('active');
     document.getElementById("tab-followers").classList.remove('active');
     document.getElementById("tab-following").classList.remove('active');
   }
@@ -58,6 +67,7 @@ function openTab(tab)
     document.getElementById("tab-followers").classList.remove('active');
     document.getElementById("tab-followers").classList.add('active');
     document.getElementById("tab-overview").classList.remove('active');
+    document.getElementById("tab-program").classList.remove('active');
     document.getElementById("tab-following").classList.remove('active');
   }
   else if (tab == "tab-following-content")
@@ -65,6 +75,7 @@ function openTab(tab)
     document.getElementById("tab-following").classList.remove('active');
     document.getElementById("tab-following").classList.add('active');
     document.getElementById("tab-overview").classList.remove('active');
+    document.getElementById("tab-program").classList.remove('active');
     document.getElementById("tab-followers").classList.remove('active');
   }
 }
