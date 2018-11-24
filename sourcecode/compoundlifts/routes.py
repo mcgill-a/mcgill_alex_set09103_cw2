@@ -330,9 +330,8 @@ def add_comment_extras(user_lifts):
 
 						current_comment['profile_pic'] = url_for('static', filename='resources/users/profile/' + commenter_profile['profile_pic'])
 						current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']
-						date = datetime.datetime.strptime(str(current_comment['date']), '%Y-%m-%d %H:%M:%S.%f')
-						date = date.strftime("%B %d, %Y")
-						current_comment['date'] = date
+
+						current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
 		
 	return user_lifts
 
@@ -395,9 +394,8 @@ def athlete(id=None):
 				user_profile['current_program']['desc'] = user_profile['current_program']['desc'].replace('\n', '<br>')
 
 			# Convert the raw date input to a nice and readable date format
-			if user_profile['current_program']['date_started'] is not None:				
-				
-				date = datetime.datetime.strptime(str(user_profile['current_program']['date_started']), '%Y-%m-%d %H:%M:%S')
+			if user_profile['current_program']['date_started'] is not None:
+				date = user_profile['current_program']['date_started']
 				date = date.strftime("%B %d, %Y")
 				user_profile['current_program']['date_started'] = date
 			
@@ -892,9 +890,7 @@ def add_feed_extras(feed):
 				current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
 	
 		# Convert date added to a more readable value to display
-		date = datetime.datetime.strptime(str(lift['date_added']), '%Y-%m-%d %H:%M:%S.%f')
-		date = date.strftime("%B %d, %Y")
-		lift['date_added'] = date
+		lift['date_added'] = lift['date_added'].strftime("%A %d/%m/%Y - %X")
 
 		# Convert lift type to offical lift name
 		lift_type = lift['original_type']
