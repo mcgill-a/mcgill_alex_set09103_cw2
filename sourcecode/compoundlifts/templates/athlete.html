@@ -141,11 +141,14 @@
 		<div id="tab-program-content" class="tab-content" style="display: none;">
 			<div class="featured">
 				<div class="title">
-					<h1>TRAINING PROGRAM</h1>
+					<h1>CURRENT TRAINING PROGRAM</h1>
 				</div>
 				{% if user_profile.current_program.name|length > 1 or user_profile.current_program.desc|length > 1 %}
 					<div class="training-program-display">
 						<h3>{{user_profile.current_program.name}}</h3>
+						{% if user_profile.current_program.date_started|length > 1 %}
+							<p class="center">Since {{user_profile.current_program.date_started}}</p>
+						{% endif %}
 						<p>{{user_profile.current_program.desc|safe}}</p>
 					</div>
 				{% else %}

@@ -396,6 +396,12 @@ def athlete(id=None):
 			if 'desc' in user_profile['current_program']:
 				user_profile['current_program']['desc'] = user_profile['current_program']['desc'].replace('\n', '<br>')
 
+			# Convert the raw date input to a nice and readable date format
+			if user_profile['current_program']['date_started'] is not None:
+				date = user_profile['current_program']['date_started']
+				date = date.strftime("%B %d, %Y")
+				user_profile['current_program']['date_started'] = date
+			
 			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age)
 		else:
 			flash('Athlete not found', 'danger')

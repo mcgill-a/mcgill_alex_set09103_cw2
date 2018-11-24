@@ -783,6 +783,10 @@ button.follow-btn:hover {
 	text-align: center;
 }
 
+.training-program-display p.center {
+	text-align: center;
+}
+
 .cards {
 	display: flex;
 	flex-direction: row;
