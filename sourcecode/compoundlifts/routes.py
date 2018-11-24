@@ -62,7 +62,7 @@ def login():
 				session['email'] = result.get('email')
 				session['id'] = str(result.get('_id'))
 				session['fullname'] = result.get('first_name') + " " + result.get('last_name')
-				flash('You are now logged in', 'success')
+				#flash('You are now logged in', 'success')
 				return redirect(url_for('index'))
 				
 			else:
@@ -155,8 +155,6 @@ def signup():
 					'desc' : "",
 				}
 			})
-
-
 			print "INFO: New user has been created with email", email
 			flash('Account registered', 'success')
         	return redirect(url_for('login'))
@@ -180,7 +178,7 @@ def is_logged_in(f):
 def logout():
 	if session.get('logged_in'):
 		session.clear()
-		flash('You are now logged out', 'success')
+		#flash('You are now logged out', 'success')
 		return redirect(url_for('index'))
 	else:
 		session.clear()
@@ -237,7 +235,6 @@ def reset_request():
 			send_reset_email(user)
 			flash('Password reset email has been sent!', 'info')
 			return redirect(url_for('login'))
-		
 
 	return render_template('password_reset_request.html', form=form)
 
@@ -834,10 +831,9 @@ def calculator():
 
 @app.route('/leaderboards', methods=['GET'])
 def leaderboards():
-
 	all_lifts = []
-
 	cursor = lifts.find({})
+
 	for document in cursor:
 		current_id =  document['user_id']
 		user = users.find_one({'_id' : current_id})
@@ -852,7 +848,6 @@ def leaderboards():
 				lift['full_name'] = full_name
 				lift['athlete_id'] = current_id
 				all_lifts.append(lift)
-		
 	
 	return render_template('leaderboards.html', all_lifts=all_lifts)
 
@@ -906,7 +901,7 @@ def feed():
 						lift['lift_index'] = index
 						# Compare current lift weight with overall lift PB
 						if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
-							# If there is more than 1 lift, make sure it is not not equal to previous PB
+							# If there is more than 1 lift, make sure it is a higher weight than 2nd lift
 							if len(athlete_lifts['lifts'][lift_type]) > 1:
 								if lift['weight'] > athlete_lifts['lifts'][lift_type][1]['weight']:
 									lift['pb'] = True
@@ -920,11 +915,9 @@ def feed():
 						lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
 						feed.append(lift)
 						lift['profile_pic'] = url_for('static', filename='resources/users/profile/' + athlete_profile['profile_pic'])
-
-			
-
+		# Sort the list by most recently added (descending)
 		feed.sort(key=lambda item:item['date_added'], reverse=True)
-
+		# Add additional fields needed in the template
 		feed = add_feed_extras(feed)
 
 		return render_template('feed.html', following_count=following_count, feed=feed, current_user=current_user)
