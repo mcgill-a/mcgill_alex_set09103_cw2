@@ -881,9 +881,17 @@ def feed():
 			for lift_type in athlete_lifts['lifts']:
 				for lift in athlete_lifts['lifts'][lift_type]:
 					lift['user_id'] = ObjectId(athlete)
+					
+					# Compare current lift weight with overall lift PB
 					if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
-						print "PB"
-						lift['pb'] = True
+						# If there is more than 1 lift, make sure it is not not equal to previous PB
+						if len(athlete_lifts['lifts'][lift_type]) > 1:
+							if lift['weight'] > athlete_lifts['lifts'][lift_type][1]:
+								lift['pb'] = True
+							else:
+								lift['pb'] = False
+						else:
+							lift['pb'] = True
 					else:
 						lift['pb'] = False
 					
