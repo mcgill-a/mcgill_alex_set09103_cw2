@@ -881,6 +881,12 @@ def feed():
 			for lift_type in athlete_lifts['lifts']:
 				for lift in athlete_lifts['lifts'][lift_type]:
 					lift['user_id'] = ObjectId(athlete)
+					if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
+						print "PB"
+						lift['pb'] = True
+					else:
+						lift['pb'] = False
+					
 					if lift_type == "bench":
 						lift_type = "Bench Press"
 					elif lift_type == "squat":
@@ -889,6 +895,8 @@ def feed():
 					lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
 					feed.append(lift)
 					lift['profile_pic'] = url_for('static', filename='resources/users/profile/' + athlete_profile['profile_pic'])
+
+					
 
 	feed.sort(key=lambda item:item['date_added'], reverse=True)
 

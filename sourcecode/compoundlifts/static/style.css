@@ -1595,6 +1595,26 @@ p.weight-warning.active {
 	color: black;
 }
 
+.athlete-overview.feed {
+	justify-content: space-between;
+}
+
+.athlete-overview.feed span {
+	color: #ec3642;
+}
+
+.athlete-overview.feed .pb {
+	width: 160px;
+	height: auto;
+	margin: auto 0;
+	text-align: center;
+	font-weight: bold;
+}
+
+.athlete-overview.feed .pb p {
+	margin: 0;
+}
+
 .expanded-lift .header h3 {
 	margin-top: 0;
 }

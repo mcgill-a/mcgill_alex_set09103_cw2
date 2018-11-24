@@ -2,7 +2,7 @@
     <h1>Latest Posts</h1>
     {% for lift in feed %}
     <div id="{{loop.index - 1}}" class="lift">						
-        <div class="athlete-overview">
+        <div class="athlete-overview feed">
             <div class="inline-div">
                 <div class="profile-pic">
                     <a href="/athletes/{{lift.user_id}}"><img src={{lift.profile_pic}}></a>
@@ -11,10 +11,12 @@
                     <h3><a href="/athletes/{{lift.user_id}}">{{lift.full_name}}</a></h3>
                     <p>Category: {{lift.lift_type}}</p>
                 </div>
-                
             </div>
-            
-            
+            {% if lift['pb'] %}
+                <div class="pb">
+                    <p><span class="glyphicon glyphicon-fire"></span> Personal Best</p>
+                </div>
+            {% endif %}         
         </div>
         <div class="field">
             
