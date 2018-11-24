@@ -66,7 +66,7 @@ body {
 }
 
 .home-fill .features {
-	height: 500px;
+	height: auto;
 	width: 100%;
 	background: rgb(236, 236, 236);
 	padding: 20px;
@@ -80,15 +80,42 @@ body {
 	justify-content: space-evenly;
 	width: 800px;
 	margin: 0 auto;
+	font-weight: bold;
+	margin-bottom: 10px;
+	
+}
+.features .row a {
+	color: black;
 }
 
+.features .row a:hover {
+	text-decoration: none;
+	color: #ec3642 !important;
+}
+
+.features .row a:visited, .features .row a:active {
+	text-decoration: none;
+	color: black;
+}
 .features .row .item {
 	width: 160px;
 	height: 180px;
-	padding: 10px;
+	padding: 40px 10px 10px 10px;
 	background: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
+.features .row .item p {
+	font-size: 20px;
+}
+
+
+.features .row .item span {
+	font-size: 70px;
+	color: #ec3642;
+}
 .home-fill .features h2 {
 	margin: 0;
 }
