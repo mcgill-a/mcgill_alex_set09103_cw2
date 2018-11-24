@@ -14,8 +14,13 @@
 				{% if following_count > 0 %}
 					{% include 'includes/_feed-lift.html' %}
 				{% else %}
-					<h1>You are not currently following any athletes</h1>
-					<h2>Discover other athletes to follow <a href="/athletes">here</a></h2>
+					<div class="no-following">
+						<h1>You are not currently following anyone</h1>
+						<h2>Discover other athletes to follow on the Athletes page <a href="/athletes">here</a></h2>
+					</div>	
+					{% if feed|length > 0 %} 
+						{% include 'includes/_feed-lift.html' %}
+					{% endif %}
 				{% endif %}
 			</div>
 		</div>

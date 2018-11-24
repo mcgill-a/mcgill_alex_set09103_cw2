@@ -133,7 +133,7 @@
 			$(".add-new").click(function(){
 				$(this).attr("disabled", "disabled");
 				var index = $("table tbody tr:last-child").index();
-				var row = '<tr>' +
+				var row = '<tr class="editing">' +
 					'<td><input type="date" class="form-control" name="date" placeholder="Date" id="date" required></td>' +
 					'<td><input type="number" min="0" max="1200" class="form-control" name="weight" placeholder="Weight" id="weight" required></td>' +
 					'<td><input type="url" class="form-control url" name="video_url" placeholder="YouTube Video URL" id="video_url"></td>' +
@@ -286,20 +286,19 @@
 				
 				$(".add-new").removeAttr("disabled");
 				
-				if (id != null)
+				if ($(this).closest("tr").hasClass("editing"))
 				{
-					if ($(this).closest("tr").hasClass("editing"))
-					{
-						// Row editing was cancelled. Do not delete row
-						console.log("Don't delete row");
-						location.reload();
-					}
-					else
+					// Row editing was cancelled. Do not delete row
+					console.log("Don't delete row");
+					location.reload();
+				}
+				else
+				{
+					if (id != null)
 					{
 						$(this).parents("tr").remove();
 						//Post the table row removal to the DB
 						console.log("Delete row");
-						/*
 						$.ajax({
 							type : "POST",
 							url : post_url,
@@ -310,11 +309,10 @@
 							}
 						});
 						location.reload();
-						*/
 					}
-					
-					
 				}
+
+				
 				$(this).parents("tr").removeClass("editing");			
 			});
 		});

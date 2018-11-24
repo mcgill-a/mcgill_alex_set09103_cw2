@@ -1826,8 +1826,9 @@ p.weight-warning.active {
 	font-weight: bold;
 }
 
-.expanded-lift .athlete-overview {
-	/*
-	justify-content: center;
-	*/	
+.no-following {
+	font-family: 'Montserrat', sans-serif;
+	padding: 20px;
+	border: 1px solid #ccc;
+	text-align: center;
 }
