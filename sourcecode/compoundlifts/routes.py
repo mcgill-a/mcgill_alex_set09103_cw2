@@ -11,6 +11,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 from operator import itemgetter
 from urllib2 import urlopen
+from PIL import Image
 
 
 @app.before_request
@@ -515,7 +516,12 @@ def store_profile_pic(form_pic, profile_user_id):
 	picture_fn = profile_user_id + ext
 	picture_path = os.path.join(app.root_path, 'static/resources/users/profile', picture_fn)
 	
-	form_pic.save(picture_path)
+	# Set the image width and height to reduce large image file sizes
+	file_size = (200, 200)
+	img = Image.open(form_pic)
+	img.thumbnail(file_size)
+
+	img.save(picture_path)
 
 	return picture_fn
 
