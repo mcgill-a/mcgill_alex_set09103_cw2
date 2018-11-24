@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 {% set active_page = 'feed' %}
 {% block content %}
-<div class="fill">
+<div class="white-bg">
 	<div class="page-header athletes">
 		<div class="container">
 			<h1>ACTIVITY FEED</h1>
 		</div>
 	</div>
 	<div class="no-padding container">
-		<br />{% include 'includes/_messages.html' %}
+		{% include 'includes/_messages.html' %}
 		<div class="activity-feed">
 			<div class="lift">
 				{% if following_count > 0 %}
