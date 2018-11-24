@@ -1867,3 +1867,9 @@ button.clear:hover {
 	color: red;
 	margin-right: 5px;
 }
+
+.chart span {
+	font-size: 30px;
+	margin-left: -20px;
+	margin-bottom: 5px;
+}

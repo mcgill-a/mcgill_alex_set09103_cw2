@@ -2,16 +2,16 @@
     {% if history['deadlift']|length > 1 %}
         <div class="chart">
             <canvas id="myChart" height="600" width="900"></canvas>
+            <span class="close">&times;</span>
         </div>
     {% endif %}
 </div>
 
 <script>
-    // Global parameters:
-    // do not resize the chart canvas when its container does (keep at 600x400px)
-    Chart.defaults.global.responsive = false;
-    var type = $(this).closest(".expanded-lift").attr('id');
-    console.log(type);
+    // Disable chart resize
+    //Chart.defaults.global.responsive = false;
+    //var type = $(this).closest(".expanded-lift").attr('id');
+    //console.log(type);
     // define the chart data
     var chartData = {
     labels : [{% for item in history['deadlift'] %}

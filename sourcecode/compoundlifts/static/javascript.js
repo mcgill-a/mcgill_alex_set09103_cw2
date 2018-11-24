@@ -49,10 +49,10 @@ function openTab(tab)
 // Get modal element
 var modal = document.getElementById("modal-chart");
 var modalBtn = document.getElementById("modalBtn")
-var modalCloseBtn = document.getElementsByClassName("modalBtnClose")[0];
+var modalCloseBtn = document.querySelector('.close');
 
 modalBtn.addEventListener('click', openModal);
-//modalCloseBtn.addEventListener('click', closeModal);
+modalCloseBtn.addEventListener('click', closeModal);
 window.addEventListener('click', clickOutside);
 
 function openModal()
@@ -63,6 +63,7 @@ function openModal()
 
 function closeModal()
 {
+  console.log("Close Modal");
   modal.style.display = "none";
 }
 
