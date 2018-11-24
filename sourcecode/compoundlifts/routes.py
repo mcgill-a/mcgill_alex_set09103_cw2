@@ -43,8 +43,8 @@ def index():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
 	if session.get('logged_in'):
-		output = "You are already logged in as " + session.get('email')
-		flash(output, 'warning')
+		#output = "You are already logged in as " + session.get('email')
+		#flash(output, 'warning')
 		return redirect(url_for('index'))
 	
 	ip = request.environ['REMOTE_ADDR']
@@ -78,8 +78,8 @@ def login():
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
 	if session.get('logged_in'):
-		output = "You are already logged in as " + session.get('email')
-		flash(output, 'warning')
+		#output = "You are already logged in as " + session.get('email')
+		#flash(output, 'warning')
 		return redirect(url_for('index'))
 	
 	form = SignupForm(request.form)
@@ -874,6 +874,14 @@ def add_feed_extras(feed):
 		# Convert date added to a more readable value to display
 		lift['date_added'] = lift['date_added'].strftime("%A %d/%m/%Y - %X")
 
+		# Convert lift type to offical lift name
+		lift_type = lift['original_type']
+		if lift_type == "bench":
+			lift_type = "Bench Press"
+		elif lift_type == "squat":
+			lift_type = "Barbell Squat"
+		lift['lift_type'] = lift_type.title()
+
 	return feed
 
 
@@ -885,7 +893,8 @@ def feed():
 	if current_user is not None:
 
 		following_count = len(current_user['following'])
-		
+		# Add their own lifts to the feed as well
+		current_user['following'].append(current_user['_id'])
 		for athlete in current_user['following']:
 			athlete_user = users.find_one({'_id' : ObjectId(athlete)})
 			athlete_profile = profiles.find_one({'user_id' : ObjectId(athlete)})
@@ -899,7 +908,7 @@ def feed():
 						if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
 							# If there is more than 1 lift, make sure it is not not equal to previous PB
 							if len(athlete_lifts['lifts'][lift_type]) > 1:
-								if lift['weight'] > athlete_lifts['lifts'][lift_type][1]:
+								if lift['weight'] > athlete_lifts['lifts'][lift_type][1]['weight']:
 									lift['pb'] = True
 								else:
 									lift['pb'] = False
@@ -908,15 +917,11 @@ def feed():
 						else:
 							lift['pb'] = False
 						lift['original_type'] = lift_type
-						if lift_type == "bench":
-							lift_type = "Bench Press"
-						elif lift_type == "squat":
-							lift_type = "Barbell Squat"
-						lift['lift_type'] = lift_type.title()
 						lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
 						feed.append(lift)
 						lift['profile_pic'] = url_for('static', filename='resources/users/profile/' + athlete_profile['profile_pic'])
-						
+
+			
 
 		feed.sort(key=lambda item:item['date_added'], reverse=True)
 
