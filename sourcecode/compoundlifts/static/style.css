@@ -468,7 +468,7 @@ ul.dropdown-menu li a:hover {
 	width: 100%;
 	height: 100%;
 	overflow: none;
-	/*background-color: rgba(0,0,0,0.5);*/
+	background-color: rgba(0,0,0,0.5);
 }
 
  .modal-popup-content {
@@ -1831,4 +1831,39 @@ p.weight-warning.active {
 	padding: 20px;
 	border: 1px solid #ccc;
 	text-align: center;
+}
+
+.chart {
+	background-color: white;
+	margin: 10% auto;
+	width: 945px;
+	height: 600px;
+	box-shadow: 0 5px 8px 0 rgba(0,0,0,0.8);
+	animation-name: modalOpen;
+	animation-duration: 1s;
+	display: flex;
+	flex-direction: row;
+	color: #ec3642;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+button.clear {
+	padding: 2px 5px;
+	margin-bottom: 10px;
+	height: auto;
+	background: none;
+	border: 1px solid #ccc;
+	color: #161616;
+	font-weight: bold;
+}
+
+button.clear:hover {
+	text-decoration: underline;
+	font-weight: bolder;
+}
+
+.inline-headers span {
+	color: red;
+	margin-right: 5px;
 }

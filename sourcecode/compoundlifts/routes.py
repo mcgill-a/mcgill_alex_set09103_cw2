@@ -399,7 +399,30 @@ def athlete(id=None):
 				date = date.strftime("%B %d, %Y")
 				user_profile['current_program']['date_started'] = date
 			
-			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age)
+			history = {}
+
+			# Lift Weight Track Chart
+			for lift_type in user_lifts['lifts']:
+				data = user_lifts['lifts'][lift_type]
+				for current in data:
+					extract = {
+						'date' : current['date'],
+						'weight' : int(current['weight'])
+					}
+					if lift_type not in history:
+						history[lift_type] = [extract]
+					else:
+						history[lift_type].append(extract)
+			
+			#history_deadlift = history['deadlift']
+			#history_bench = history['bench']
+			#history_squat = history['squat']
+
+			history['deadlift'].sort(key=lambda item:item['date'], reverse=False)
+			history['bench'].sort(key=lambda item:item['date'], reverse=False)
+			history['squat'].sort(key=lambda item:item['date'], reverse=False)
+
+			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age, history=history)
 		else:
 			flash('Athlete not found', 'danger')
 			return redirect(url_for('athletes'))
@@ -923,3 +946,28 @@ def feed():
 		return render_template('feed.html', following_count=following_count, feed=feed, current_user=current_user)
 	else:
 		return render_template('feed.html')
+
+
+@app.route('/chart', methods=['GET'])
+def chart():
+	id = "5bf1b42b524d47131c5e59d7"
+	user_lifts = lifts.find_one({'user_id' : ObjectId(id)}) 
+	data = user_lifts['lifts']['deadlift']
+	history = []
+
+	dates = []
+	weights = []
+
+	for current in data:
+		extract = {
+			'date' : current['date'],
+			'weight' : int(current['weight'])
+		}
+		print extract
+		history.append(extract)
+
+	history.sort(key=lambda item:item['date'], reverse=False)
+
+	if history != None:
+		return render_template('chart.html', history=history)
+	return render_template('chart.html')

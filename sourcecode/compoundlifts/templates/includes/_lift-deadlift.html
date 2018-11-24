@@ -1,5 +1,10 @@
 <div id="deadlift" class="expanded-lift">
-    <h1>Deadlift</h1>
+    <div class="inline-headers">
+        <h1>Deadlift</h1>
+        {% if user_lifts['lifts']['deadlift']|length > 1 %}
+            <button id="modalBtn" class="clear"><span class="glyphicon glyphicon-stats"></span>Track Progress</button>
+        {% endif %}
+    </div>
     {% for lift in user_lifts['lifts']['deadlift'] %}
     <div id="{{loop.index - 1}}" class="lift">						
         <div class="field">
@@ -69,12 +74,14 @@
                         </div>
                     </div>
                     {% endfor %}
-                    {% if lift['comments']|length < 1 %}
-
-                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
     {% endfor %}
+    {% if user_lifts['lifts']['deadlift']|length > 1 %}
+        <div class="visualise">
+            {% include 'includes/_chart.html' %}
+        </div>
+    {% endif %}
 </div>

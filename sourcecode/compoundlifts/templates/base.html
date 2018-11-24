@@ -7,7 +7,7 @@
 {% import "bootstrap/fixes.html" as fixes %}
 
 {% block head %}
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
@@ -53,6 +53,7 @@
 {% block scripts %}
 	<script src="{{url_for('static', filename='javascript.js')}}"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 	{#{{super()}}#}
 {% endblock %}
 
