@@ -18,7 +18,7 @@
         </div>
         <div class="basic-info">
             <p><a href="/athletes/{{athlete._id}}">{{athlete.first_name}} {{athlete.last_name}}</a></p>
-            <p>
+            <p title="Location">
                 {% if 'city' in athlete and athlete.city|length > 1 %}
                     <span class="glyphicon glyphicon-map-marker"></span> 
                     {% if 'country' in athlete and athlete.country|length > 1 %}

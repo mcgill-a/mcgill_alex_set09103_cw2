@@ -1249,6 +1249,19 @@ iframe {
 	border-radius: 0 4px 4px 0 !important;
 }
 
+@media only screen and (max-width: 1025px) {
+    #tab-lifts table tr th.fit  {
+		width: 120px;
+	}
+	.settings-list {
+		width: 100px;
+	}
+
+	.settings-list button {
+		width: 90px !important;
+	}
+}
+
 .settings-list button {
 	text-align: left;
 	width: 170px;

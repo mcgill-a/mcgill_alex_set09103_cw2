@@ -25,8 +25,8 @@
 							<tr>
 								<th width="170px">Date</th>
 								<th width="100px">Weight (KG)</th>
-								<th width="250px">YouTube Video URL</th>
-								<th width="300px">Description</th>
+								<th class="fit" width="250px">YouTube Video URL</th>
+								<th class="fit" width="300px">Description</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -61,8 +61,8 @@
 						<tr>
 							<th width="170px">Date</th>
 							<th width="100px">Weight (KG)</th>
-							<th width="250px">YouTube Video URL</th>
-							<th width="300px">Description</th>
+							<th class="fit" width="250px">YouTube Video URL</th>
+							<th class="fit" width="300px">Description</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -97,8 +97,8 @@
 						<tr>
 							<th width="170px">Date</th>
 							<th width="100px">Weight (KG)</th>
-							<th width="250px">YouTube Video URL</th>
-							<th width="300px">Description</th>
+							<th class="fit" width="250px">YouTube Video URL</th>
+							<th class="fit" width="300px">Description</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -198,6 +198,7 @@
 					} else{
 						$(this).removeClass("error");
 					}
+					
 				});
 
 				$(this).parents("tr").find(".error").first().focus();
@@ -219,6 +220,30 @@
 						'video_url' : output[2],
 						'description' : output[3]
 					}
+
+					if ($(this).closest("tr").hasClass("editing"))
+					{
+						// Row was edited. Update existing lift
+						lift = {
+							'date' : output[0],
+							'weight' : parseInt(output[1]),
+							'video_url' : output[2],
+							'description' : output[3],
+							'action' : 'edit',
+							'index' : $(this).closest("tr").attr('id')
+						}
+					}
+					else
+					{
+						// Row was added. Add new lift
+						lift = {
+							'date' : output[0],
+							'weight' : parseInt(output[1]),
+							'video_url' : output[2],
+							'description' : output[3],
+							'action' : 'add'
+						}
+					}
 					
 					var lift_type = $(this).closest('table').attr('id');
 					var post_url = "/lifts/add/" + lift_type;
@@ -233,6 +258,7 @@
 						}
 					});
 					location.reload();
+					$(this).closest("tr").removeClass("editing");
 				}
 			});
 			// Edit row on edit button click
@@ -245,33 +271,51 @@
 					else { $(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');}
 					count++;
 				});
+				$(this).parents("tr").addClass("editing");
 				$(this).parents("tr").find(".add, .edit").toggle();
 				$(".add-new").attr("disabled", "disabled");
 			});
 
 			// Delete row on delete button click
 			$(document).on("click", ".delete", function(){
+				
 				var lift_type = $(this).closest('table').attr('id');
 				var post_url = "/lifts/remove/" + lift_type;
 				
 				id = $(this).closest("tr").attr('id');
-				$(this).parents("tr").remove();
+				
 				$(".add-new").removeAttr("disabled");
 				
 				if (id != null)
 				{
-					//Post the table row removal to the DB
-					$.ajax({
-						type : "POST",
-						url : post_url,
-						data: id,
-						contentType: 'application/json;charset=UTF-8',
-						success: function(result) {
-							console.log("Removed Lift: " + result);
-						}
-					});
-					location.reload();
-				}				
+					if ($(this).closest("tr").hasClass("editing"))
+					{
+						// Row editing was cancelled. Do not delete row
+						console.log("Don't delete row");
+						location.reload();
+					}
+					else
+					{
+						$(this).parents("tr").remove();
+						//Post the table row removal to the DB
+						console.log("Delete row");
+						/*
+						$.ajax({
+							type : "POST",
+							url : post_url,
+							data: id,
+							contentType: 'application/json;charset=UTF-8',
+							success: function(result) {
+								console.log("Removed Lift: " + result);
+							}
+						});
+						location.reload();
+						*/
+					}
+					
+					
+				}
+				$(this).parents("tr").removeClass("editing");			
 			});
 		});
 	</script>

@@ -662,9 +662,17 @@ def add_lift(lift=None):
 		else:
 			# If key is not in the list then add it
 			if lift in user_lifts['lifts']:
-				print "in"
 				current_lift = user_lifts['lifts'][lift]
-				current_lift.append(data)
+				if data['action'] == "add":
+					current_lift.append(data)
+				elif data['action'] == "edit":
+					lift_index = int(data['index'])
+					# Update the lift at the current index
+					current_lift[lift_index]['date'] = data['date']
+					current_lift[lift_index]['weight'] = data['weight']
+					current_lift[lift_index]['video_url'] = data['video_url']
+					current_lift[lift_index]['description'] = data['description']
+					current_lift[lift_index]['embed_url'] = data['video_url'].replace("watch?v=", "embed/")
 				# Sort the current list of lifts by date (most recent first)
 				sorted_lift = sorted(current_lift, key=itemgetter('date'), reverse=True)
 				user_lifts['lifts'][lift] = sorted_lift
