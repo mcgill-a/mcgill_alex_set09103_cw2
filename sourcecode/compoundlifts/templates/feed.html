@@ -1,20 +1,31 @@
 {% extends "base.html" %}
-{% set active_page = 'index' %}
+{% set active_page = 'feed' %}
 {% block content %}
+<div class="fill">
+	<div class="page-header athletes">
+		<div class="container">
+			<h1>ACTIVITY FEED</h1>
+		</div>
+	</div>
 	<div class="no-padding container">
 		<br />{% include 'includes/_messages.html' %}
 		<div class="activity-feed">
-            <div class="lift">
-                {% include 'includes/_feed-lift.html' %}
-            </div>
+			<div class="lift">
+				{% if following_count > 0 %}
+					{% include 'includes/_feed-lift.html' %}
+				{% else %}
+					<h1>You are not currently following any athletes</h1>
+					<h2>Discover other athletes to follow <a href="/athletes">here</a></h2>
+				{% endif %}
+			</div>
 		</div>
-    </div>
-    <script>
+	</div>
+	<script>
 		$(document).ready(function(){
 
 			$(".btn-submit-comment").on('click', function(){
-                var athlete_id = $(this).closest('.comments').data('athlete_id');
-                var commenter_id = "{{current_user._id}}";
+				var athlete_id = $(this).closest('.comments').data('athlete_id');
+				var commenter_id = "{{current_user._id}}";
 				var lift_type = $(this).closest('.comments').data('lift_type');
 				var lift_index = $(this).closest('.comments').data('lift_index');
 				var comment = $('#' + lift_type + '-comment-' + lift_index).val();
@@ -25,7 +36,7 @@
 					'lift_type' : lift_type,
 					'lift_index' : lift_index
 				};
-                
+				
 				$.ajax({
 					type : "POST",
 					url : "/comment/add",
@@ -35,9 +46,8 @@
 						console.log("New Comment: " + result);
 					}
 				});
-
+				
 				location.reload();
-                
 			});
 
 			$(".btn-delete-comment").on('click', function(){
@@ -74,4 +84,5 @@
 			});
 		});
 	</script>
+</div>
 {% endblock %}

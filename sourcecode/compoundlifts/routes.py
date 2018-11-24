@@ -34,8 +34,7 @@ def error_400(e):
 def error_500(e):
 	return render_template('error.html', error=500), 500
 
-
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
 	return render_template('index.html')
 
@@ -864,50 +863,51 @@ def add_feed_extras(feed):
 	return feed
 
 
-
 @app.route('/feed', methods=['GET'])
 @is_logged_in
 def feed():
-	
-	current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
-
 	feed = []
+	current_user = users.find_one({'_id' : ObjectId(session.get('id'))})
+	if current_user is not None:
 
-	for athlete in current_user['following']:
-		athlete_user = users.find_one({'_id' : ObjectId(athlete)})
-		athlete_profile = profiles.find_one({'user_id' : ObjectId(athlete)})
-		athlete_lifts = lifts.find_one({'user_id' : ObjectId(athlete)})
-		if athlete_lifts is not None:
-			for lift_type in athlete_lifts['lifts']:
-				for index, lift in enumerate(athlete_lifts['lifts'][lift_type]):
-					lift['user_id'] = ObjectId(athlete)
-					lift['lift_index'] = index
-					# Compare current lift weight with overall lift PB
-					if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
-						# If there is more than 1 lift, make sure it is not not equal to previous PB
-						if len(athlete_lifts['lifts'][lift_type]) > 1:
-							if lift['weight'] > athlete_lifts['lifts'][lift_type][1]:
-								lift['pb'] = True
+		following_count = len(current_user['following'])
+		
+		for athlete in current_user['following']:
+			athlete_user = users.find_one({'_id' : ObjectId(athlete)})
+			athlete_profile = profiles.find_one({'user_id' : ObjectId(athlete)})
+			athlete_lifts = lifts.find_one({'user_id' : ObjectId(athlete)})
+			if athlete_lifts is not None:
+				for lift_type in athlete_lifts['lifts']:
+					for index, lift in enumerate(athlete_lifts['lifts'][lift_type]):
+						lift['user_id'] = ObjectId(athlete)
+						lift['lift_index'] = index
+						# Compare current lift weight with overall lift PB
+						if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
+							# If there is more than 1 lift, make sure it is not not equal to previous PB
+							if len(athlete_lifts['lifts'][lift_type]) > 1:
+								if lift['weight'] > athlete_lifts['lifts'][lift_type][1]:
+									lift['pb'] = True
+								else:
+									lift['pb'] = False
 							else:
-								lift['pb'] = False
+								lift['pb'] = True
 						else:
-							lift['pb'] = True
-					else:
-						lift['pb'] = False
-					lift['original_type'] = lift_type
-					if lift_type == "bench":
-						lift_type = "Bench Press"
-					elif lift_type == "squat":
-						lift_type = "Barbell Squat"
-					lift['lift_type'] = lift_type.title()
-					lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
-					feed.append(lift)
-					lift['profile_pic'] = url_for('static', filename='resources/users/profile/' + athlete_profile['profile_pic'])
+							lift['pb'] = False
+						lift['original_type'] = lift_type
+						if lift_type == "bench":
+							lift_type = "Bench Press"
+						elif lift_type == "squat":
+							lift_type = "Barbell Squat"
+						lift['lift_type'] = lift_type.title()
+						lift['full_name'] = athlete_user['first_name'] + " " + athlete_user['last_name']
+						feed.append(lift)
+						lift['profile_pic'] = url_for('static', filename='resources/users/profile/' + athlete_profile['profile_pic'])
+						
 
-					
+		feed.sort(key=lambda item:item['date_added'], reverse=True)
 
-	feed.sort(key=lambda item:item['date_added'], reverse=True)
+		feed = add_feed_extras(feed)
 
-	feed = add_feed_extras(feed)
-
-	return render_template('feed.html', feed=feed, current_user=current_user)
+		return render_template('feed.html', following_count=following_count, feed=feed, current_user=current_user)
+	else:
+		return render_template('feed.html')

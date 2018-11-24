@@ -1,8 +1,57 @@
 {% extends "base.html" %}
 {% set active_page = 'index' %}
 {% block content %}
-	<div class="container">
-		<br />{% include 'includes/_messages.html' %}
-		<h1>Home</h1>
+	<div class="home-fill">
+		<div class="content">
+			<div class="banner">
+				<div class="header">
+					<div class="home-display">
+						<img src="/static/resources/logo-text.png">
+					</div>
+					<div class="sub">
+						<h2>They call it Scranton what? The electric city! They call it that cos of the electricity</h2>
+					</div>
+				</div>
+			</div>
+			<div class="features">
+				<div class="text">
+					<h2>Features</h2>
+					<p></p>
+					<br />
+				</div>
+				<div class="no-padding container-fluid">
+					<div class="row">
+						<a href="#">
+							<div class="item">
+								<span></span>
+								<p>Activity Feed</p>
+							</div>
+						</a>
+						<a href="#">
+							<div class="item">
+								<span></span>
+								<p>Athletes</p>
+							</div>
+						</a>
+						<a href="#">
+							<div class="item">
+								<span></span>
+								<p>Leaderboards</p>
+							</div>
+						</a>
+						<a href="#">
+							<div class="item">
+								<span></span>
+								<p>Calculator</p>
+							</div>
+						</a>
+					</div>
+				</div>
+				
+			</div>
+			<div class="call-to-action">
+
+			</div>
+		</div>
 	</div>
 {% endblock %}
