@@ -37,12 +37,12 @@
                 </div>
             </div>
             <div class="right">
-                <div class="comments scrollbar">
+                <div class="comments scrollbar" data-athlete_id="{{lift.user_id}}" data-lift_type="{{lift.original_type}}" data-lift_index="{{lift.lift_index}}">
                     <h4>COMMENTS ({{lift['comments']|length}}):</h4>
                     {% if current_user is not none %}
                         <div class="submit-comment">
                             <form>
-                                <textarea id="deadlift-comment-{{loop.index -1}}" name="comment" placeholder="Write a comment here"></textarea>
+                                <textarea id="{{lift.original_type}}-comment-{{lift.lift_index}}" name="comment" placeholder="Write a comment here"></textarea>
                             </form>
                             <div class="inline-end">
                                 <p>Logged in as <a href="/athletes/{{session.id}}">{{session.fullname}}</a></p>

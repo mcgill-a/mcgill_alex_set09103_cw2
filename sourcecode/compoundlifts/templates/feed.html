@@ -9,4 +9,69 @@
             </div>
 		</div>
     </div>
+    <script>
+		$(document).ready(function(){
+
+			$(".btn-submit-comment").on('click', function(){
+                var athlete_id = $(this).closest('.comments').data('athlete_id');
+                var commenter_id = "{{current_user._id}}";
+				var lift_type = $(this).closest('.comments').data('lift_type');
+				var lift_index = $(this).closest('.comments').data('lift_index');
+				var comment = $('#' + lift_type + '-comment-' + lift_index).val();
+				data = {
+					'athlete_id' : athlete_id,
+					'commenter_id' : commenter_id,
+					'comment' : comment,
+					'lift_type' : lift_type,
+					'lift_index' : lift_index
+				};
+                
+				$.ajax({
+					type : "POST",
+					url : "/comment/add",
+					data: JSON.stringify(data),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("New Comment: " + result);
+					}
+				});
+
+				location.reload();
+                
+			});
+
+			$(".btn-delete-comment").on('click', function(){
+				var athlete_id = $(this).closest('.comments').data('athlete_id');
+				var commenter_id = $(this).closest('.comment').data('commenter');
+				var lift_type = $(this).closest('.comments').data('lift_type');
+				var lift_index = $(this).closest('.comments').data('lift_index');
+				
+				var comment = $('#' + lift_type + '-comment-' + lift_index).val();
+				var comment_index = $(this).closest('.comment').data('index');
+				
+				var comment_div = $(this).closest('.comment');
+				
+				data = {
+					'athlete_id' : athlete_id,
+					'commenter_id' : commenter_id,
+					'comment_index' : comment_index,
+					'comment' : comment,
+					'lift_type' : lift_type,
+					'lift_index' : lift_index,
+				};
+				
+				$.ajax({
+					type : "POST",
+					url : "/comment/delete",
+					data: JSON.stringify(data),
+					contentType: 'application/json;charset=UTF-8',
+					success: function(result) {
+						console.log("Removed Comment: " + result);
+						// Hide comment to remove without needing a page refresh
+						comment_div.hide();
+					}
+				});
+			});
+		});
+	</script>
 {% endblock %}

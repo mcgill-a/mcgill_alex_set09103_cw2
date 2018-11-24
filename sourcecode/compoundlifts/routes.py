@@ -879,9 +879,9 @@ def feed():
 		athlete_lifts = lifts.find_one({'user_id' : ObjectId(athlete)})
 		if athlete_lifts is not None:
 			for lift_type in athlete_lifts['lifts']:
-				for lift in athlete_lifts['lifts'][lift_type]:
+				for index, lift in enumerate(athlete_lifts['lifts'][lift_type]):
 					lift['user_id'] = ObjectId(athlete)
-					
+					lift['lift_index'] = index
 					# Compare current lift weight with overall lift PB
 					if lift['weight'] == athlete_lifts['lifts'][lift_type][0]['weight']:
 						# If there is more than 1 lift, make sure it is not not equal to previous PB
@@ -894,7 +894,7 @@ def feed():
 							lift['pb'] = True
 					else:
 						lift['pb'] = False
-					
+					lift['original_type'] = lift_type
 					if lift_type == "bench":
 						lift_type = "Bench Press"
 					elif lift_type == "squat":
