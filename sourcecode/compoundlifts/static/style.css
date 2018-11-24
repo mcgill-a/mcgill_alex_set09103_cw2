@@ -846,6 +846,12 @@ button.follow-btn:hover {
 	font-family: 'Montserrat', sans-serif;
 }
 
+.expanded-lift p.right-align {
+	text-align: right;
+	margin-bottom: 0;
+	font-weight: bold;
+}
+
 .expanded-lift .lift {
 	padding: 10px;
 	height: auto;

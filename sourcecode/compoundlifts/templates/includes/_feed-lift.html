@@ -3,13 +3,6 @@
     {% for lift in feed %}
     <div id="{{loop.index - 1}}" class="lift">						
         <div class="athlete-overview">
-            {#<div class="profile-pic no-margin">
-                <a href="/athletes/{{lift.user_id}}"><img src={{lift.profile_pic}}></a>
-            </div>
-            <div class="basic-info">
-                <p><a href="/athletes/{{lift.user_id}}">{{lift.full_name}}</a></p>
-                <p>Category: {{lift.lift_type}}</p>
-            </div>#}
             <div class="inline-div">
                 <div class="profile-pic">
                     <a href="/athletes/{{lift.user_id}}"><img src={{lift.profile_pic}}></a>
@@ -92,6 +85,7 @@
                 </div>
             </div>
         </div>
+        <p class="right-align">{{lift.date_added}}</p>
     </div>
     {% endfor %}
 </div>

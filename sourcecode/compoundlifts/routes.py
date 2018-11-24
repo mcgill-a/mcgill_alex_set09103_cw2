@@ -857,7 +857,10 @@ def add_feed_extras(feed):
 				current_comment['full_name'] = commenter_user['first_name'] + " " + commenter_user['last_name']
 
 				current_comment['date'] = current_comment['date'].strftime("%B %d, %Y")
-		
+	
+		# Convert date added to a more readable value to display
+		lift['date_added'] = lift['date_added'].strftime("%A %d/%m/%Y - %X")
+
 	return feed
 
 
