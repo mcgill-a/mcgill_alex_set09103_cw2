@@ -219,8 +219,8 @@ def verify_reset_token(token):
 
 @app.route('/reset_password/', methods=['POST', 'GET'])
 def reset_request():
-	if session.get('logged_in'):
-		return redirect(url_for('index'))
+	#if session.get('logged_in'):
+	#	return redirect(url_for('index'))
 
 	form = RequestPasswordResetForm()
 	if request.method == 'POST' and form.validate():
@@ -241,8 +241,6 @@ def reset_request():
 
 @app.route('/reset_password/<token>', methods=['POST', 'GET'])
 def reset_token(token):
-	if session.get('logged_in'):
-		return redirect(url_for('index'))
 	user = verify_reset_token(token)
 	if user is None:
 		flash('Invalid or expired reset token.', 'danger')

@@ -1331,6 +1331,14 @@ iframe {
 	width: 100%;
 }
 
+.edit-account h1 {
+	font-family: 'Montserrat', sans-serif;
+}
+
+.edit-account .edit-form p.reset {
+	text-align: center;
+}
+
 .edit-profile .profile-pic {
 	width: 120px;
 	height: 120px;

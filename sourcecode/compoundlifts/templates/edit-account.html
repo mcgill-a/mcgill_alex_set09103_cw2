@@ -13,7 +13,6 @@
 			<div class="settings-content">
 				<div id="tab-account" class="tab">
 					<div class="edit-account">
-						<h1>Edit Account</h1>
 						{% from "includes/_formhelpers.html" import render_field %}
 						<div class="edit-form">
 							<form method='POST' action="">
@@ -38,6 +37,7 @@
 							<br /><br /><br />
 							{% include 'includes/_messages.html' %}
 						</div>
+						<p class="reset">Click <a href="/reset_password/">here</a> to reset your password.</p>
 					</div>
 				</div>
 			</div>
