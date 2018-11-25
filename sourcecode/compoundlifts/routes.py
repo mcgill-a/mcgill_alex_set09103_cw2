@@ -87,7 +87,13 @@ def signup():
 		# Set the user inputs
 		# Force only the initial character in first name to be capitalised
 		first_name = (form.firstname.data.lower()).capitalize()
+		
+		# Make sure the first letter is capitalised. Don't care about capitalisation on the rest
 		last_name = form.lastname.data
+		last_name_first_letter = last_name[0].capitalize()
+		last_name_remaining_letters = last_name[1:]
+		last_name = last_name_first_letter + last_name_remaining_letters
+
 		email = form.email.data
 		# Set the default inputs
 		current_datetime = datetime.datetime.now()
@@ -507,8 +513,15 @@ def athlete_edit_account():
 						return redirect('athletes/edit/')
 					else:
 
-						current_user['first_name'] = account_form.firstname.data
-						current_user['last_name'] = account_form.lastname.data
+						current_user['first_name'] = account_form.firstname.data.capitalize()
+
+						# Make sure the first letter is capitalised. Don't care about capitalisation on the rest
+						last_name = account_form.lastname.data
+						last_name_first_letter = last_name[0].capitalize()
+						last_name_remaining_letters = last_name[1:]
+						last_name = last_name_first_letter + last_name_remaining_letters
+
+						current_user['last_name'] = last_name
 						current_user['email'] = account_form.email.data
 
 						users.save(current_user)
