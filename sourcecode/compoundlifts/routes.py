@@ -370,11 +370,13 @@ def athlete(id=None):
 
 			for current_id in athlete['followers']:
 				current = users.find_one({'_id' : ObjectId(current_id)})
-				followers.append(current)
+				if current is not None:
+					followers.append(current)
 
 			for current_id in athlete['following']:
 				current = users.find_one({'_id' : ObjectId(current_id)})
-				following.append(current)
+				if current is not None:
+					following.append(current)
 
 			followers = add_extras(followers)
 			following = add_extras(following)
