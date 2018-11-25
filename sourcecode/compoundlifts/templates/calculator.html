@@ -1,95 +1,93 @@
 {% extends "base.html" %}
 {% set active_page = 'calculator' %}
 {% block content %}
-<div class="white-bg">
-    <div class="page-header athletes">
-        <div class="container">
-            <h1>ONE REP MAX CALCULATOR</h1>
-        </div>
+<div class="clc page-header athletes">
+    <div class="container">
+        <h1>ONE REP MAX CALCULATOR</h1>
     </div>
-    <div class="no-padding container">
-        {% include 'includes/_messages.html' %}
-        <div class="center-div">
-            <div class="calc">
-                <div class="top">
-                    <div class="calc-input">
-                        <div class="column">
-                            <p>WEIGHT LIFTED</p>
-                            <input id="weight" type="number" placeholder="Weight" required>
-                            <p class="weight-warning">Please enter a weight first</p>
-                        </div>
-                        
-                        <div class="column">
-                            <p>REPS</p>
-                            <select id="reps">
-                                {% for i in range(12) %}
-                                    <option value="{{i+1}}">{{i+1}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        
+</div>
+<div class="no-padding container">
+    {% include 'includes/_messages.html' %}
+    <div class="center-div">
+        <div class="calc">
+            <div class="top">
+                <div class="calc-input">
+                    <div class="column">
+                        <p>WEIGHT LIFTED</p>
+                        <input id="weight" type="number" placeholder="Weight" required>
+                        <p class="weight-warning">Please enter a weight first</p>
                     </div>
-                    <button id="calculate">CALCULATE</button>
-                </div>
-                
-                <div class="bottom">
-                    <h3>YOUR ESTIMATED ONE REP MAX (1RM): <span id="1rm-txt"></span></h3>
-                    <div class="calc-results">
-                        <div class="results-subheader">
-                            <p>1 REP MAX</p>
-                            <p>2 REP MAX</p>
-                        </div>
-                        <div class="results-row">
-                            <input id="1rm" type="text" readonly>
-                            <input id="2rm" type="text" readonly>
-                        </div>
-                        <div class="results-subheader">
-                            <p>3 REP MAX</p>
-                            <p>4 REP MAX</p>
-                        </div>
-                        <div class="results-row">
-                            <input id="3rm" type="text" readonly>
-                            <input id="4rm" type="text" readonly>
-                        </div>
-                        <div class="results-subheader">
-                            <p>5 REP MAX</p>
-                            <p>6 REP MAX</p>
-                        </div>
-                        <div class="results-row">
-                            <input id="5rm" type="text" readonly>
-                            <input id="6rm" type="text" readonly>
-                        </div>
-                        <div class="results-subheader">
-                            <p>7 REP MAX</p>
-                            <p>8 REP MAX</p>
-                        </div>
-                        <div class="results-row">
-                            <input id="7rm" type="text" readonly>
-                            <input id="8rm" type="text" readonly>
-                        </div>
-                        <div class="results-subheader">
-                            <p>9 REP MAX</p>
-                            <p>10 REP MAX</p>
-                        </div>
-                        <div class="results-row">
-                            <input id="9rm" type="text" readonly>
-                            <input id="10rm" type="text" readonly>
-                        </div>
-                        <div class="results-subheader">
-                            <p>11 REP MAX</p>
-                            <p>12 REP MAX</p>
-                        </div>
-                        <div class="results-row">
-                            <input id="11rm" type="text" readonly>
-                            <input id="12rm" type="text" readonly>
-                        </div>
+                    
+                    <div class="column">
+                        <p>REPS</p>
+                        <select id="reps">
+                            {% for i in range(12) %}
+                                <option value="{{i+1}}">{{i+1}}</option>
+                            {% endfor %}
+                        </select>
                     </div>
+                    
                 </div>
-                
+                <button id="calculate">CALCULATE</button>
             </div>
-        </div>    
-        <br />        
-    </div>
+            
+            <div class="bottom">
+                <h3>YOUR ESTIMATED ONE REP MAX (1RM): <span id="1rm-txt"></span></h3>
+                <div class="calc-results">
+                    <div class="results-subheader">
+                        <p>1 REP MAX</p>
+                        <p>2 REP MAX</p>
+                    </div>
+                    <div class="results-row">
+                        <input id="1rm" type="text" readonly>
+                        <input id="2rm" type="text" readonly>
+                    </div>
+                    <div class="results-subheader">
+                        <p>3 REP MAX</p>
+                        <p>4 REP MAX</p>
+                    </div>
+                    <div class="results-row">
+                        <input id="3rm" type="text" readonly>
+                        <input id="4rm" type="text" readonly>
+                    </div>
+                    <div class="results-subheader">
+                        <p>5 REP MAX</p>
+                        <p>6 REP MAX</p>
+                    </div>
+                    <div class="results-row">
+                        <input id="5rm" type="text" readonly>
+                        <input id="6rm" type="text" readonly>
+                    </div>
+                    <div class="results-subheader">
+                        <p>7 REP MAX</p>
+                        <p>8 REP MAX</p>
+                    </div>
+                    <div class="results-row">
+                        <input id="7rm" type="text" readonly>
+                        <input id="8rm" type="text" readonly>
+                    </div>
+                    <div class="results-subheader">
+                        <p>9 REP MAX</p>
+                        <p>10 REP MAX</p>
+                    </div>
+                    <div class="results-row">
+                        <input id="9rm" type="text" readonly>
+                        <input id="10rm" type="text" readonly>
+                    </div>
+                    <div class="results-subheader">
+                        <p>11 REP MAX</p>
+                        <p>12 REP MAX</p>
+                    </div>
+                    <div class="results-row">
+                        <input id="11rm" type="text" readonly>
+                        <input id="12rm" type="text" readonly>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>    
+    <br />        
 </div>
 <script>
     $(document).ready(function(){

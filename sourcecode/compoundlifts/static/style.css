@@ -612,6 +612,10 @@ form .section input:focus {
 	border: none;
 }
 
+.page-header.clc {
+	margin-top: -40px;
+}
+
 .page-header.athletes {
 	background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.6)),url('resources/headers/marble.jpg') no-repeat center;
 }
