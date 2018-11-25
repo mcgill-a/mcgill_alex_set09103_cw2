@@ -1,2 +1,2 @@
 # Ignore config files
-sourcecode/compoundlifts/config/*
+sourcecode/compoundlifts/config/defaults.py
