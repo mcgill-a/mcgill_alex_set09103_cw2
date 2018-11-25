@@ -651,15 +651,17 @@ form .section input:focus {
 
 .athlete-search form button {
 	margin: 0px;
+	margin-top: -6px;
 	height: 38px;
 	padding: 5px;
 }
 
 .athlete-search form a {
+	margin: 0px;
+	margin-top: -6px;
 	height: 38px;
-	padding: 2px 4px;
+	padding: 5px;
 	font-size: 18px;
-	line-height: 34px;
 }
 
 .athlete-overview {
