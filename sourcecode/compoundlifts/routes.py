@@ -394,7 +394,7 @@ def athlete(id=None):
 				user_profile['current_program']['desc'] = user_profile['current_program']['desc'].replace('\n', '<br>')
 
 			# Convert the raw date input to a nice and readable date format
-			if user_profile['current_program']['date_started'] is not None:
+			if len(user_profile['current_program']['date_started']) > 2:
 				date = user_profile['current_program']['date_started']
 				date = date.strftime("%B %d, %Y")
 				user_profile['current_program']['date_started'] = date
@@ -402,25 +402,22 @@ def athlete(id=None):
 			history = {}
 
 			# Lift Weight Track Chart
-			for lift_type in user_lifts['lifts']:
-				data = user_lifts['lifts'][lift_type]
-				for current in data:
-					extract = {
-						'date' : current['date'],
-						'weight' : int(current['weight'])
-					}
-					if lift_type not in history:
-						history[lift_type] = [extract]
-					else:
-						history[lift_type].append(extract)
-			
-			#history_deadlift = history['deadlift']
-			#history_bench = history['bench']
-			#history_squat = history['squat']
+			if user_lifts is not None:
+				for lift_type in user_lifts['lifts']:
+					data = user_lifts['lifts'][lift_type]
+					for current in data:
+						extract = {
+							'date' : current['date'],
+							'weight' : int(current['weight'])
+						}
+						if lift_type not in history:
+							history[lift_type] = [extract]
+						else:
+							history[lift_type].append(extract)
 
-			history['deadlift'].sort(key=lambda item:item['date'], reverse=False)
-			history['bench'].sort(key=lambda item:item['date'], reverse=False)
-			history['squat'].sort(key=lambda item:item['date'], reverse=False)
+				history['deadlift'].sort(key=lambda item:item['date'], reverse=False)
+				history['bench'].sort(key=lambda item:item['date'], reverse=False)
+				history['squat'].sort(key=lambda item:item['date'], reverse=False)
 
 			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age, history=history)
 		else:
