@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "athletes" %}
+{% set page_title = athlete.first_name + ' ' + athlete.last_name + ' | Compound Lifts' %}
 {% block content %}
 	<br />
 	<div id="{{athlete._id}}" class="athlete no-padding container ">
