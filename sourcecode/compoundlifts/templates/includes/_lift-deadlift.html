@@ -2,7 +2,7 @@
     <div class="inline-headers">
         <h1>Deadlift</h1>
         {% if user_lifts['lifts']['deadlift']|length > 1 %}
-            <button id="modalBtn" class="clear"><span class="glyphicon glyphicon-stats"></span>Track Progress</button>
+            <button id="deadlift-modalBtn" class="clear"><span class="glyphicon glyphicon-stats"></span>Track Progress</button>
         {% endif %}
     </div>
     {% for lift in user_lifts['lifts']['deadlift'] %}
@@ -81,7 +81,19 @@
     {% endfor %}
     {% if user_lifts['lifts']['deadlift']|length > 1 %}
         <div class="visualise">
-            {% include 'includes/_chart.html' %}
+            {% include 'includes/_chart-deadlift.html' %}
         </div>
     {% endif %}
+    <script>
+       $(document).ready(function(){
+            $("#deadlift-modalBtn").click(function(){
+                openModal("deadlift-modal-chart");
+            });
+
+             $("#deadlift-close").click(function(){
+                closeModal("deadlift-modal-chart");
+            });
+        });
+    </script>
+    
 </div>

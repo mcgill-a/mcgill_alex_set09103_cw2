@@ -1,5 +1,10 @@
 <div id="squat" class="expanded-lift">
-    <h1>Barbell Squat</h1>
+    <div class="inline-headers">
+            <h1>Barbell Squat</h1>
+            {% if user_lifts['lifts']['squat']|length > 1 %}
+                <button id="squat-modalBtn" class="clear"><span class="glyphicon glyphicon-stats"></span>Track Progress</button>
+            {% endif %}
+        </div>
     {% for lift in user_lifts['lifts']['squat'] %}
     <div id="{{loop.index - 1}}" class="lift">						
         <div class="field">
@@ -77,4 +82,20 @@
         </div>
     </div>
     {% endfor %}
+    {% if user_lifts['lifts']['squat']|length > 1 %}
+        <div class="visualise">
+            {% include 'includes/_chart-squat.html' %}
+        </div>
+    {% endif %}
+    <script>
+            $(document).ready(function(){
+                 $("#squat-modalBtn").click(function(){
+                     openModal("squat-modal-chart");
+                 });
+     
+                  $("#squat-close").click(function(){
+                     closeModal("squat-modal-chart");
+                 });
+             });
+         </script>
 </div>

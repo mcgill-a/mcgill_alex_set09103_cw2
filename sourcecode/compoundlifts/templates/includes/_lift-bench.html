@@ -1,5 +1,10 @@
 <div id="bench" class="expanded-lift">
-    <h1>Bench Press</h1>
+    <div class="inline-headers">
+            <h1>Bench Press</h1>
+            {% if user_lifts['lifts']['bench']|length > 1 %}
+                <button id="bench-modalBtn" class="clear"><span class="glyphicon glyphicon-stats"></span>Track Progress</button>
+            {% endif %}
+        </div>
     {% for lift in user_lifts['lifts']['bench'] %}
     <div id="{{loop.index - 1}}" class="lift">						
         <div class="field">
@@ -77,4 +82,20 @@
         </div>
     </div>
     {% endfor %}
+    {% if user_lifts['lifts']['deadlift']|length > 1 %}
+        <div class="visualise">
+            {% include 'includes/_chart-bench.html' %}
+        </div>
+    {% endif %}
+    <script>
+        $(document).ready(function(){
+                $("#bench-modalBtn").click(function(){
+                    openModal("bench-modal-chart");
+                });
+    
+                $("#bench-close").click(function(){
+                    closeModal("bench-modal-chart");
+                });
+            });
+        </script>
 </div>

@@ -1,0 +1,68 @@
+<div id="deadlift-modal-chart" class="modal-popup" style="display: none;">
+        {% if history['deadlift']|length > 1 %}
+            <div class="chart">
+                <canvas id="myChart" height="600" width="900"></canvas>
+                <span id="deadlift-close" class="close">&times;</span>
+            </div>
+        {% endif %}
+    </div>
+    
+    <script>
+        var chartData = {
+        labels : [{% for item in history['deadlift'] %}
+                    "{{item.date}}",
+                    {% endfor %}],
+        datasets : [{
+            label: 'Deadlift Weight Tracker',
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: "rgba(236, 54, 66, 0.4)",
+            borderColor: "rgba(236, 54, 66, 1)",
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(236, 54, 66, 1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 2,
+            pointHoverRadius: 8,
+            pointHoverBackgroundColor: "rgba(236, 54, 66, 1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 6,
+            pointHitRadius: 10,
+            data : [{% for item in history['deadlift'] %}
+                        {{item.weight}},
+                    {% endfor %}],
+            spanGaps: false
+        }]
+        }
+        
+        // get chart canvas
+        var ctx = document.getElementById("myChart").getContext("2d");
+        
+        // create the chart using the chart canvas
+        var myChart = new Chart(ctx, {
+        type: 'line',
+        data: chartData,
+        options: {
+            scales: {
+                yAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Weight (KG)'
+                }
+                }],
+                xAxes: [{
+                scaleLabel: {
+                    display: true,
+                    labelString: 'Date'
+                }
+                }]
+            },
+            tooltips: {
+                mode: 'index'
+            }
+        }
+        });
+    </script>

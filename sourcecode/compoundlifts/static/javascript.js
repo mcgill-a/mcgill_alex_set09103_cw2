@@ -46,32 +46,14 @@ function openTab(tab)
   }
 }
 
-// Get modal element
-var modal = document.getElementById("modal-chart");
-var modalBtn = document.getElementById("modalBtn")
-var modalCloseBtn = document.querySelector('.close');
-
-modalBtn.addEventListener('click', openModal);
-modalCloseBtn.addEventListener('click', closeModal);
-window.addEventListener('click', clickOutside);
-
-function openModal()
+function openModal(id)
 {
-  console.log("Open Modal");
-  modal.style.display = "block";
+  var current_modal = document.getElementById(id);
+  current_modal.style.display = "block";
 }
 
-function closeModal()
+function closeModal(id)
 {
-  console.log("Close Modal");
-  modal.style.display = "none";
-}
-
-// Close Modal if outside click
-function clickOutside(e)
-{
-  if(e.target == modal)
-  {
-    modal.style.display = "none";
-  }
+  var current_modal = document.getElementById(id);
+  current_modal.style.display = "none";
 }

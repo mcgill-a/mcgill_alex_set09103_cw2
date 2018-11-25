@@ -1,24 +1,19 @@
-<div id="modal-chart" class="modal-popup" style="display: none;">
+<div id="bench-modal-chart" class="modal-popup" style="display: none;">
     {% if history['deadlift']|length > 1 %}
         <div class="chart">
-            <canvas id="myChart" height="600" width="900"></canvas>
-            <span class="close">&times;</span>
+            <canvas id="myBenchChart" height="600" width="900"></canvas>
+            <span id="bench-close" class="close">&times;</span>
         </div>
     {% endif %}
 </div>
 
 <script>
-    // Disable chart resize
-    //Chart.defaults.global.responsive = false;
-    //var type = $(this).closest(".expanded-lift").attr('id');
-    //console.log(type);
-    // define the chart data
     var chartData = {
-    labels : [{% for item in history['deadlift'] %}
+    labels : [{% for item in history['bench'] %}
                 "{{item.date}}",
                 {% endfor %}],
     datasets : [{
-        label: 'Lift Weight Tracker',
+        label: 'Bench Press Weight Tracker',
         fill: true,
         lineTension: 0.1,
         backgroundColor: "rgba(236, 54, 66, 0.4)",
@@ -36,7 +31,7 @@
         pointHoverBorderWidth: 2,
         pointRadius: 6,
         pointHitRadius: 10,
-        data : [{% for item in history['deadlift'] %}
+        data : [{% for item in history['bench'] %}
                     {{item.weight}},
                 {% endfor %}],
         spanGaps: false
@@ -44,7 +39,7 @@
     }
     
     // get chart canvas
-    var ctx = document.getElementById("myChart").getContext("2d");
+    var ctx = document.getElementById("myBenchChart").getContext("2d");
     
     // create the chart using the chart canvas
     var myChart = new Chart(ctx, {

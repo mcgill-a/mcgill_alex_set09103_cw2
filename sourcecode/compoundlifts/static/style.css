@@ -1837,7 +1837,7 @@ p.weight-warning.active {
 	background-color: white;
 	margin: 10% auto;
 	width: 945px;
-	height: 600px;
+	height: 610px;
 	box-shadow: 0 5px 8px 0 rgba(0,0,0,0.8);
 	animation-name: modalOpen;
 	animation-duration: 1s;
@@ -1869,7 +1869,9 @@ button.clear:hover {
 }
 
 .chart span {
-	font-size: 30px;
-	margin-left: -20px;
-	margin-bottom: 5px;
+	font-size: 40px;
+	margin-left: -25px;
+	margin-bottom: 10px;
+	height: 30px;
+	color: black;
 }

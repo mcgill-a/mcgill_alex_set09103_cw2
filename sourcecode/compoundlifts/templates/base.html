@@ -17,6 +17,7 @@
 
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.css"/>
 	<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/preview/searchPane/dataTables.searchPane.min.js"></script>
+	<script type="text/javascript" src="{{url_for('static', filename='javascript.js')}}"></script>
 
 	<script>
 		$(document).ready(function() {
@@ -54,7 +55,7 @@
 {% endblock %}
 
 {% block scripts %}
-	<script src="{{url_for('static', filename='javascript.js')}}"></script>
+	
 {% endblock %}
 
 {% block navbar %}
