@@ -394,10 +394,13 @@ def athlete(id=None):
 				user_profile['current_program']['desc'] = user_profile['current_program']['desc'].replace('\n', '<br>')
 
 			# Convert the raw date input to a nice and readable date format
-			if len(user_profile['current_program']['date_started']) > 2:
-				date = user_profile['current_program']['date_started']
-				date = date.strftime("%B %d, %Y")
-				user_profile['current_program']['date_started'] = date
+			if user_profile['current_program']['date_started'] is not None:
+				try:
+					date = user_profile['current_program']['date_started']
+					date = date.strftime("%B %d, %Y")
+					user_profile['current_program']['date_started'] = date
+				except ValueError:
+					pass
 			
 			history = {}
 
