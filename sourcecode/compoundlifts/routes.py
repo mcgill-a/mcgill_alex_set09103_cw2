@@ -424,9 +424,14 @@ def athlete(id=None):
 						else:
 							history[lift_type].append(extract)
 
-				history['deadlift'].sort(key=lambda item:item['date'], reverse=False)
-				history['bench'].sort(key=lambda item:item['date'], reverse=False)
-				history['squat'].sort(key=lambda item:item['date'], reverse=False)
+				if 'deadlift' in history:
+					history['deadlift'].sort(key=lambda item:item['date'], reverse=False)
+				
+				if 'bench' in history:				
+					history['bench'].sort(key=lambda item:item['date'], reverse=False)
+				
+				if 'squat' in history:
+					history['squat'].sort(key=lambda item:item['date'], reverse=False)
 
 			return render_template('athlete.html', athlete=athlete, user_lifts=user_lifts, user_profile=user_profile, profile_pic=profile_pic_path, cover_pic=cover_pic_path, deadlift_max=deadlift_max, bench_max=bench_max, squat_max=squat_max, current_user=current_user, followers=followers, following=following, updated_age=updated_age, history=history)
 		else:
