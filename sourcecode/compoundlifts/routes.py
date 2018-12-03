@@ -402,8 +402,8 @@ def athlete(id=None):
 			# Convert the raw date input to a nice and readable date format
 			if user_profile['current_program']['date_started'] is not None:
 				try:
+					date = user_profile['current_program']['date_started']
 					if len(str(date)) > 4:
-						date = user_profile['current_program']['date_started']
 						date = date.strftime("%B %d, %Y")
 						user_profile['current_program']['date_started'] = date
 				except ValueError:
