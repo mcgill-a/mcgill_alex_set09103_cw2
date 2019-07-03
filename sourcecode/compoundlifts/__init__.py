@@ -4,7 +4,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib
 from logging.handlers import RotatingFileHandler
-from forms import SignupForm, LoginForm
+from .forms import SignupForm, LoginForm
 from functools import wraps
 from flask_mail import Mail
 
@@ -19,7 +19,7 @@ mail = Mail(app)
 
 # Connect to the DB and load tables	
 mongo = PyMongo(app)
-print "MongoDB connected successfully"
+print("MongoDB connected successfully")
 users = mongo.db.users
 lifts = mongo.db.lifts
 profiles = mongo.db.profiles

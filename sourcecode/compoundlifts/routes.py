@@ -2,15 +2,15 @@ from flask import Flask, render_template, url_for, jsonify, request, redirect, s
 from flask_bootstrap import Bootstrap
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-import ConfigParser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson, math
+import configparser, logging, os, json, random, re, string, datetime, bcrypt, urllib, hashlib, bson, math
 from logging.handlers import RotatingFileHandler
 from functools import wraps
-from forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm, EditAccount, EditProfile
+from .forms import SignupForm, LoginForm, RequestPasswordResetForm, ResetPasswordForm, EditAccount, EditProfile
 from compoundlifts import app, mail, users, profiles, lifts 
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from flask_mail import Message
 from operator import itemgetter
-from urllib2 import urlopen
+from urllib.request import urlopen
 from PIL import Image
 
 
@@ -56,7 +56,8 @@ def login():
 		result = users.find_one({'email' : re.compile(email, re.IGNORECASE)})
 
 		if result is not None:
-			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'].encode('utf-8'))):
+			if (bcrypt.checkpw(password_entered.encode('utf-8'), result['password'])):
+		#	if (bcrypt.checkpw(password_entered, result['password'])):
 
 				session['logged_in'] = True
 				session['email'] = result.get('email')
@@ -66,7 +67,7 @@ def login():
 				return redirect(url_for('index'))
 				
 			else:
-				print "Failed login attempt |", email, "| IP:", ip
+				print("Failed login attempt |", email, "| IP:", ip)
 				error = "wrong_password"
 				return render_template('login.html', form=form, error=error)
 		else:
@@ -161,9 +162,9 @@ def signup():
 					'desc' : "",
 				}
 			})
-			print "INFO: New user has been created with email", email
+			print("INFO: New user has been created with email", email)
 			flash('Account registered', 'success')
-        	return redirect(url_for('login'))
+			return redirect(url_for('login'))
 	else:
 		return render_template('signup.html', form=form)
 
@@ -237,7 +238,7 @@ def reset_request():
 			error = "wrong_email"
 			return render_template('password_reset_request.html', form=form, error=error)
 		else:
-			print "Request password reset for ", email
+			print("Request password reset for ", email)
 			send_reset_email(user)
 			flash('Password reset email has been sent!', 'info')
 			return redirect(url_for('login'))
@@ -263,7 +264,7 @@ def reset_token(token):
 			user['last_updated'] = current_datetime
 			users.save(user)
 			
-			print "INFO: Password Reset for", user['email']
+			print("INFO: Password Reset for", user['email'])
 			flash('Password has been reset!', 'success')
 			return redirect(url_for('login'))
 
@@ -734,7 +735,7 @@ def remove_lift(lift=None):
 		if user_lifts is not None:
 			del user_lifts['lifts'][lift][int(lift_id)]
 			lifts.save(user_lifts)
-			print "Removed", lift, "from DB"
+			print("Removed", lift, "from DB")
 		return lift_id
 	return redirect(url_for('index'))
 
@@ -782,7 +783,7 @@ def unfollow():
 def comment_add():
 	if request.method == 'POST' and request.data:
 		data = request.data
-		data = data.encode('utf-8')
+		#data = data.encode('utf-8')
 		data = json.loads(data)
 		
 		athlete_id = data['athlete_id']
@@ -807,7 +808,7 @@ def comment_add():
 			else:
 				user_lifts['lifts'][lift_type][int(lift_index)]['comments'] = [new_comment]
 			lifts.save(user_lifts)
-			print commenter_id, "added a new comment on", lift_type, lift_index
+			print(commenter_id, "added a new comment on", lift_type, lift_index)
 
 		return str(data)
 	return redirect(url_for('index'))
@@ -818,7 +819,7 @@ def comment_add():
 def comment_remove():
 	if request.method == 'POST' and request.data:
 		data = request.data
-		data = data.encode('utf-8')
+		#data = data.encode('utf-8')
 		data = json.loads(data)
 		
 		athlete_id = data['athlete_id']
@@ -834,7 +835,7 @@ def comment_remove():
 			if 'comments' in user_lifts['lifts'][lift_type][int(lift_index)]:
 				user_lifts['lifts'][lift_type][int(lift_index)]['comments'].pop(comment_index)
 			lifts.save(user_lifts)
-			print commenter_id, "removed a comment on", lift_type, lift_index, comment_index
+			print(commenter_id, "removed a comment on", lift_type, lift_index, comment_index)
 		return str(data)
 	return redirect(url_for('index'))
 
@@ -844,7 +845,7 @@ def comment_remove():
 def comment_edit():
 	if request.method == 'POST' and request.data:
 		data = request.data
-		data = data.encode('utf-8')
+		#data = data.encode('utf-8')
 		data = json.loads(data)
 		
 		athlete_id = data['athlete_id']
@@ -861,7 +862,7 @@ def comment_edit():
 			if 'comments' in user_lifts['lifts'][lift_type][int(lift_index)]:
 				user_lifts['lifts'][lift_type][int(lift_index)]['comments'][comment_index] = comment
 			lifts.save(user_lifts)
-			print commenter_id, "edited a comment on", lift_type, lift_index, comment_index
+			print(commenter_id, "edited a comment on", lift_type, lift_index, comment_index)
 		return str(data)
 	return redirect(url_for('index'))
 
@@ -982,7 +983,6 @@ def chart():
 			'date' : current['date'],
 			'weight' : int(current['weight'])
 		}
-		print extract
 		history.append(extract)
 
 	history.sort(key=lambda item:item['date'], reverse=False)
