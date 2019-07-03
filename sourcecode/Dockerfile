@@ -1,10 +1,6 @@
 from alpine:latest
 
 RUN apk add --no-cache musl-dev python3-dev openssl-dev libffi-dev gcc \
-    # git \
-    # bash \
-    # sudo \
-    # py2-pip \
     # Pillow dependencies
     jpeg-dev \
     zlib-dev \
